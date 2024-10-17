@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "random-album:build:production"
+              "buildTarget": "random-album:build:production"
             },
             "development": {
-              "browserTarget": "random-album:build:development"
+              "buildTarget": "random-album:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "random-album:build"
+            "buildTarget": "random-album:build"
           }
         },
         "test": {
