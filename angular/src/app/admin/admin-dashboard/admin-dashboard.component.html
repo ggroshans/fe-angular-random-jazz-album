@@ -1,1 +1,24 @@
-<p>admin-dashboard works!</p>
+<div class="admin-dashboard">
+  <h2>Admin Dashboard: Add Album</h2>
+
+  <form [formGroup]="albumForm" (ngSubmit)="onSubmit()">
+
+    <div>
+      <label for="aristName">Artist Name</label>
+      <input id="artistName" formControlName="artistName" placeholder="Enter artist name..">
+      <div *ngIf="albumForm.get('artistName')?.invalid && albumForm.get('artistName')?.touched">
+        <p>Artist name is required.</p>
+      </div>
+    </div>
+
+    <div>
+      <label for="albumName">Album Name</label>
+      <input id="albumName" formControlName="albumName" placeholder="Enter album name..">
+      <div *ngIf="albumForm.get('albumName')?.invalid && albumForm.get('albumName')?.touched">
+        <p>Album name is required.</p>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="albumForm.invalid">Submit</button>
+  </form>
+</div>
