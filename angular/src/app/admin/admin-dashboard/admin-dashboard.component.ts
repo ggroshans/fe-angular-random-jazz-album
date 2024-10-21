@@ -11,10 +11,12 @@ export class AdminDashboardComponent {
   public albumForm!: FormGroup;
 
   constructor() {
-    this.albumForm = new FormGroup({
-      artistName: new FormControl('', [Validators.required]),
-      albumName: new FormControl('', [Validators.required])
-    });
+    this.albumForm = new FormGroup(
+      {
+        artistName: new FormControl('', [Validators.required]),
+        albumName: new FormControl('', [Validators.required])
+      }
+    );
   }
 
   public onSubmit() {
