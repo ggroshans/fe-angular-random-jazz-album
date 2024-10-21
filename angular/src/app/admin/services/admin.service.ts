@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { AlbumForm } from '../models/admin.types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  private apiBaseUrl = 'http:localhost:7162/';
+  private apiBaseUrl = 'http://localhost:7162/api/album/';
 
   constructor(private http: HttpClient) { }
 
