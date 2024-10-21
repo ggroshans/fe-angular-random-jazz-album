@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { AdminService } from '../services/admin.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -10,7 +11,7 @@ export class AdminDashboardComponent {
 
   public albumForm!: FormGroup;
 
-  constructor() {
+  constructor(public adminService: AdminService) {
     this.albumForm = new FormGroup(
       {
         artistName: new FormControl('', [Validators.required]),
@@ -21,9 +22,14 @@ export class AdminDashboardComponent {
 
   public onSubmit() {
     if (this.albumForm.valid) {
-      console.log("Form Submitted", this.albumForm.value);
+      const formData = this.albumForm.value;
+      this.adminService.createPost(formData).subscribe({
+        error: (error) => console.error("Error sending form data", error),
+        complete: () => console.log("Sent form data succesfully")
+      });
+
     } else {
-      console.log("Form is invalid");
+      console.error("Form is invalid");
     }
   }
 }
