@@ -5,9 +5,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 
-@NgModule({ declarations: [
-        AppComponent
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        AppRoutingModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  bootstrap: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule],
+  providers: [provideHttpClient(withInterceptorsFromDi())]
+})
 export class AppModule { }
