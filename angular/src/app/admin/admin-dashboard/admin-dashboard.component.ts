@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AdminService } from '../services/admin.service';
+import { DiscoRequestDto } from '../models/admin.types';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -9,27 +10,28 @@ import { AdminService } from '../services/admin.service';
 })
 export class AdminDashboardComponent {
 
-  public albumForm!: FormGroup;
+  public formDiscography!: FormGroup;
 
   constructor(public adminService: AdminService) {
-    this.albumForm = new FormGroup(
-      {
-        artistName: new FormControl('', [Validators.required]),
-        albumName: new FormControl('', [Validators.required])
-      }
-    );
+    this.formDiscography = new FormGroup({
+      artistName: new FormControl('', [Validators.required]),
+    })
   }
 
-  public onSubmit() {
-    if (this.albumForm.valid) {
-      const formData = this.albumForm.value;
-      this.adminService.createPost(formData).subscribe({
-        error: (error) => console.error("Error sending form data", error),
-        complete: () => console.log("Sent form data succesfully")
-      });
+  public fetchArtistDiscography() {
+    if (this.formDiscography.valid) {
 
-    } else {
-      console.error("Form is invalid");
+      const artistName = this.formDiscography.value.artistName;
+      if (typeof artistName == 'string') {
+        const trimmedArtistName = artistName.trim();
+        const requestData: DiscoRequestDto = { artistName: trimmedArtistName }
+
+        this.adminService.createAlbumsFromArtistName(requestData).subscribe({
+          error: (error) => console.error("Error sending form data", error),
+          complete: () => console.log("Sent form data successfully")
+        })
+      }
+
     }
   }
 }

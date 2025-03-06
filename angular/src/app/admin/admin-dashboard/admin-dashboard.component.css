@@ -1,32 +1,40 @@
+body {
+  font-family: "Inter", sans-serif;
+  background: #121212;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.admin-dashboard__toolbar {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+}
+
 .admin-dashboard {
-  width: 300px;
-  margin: 0 auto;
+  width: 400px;
+  display: flex;
+  justify-content: center;
 }
 
-.admin-dashboard label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.admin-dashboard input {
+.admin-dashboard__card {
   width: 100%;
-  padding: 5px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 20px;
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.admin-dashboard button {
+.admin-dashboard__form-field {
   width: 100%;
-  padding: 10px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
-.admin-dashboard button:disabled {
-  background-color: #c3e6cb;
-  cursor: not-allowed;
+.admin-dashboard__actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
 }

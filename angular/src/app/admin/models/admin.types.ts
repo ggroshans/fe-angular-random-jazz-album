@@ -1,5 +1,3 @@
-
-export interface AlbumForm {
-  artistName: string;
-  albumName: string;
+export interface DiscoRequestDto {
+  artistName: string
 }
