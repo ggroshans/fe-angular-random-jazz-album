@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AdminService } from '../services/admin.service';
 import { DiscoRequestDto } from '../models/admin.types';
 
 @Component({
-    selector: 'app-admin-dashboard',
-    templateUrl: './admin-dashboard.component.html',
-    styleUrls: ['./admin-dashboard.component.css'],
-    standalone: false
+  selector: 'app-admin-dashboard',
+  templateUrl: './admin-dashboard.component.html',
+  styleUrls: ['./admin-dashboard.component.css'],
+  standalone: false,
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class AdminDashboardComponent {
 
   public formDiscography!: FormGroup;
+  public currentYear: Number = 2025;
 
   constructor(public adminService: AdminService) {
     this.formDiscography = new FormGroup({
