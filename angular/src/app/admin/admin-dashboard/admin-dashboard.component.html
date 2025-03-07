@@ -1,19 +1,21 @@
-<h1 class="admin-dashboard__heading">Admin Dashboard</h1>
-
-<div class="admin-dashboard">
-  <div class="admin-dashboard__form-container">
-    <h2 class="admin-dashboard__title">Add Albums From Artist</h2>
-    <form class="admin-dashboard__form" [formGroup]="formDiscography" (ngSubmit)="fetchArtistDiscography()">
-      <div class="admin-dashboard__form-group">
-        <label class="admin-dashboard__label" for="artistName">Artist Name</label>
-        <input id="artistName" formControlName="artistName" placeholder="Enter artist name..."
-          class="admin-dashboard__input">
-        <div *ngIf="formDiscography.get('artistName')?.invalid && formDiscography.get('artistName')?.touched"
-          class="admin-dashboard__error-message">
-          <p>Artist name is required</p>
-        </div>
-      </div>
-      <button type="submit" [disabled]="formDiscography.invalid" class="admin-dashboard__button">Submit</button>
-    </form>
-  </div>
+<div class="admin-dashboard-container">
+  <mat-card class="admin-dashboard__form-container">
+    <mat-card-title>Add Albums From Artist</mat-card-title>
+    <p class="admin-portal__subheading">Admin Portal</p>
+    <mat-card-content>
+      <form class="admin-dashboard__form" [formGroup]="formDiscography" (ngSubmit)="fetchArtistDiscography()">
+        <mat-form-field appearance="outline">
+          <mat-label>Artist Name</mat-label>
+          <input matInput formControlName="artistName" placeholder="Enter artist name...">
+          <mat-error *ngIf="formDiscography.get('artistName')?.invalid && formDiscography.get('artistName')?.touched">
+            Artist name is required
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="formDiscography.invalid">Submit</button>
+      </form>
+    </mat-card-content>
+    <div class="copyright">
+      <p>© {{ currentYear }} The Jazz Album</p>
+    </div>
+  </mat-card>
 </div>
