@@ -1,19 +1,20 @@
-/* admin-dashboard.component.css */
+/* admin-dashboard.component.scss */
+@import "../../../styles.css";
 
 .admin-dashboard-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0D1B2A;
+  background-color: var(--primary-color-base);
   padding: 1rem;
-  position: relative; /* For absolute positioning of overlay, if used */
+  position: relative;
 }
 
 .admin-dashboard-container .admin-dashboard__form-container {
-  position: relative; /* For the overlay */
-  border: 2px solid #E9C46A;
-  background-color: #0D1B2A;
+  position: relative;
+  border: 4px solid var(--complement-color-8);
+  background-color: #F9F9F9;
   padding: 2rem;
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -21,27 +22,28 @@
   max-width: 24rem;
 }
 
-/* Optional Overlay (Keep if you want the subtle background)
-.admin-dashboard-container .admin-dashboard__form-container::before {
-  content: '';
+/* Jazz silhouette picture in background */
+.admin-dashboard__form-container::before {
+  content: "";
   position: absolute;
   top: 0;
-  right: 0;
-  bottom: 0;
   left: 0;
-  background-image: url('/placeholder.svg?height=400&width=400');
-  opacity: 0.05;
-  mix-blend-mode: overlay;
-  border-radius: inherit;
-  z-index: 0;
-}*/
+  width: 100%;
+  height: 100%;
+  background-image: url('../../../assets/jazzband.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  z-index: 1;
+  opacity: 0.1;
+}
 
 /* Header for the form */
 .admin-dashboard__form-container .mat-mdc-card-title {
-  color: #EAEAEA;
-  font-size: 1.875rem;
-  font-family: serif;
-  margin-bottom: 0.5rem;
+  color: var(--primary-color-base);
+  font-size: 1.8rem;
+  font-weight: 500;
+  font-family: "Oswald", sans-serif;
   text-align: center;
   z-index: 1;
   position: relative;
@@ -49,18 +51,18 @@
 
 /* Subheading for the form */
 .admin-portal__subheading {
-  color: #E9C46A;
+  color: var(--complement-color-12);
   font-size: 0.8rem;
+  font-weight: 500;
   text-align: center;
   font-style: italic;
 }
 
-/* Container for the below selector (texfield and button) */
+/* Container for textfield and button */
 .admin-dashboard__form-container .mat-mdc-card-content {
-        padding: 0;
+  padding: 0;
 }
 
-/* Container for textfield and button */
 .admin-dashboard__form-container .admin-dashboard__form {
   display: flex;
   flex-direction: column;
@@ -69,36 +71,37 @@
   position: relative;
 }
 
-/*Container for text input and validation text */
+/*Container for text input */
 .admin-dashboard__form .mat-mdc-form-field {
   width: 100%;
 }
+.admin-dashboard__form .mat-mdc-form-field .mat-mdc-form-field-flex{
+    background-color: #F9F9F9;
+}
 
 /* Placeholder / text when focused */
-.admin-dashboard__form .mat-mdc-form-field .mat-mdc-input-element{
-    color:#EAEAEA;
+.admin-dashboard__form .mat-mdc-form-field .mat-mdc-input-element {
+  color: var(--primary-color-base) !important;
+  padding-left: 0.5rem;
 }
 
-/* Placeholder / text when not focused */
-.admin-dashboard__form .mat-mdc-form-field-flex label mat-label {
-  color:#EAEAEA;
+/* Placeholder / text when not focused*/
+.admin-dashboard__form .mat-mdc-form-field-flex label mat-label{
+    color: var(--primary-color-base);
+}
+/* Placeholder / asterisk when not focused*/
+.admin-dashboard__form .mat-mdc-form-field-flex label .mat-mdc-form-field-required-marker{
+    color: var(--primary-color-base);
 }
 
-/* Placeholder / asterisk when not focused */
-.admin-dashboard__form .mat-mdc-form-field-flex label .mat-mdc-form-field-required-marker {
-  color:#EAEAEA;
-  font-size: 0.875rem;
-  font-weight: 500;
+/* Placeholder / text when focused and it floats to top */
+.admin-dashboard__form .mat-mdc-form-field-flex .mdc-floating-label--float-above mat-label{
+    color: var(--primary-color-base);
 }
 
-/* Placeholder / text when focused and it floats to the top of the input */
-.admin-dashboard__form .mat-mdc-form-field-flex .mdc-floating-label--float-above mat-label {
-  color: burlywood;
-}
-
-/* Placeholder / asterisk when focused and it floats to the top of the input */
-.admin-dashboard__form .mat-mdc-form-field-flex .mdc-floating-label--float-above .mat-mdc-form-field-required-marker {
-  color: burlywood;
+/* Placeholder / asterisk when focused and it floats to top */
+.admin-dashboard__form .mat-mdc-form-field-flex .mdc-floating-label--float-above .mat-mdc-form-field-required-marker{
+    color: var(--primary-color-base);
 }
 
 /* Wrapper for the validation text */
@@ -108,43 +111,37 @@
 
 /* Validation text */
 .admin-dashboard__form .mat-mdc-form-field .mat-mdc-form-field-error {
-  color:tomato;
+  color: var(--error-color-base);
   font-size: 0.7rem;
+  font-weight: 500;
 }
 
 /* Button when enabled */
 .admin-dashboard__form button[mat-raised-button] {
   width: 100%;
-  background-color: #E9C46A;
+  background-color: var(--complement-color-4);
   font-weight: 500;
 }
 
 /* Button when enabled and hovered */
 .admin-dashboard__form button[mat-raised-button]:hover {
-  background-color: #D4AF37;
+  background-color: var(--complement-color-8);
 }
 
 /* Button disabled */
 .admin-dashboard__form button[mat-raised-button]:disabled{
-    background-color: #85744d;
-    color: #0D1B2A;
+    background-color: var(--disabled-color-base); /* Use disabled base color */
+    color: var(--primary-color-base);
 }
 
 /* Copyright container */
 .admin-dashboard__form-container .copyright {
   margin-top: 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(233, 196, 106, 0.3);
-  color: rgba(234, 234, 234, 0.7);
+  border-top: 1px solid var(--primary-color-base);
+  color: var(--primary-color-base);
   font-size: 0.75rem;
   text-align: center;
   z-index: 1;
   position: relative;
 }
-
-.admin-dashboard__form-container .mat-mdc-card {
-  background-color: transparent;
-  box-shadow: none;
-  border: 3px solid greenyellow !important;
-}
-
