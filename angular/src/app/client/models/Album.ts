@@ -14,6 +14,7 @@ export interface Album {
   releaseYear: string;
   totalTracks: number;
   popularityScore: number;
+  percentileScore: number;
   genre: Genre;
   subgenres: Subgenre[];
   artists: Artist[];

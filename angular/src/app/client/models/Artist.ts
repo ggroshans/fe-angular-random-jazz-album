@@ -7,4 +7,5 @@ export interface Artist {
   genres: Genre[];
   imageUrl: string;
   popularityScore: number;
+  percentileScore: number;
 }
