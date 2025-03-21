@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DiscoRequestDto } from '../models/admin.types';
+import { DiscoRequestDto } from '../models/DiscoRequestDto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
 
-  private apiAlbumsUrl = 'http://localhost:7162/api/albums';
+  private apiAlbumsUrl = 'http://localhost:7162/api/album';
 
   constructor(private http: HttpClient) { }
 
