@@ -1,0 +1,283 @@
+.album-details__container {
+  background-color: #F9F9F9;
+  max-height: 90vh;
+  padding: 16px;
+  margin: 0 auto;
+  position: relative;
+  max-width: 800px;
+  border: 8px solid var(--complement-color-8);
+  border-radius: 0.75rem;
+}
+
+.album-card {
+  width: 100%;
+  position: relative;
+}
+
+.album-content {
+  position: relative;
+  z-index: 10;
+  padding: 24px;
+}
+
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.album-cover-container{
+    display: flex;
+    flex-direction: column;
+    gap:24px;
+    margin-bottom: 16px;
+    margin-right: 16px;
+}
+
+.album-cover {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 8px 8px 10px rgba(13, 27, 42, 0.3), -8px -8px 15px rgba(13, 27, 42, 0.3);
+}
+
+.album-info-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.album-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.album-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.album-artist {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.album-description {
+  margin-bottom: 16px;
+}
+
+.album-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 10px 16px;
+}
+
+.popularity-section {
+  margin-top: auto;
+}
+
+.popularity-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.progress-bar-container {
+  width: 100%;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.progress-bar-red {
+  border: 2px solid rgb(182, 0, 0);
+}
+
+.progress-bar-orange {
+  border: 2px solid rgb(225, 105, 0);
+}
+
+.progress-bar-yellow {
+  border: 2px solid var(--complement-color-8);
+}
+
+.progress-bar-yellowgreen {
+  border: 2px solid #94d60f;
+}
+
+.progress-bar-green {
+  border: 2px solid green;
+}
+
+.popularity-label span {
+  font-weight: 500;
+}
+.popularity-label mat-icon{
+    margin-right: 8px;
+}
+
+.divider {
+  margin-bottom: 12px;
+  color: lightgray;
+}
+
+.additional-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0px;
+  height: 100%;
+}
+
+.additional-details__left {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid lightgray;
+  margin-right: 10px;
+}
+
+.additional-details__right {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+
+}
+
+.section-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  margin-top: 0px;
+}
+
+.detail-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.actions-container {
+  display: flex;
+  margin-top: auto;
+}
+
+.copyright {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0,0,0,0.12); /* Standard Material Divider color */
+    text-align: center;
+    font-size: 12px;
+}
+
+.artist-info-box {
+  border: 2px solid var(--complement-color-8);
+  border-radius: 8px;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+
+}
+
+.artist-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--complement-color-8);
+  color: var(--primary-color-base);
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.artist-content {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.artist-image-container {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 16px;
+  flex-shrink: 0;
+}
+
+.artist-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.artist-details {
+  flex-grow: 1;
+}
+
+.artist-name {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  margin-top: 0px;
+}
+
+.artist-popularity {
+  display: flex;
+  align-items: center;
+}
+
+.artist-popularity mat-icon {
+  margin-right: 4px;
+  color: black;
+}
+
+.artist-popularity-score {
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+.artist-bio {
+  font-size: 12px;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-top: 2px;
+  margin-bottom: 0px;
+}
+
+.view-profile-button {
+  font-size: 14px;
+  padding: 5px 8px;
+  margin-top: 0px;
+  margin-left: auto;
+  height: 28px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-profile-button__icon {
+  margin-left: 4px;
+  font-size: 16px;
+}
+
+
+
+/* Responsive adjustments */
+@media (min-width: 768px) { /* Adjust breakpoint as needed */
+  .hero-section {
+    flex-direction: row; /* Back to row on larger screens */
+  }
+  .album-cover-container{
+    width: 60%;
+  }
+  .album-info-container{
+    width: 40%;
+  }
+}

@@ -1,0 +1,24 @@
+.detail-item {
+  display: flex;
+  align-items: start;
+}
+
+.detail-icon {
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.detail-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.detail-label {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.detail-value {
+  margin-left: 4px; /* Add a small margin */
+}
