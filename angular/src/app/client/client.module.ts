@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { albumReducer } from './state/album.reducer';
-import { AlbumEffects } from './state/album.effects';
+import { albumReducer } from './state/album/album.reducer';
+import { AlbumEffects } from './state/album/album.effects';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,6 +18,8 @@ import { ItemDetailComponent } from './components/shared/item-detail/item-detail
 import { AlbumDetailComponent } from './components/album/album-detail/album-detail.component';
 import { HomeComponent } from './components/home/home.component';
 import { ClientRoutingModule } from './client-routing.module';
+import { artistReducer } from './state/artist/artist.reducer';
+import { ArtistEffects } from './state/artist/artist.effects';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { ClientRoutingModule } from './client-routing.module';
     MatIconModule,
     StoreModule.forFeature('album', albumReducer),
     EffectsModule.forFeature([AlbumEffects]),
+    StoreModule.forFeature('artist', artistReducer),
+    EffectsModule.forFeature([ArtistEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25 })
   ],
 })
