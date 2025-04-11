@@ -4,40 +4,41 @@
   <mat-card-content class="album-content">
     <div class="hero-section">
       <div class="album-cover-container">
-        <img [src]="album.imageUrl || '/placeholder.svg'" [alt]="album.title + ' by ' + getArtistString(album.artists)"
-          class="album-cover" />
+        <img [src]="album.imageUrl || '/placeholder.svg'"
+          [alt]="album.title + ' by ' + getArtistString(album.artists || [])" class="album-cover" />
       </div>
 
       <div class="album-info-container">
         <div class="album-info">
-          <div *ngIf="!album.title.includes(':'); else albumTitleElseBlock">
+          <div *ngIf="!album.title?.includes(':'); else albumTitleElseBlock">
             <mat-card-title class="album-title">{{ album.title }}</mat-card-title>
           </div>
 
           <ng-template #albumTitleElseBlock>
-            <mat-card-title class="album-title">{{ splitAlbumTitle(album.title)[0] + ":" }}</mat-card-title>
-            <mat-card-title class="album-title">{{ splitAlbumTitle(album.title)[1] }}</mat-card-title>
+            <mat-card-title class="album-title">{{ splitAlbumTitle(album.title || '')[0] + ":" }}</mat-card-title>
+            <mat-card-title class="album-title">{{ splitAlbumTitle(album.title || '')[1] }}</mat-card-title>
           </ng-template>
-          <mat-card-subtitle class="album-artist">{{ getArtistString(album.artists) }}</mat-card-subtitle>
+          <mat-card-subtitle class="album-artist">{{ getArtistString(album.artists || []) }}</mat-card-subtitle>
 
           <p class="album-description">{{ album.description }}</p>
 
           <div class="album-details-grid">
             <app-item-detail icon="calendar_today" label="Released"
-              [value]="album.releaseYear.toString()"></app-item-detail>
-            <app-item-detail icon="queue_music" label="Tracks" [value]="album.totalTracks.toString()"></app-item-detail>
-            <app-item-detail icon="local_offer" label="Genre" [value]="album.genre.name"></app-item-detail>
+              [value]="album.releaseYear?.toString() || ''"></app-item-detail>
+            <app-item-detail icon="queue_music" label="Tracks"
+              [value]="album.totalTracks?.toString() || ''"></app-item-detail>
+            <app-item-detail icon="local_offer" label="Genre" [value]="album.genre?.name || ''"></app-item-detail>
             <app-item-detail icon="local_offer" label="Subgenres"
-              [value]="getSubgenreString(album.subgenres)"></app-item-detail>
+              [value]="getSubgenreString(album.subgenres || [])"></app-item-detail>
           </div>
 
           <div class="popularity-section">
             <div class="popularity-label">
               <mat-icon>bar_chart</mat-icon>
-              <span>Popularity Percentile: {{ getPercentileString(album.percentileScore) }}</span>
+              <span>Popularity Percentile: {{ getPercentileString(album.percentileScore || 0) }}</span>
             </div>
             <div class="progress-bar-container">
-              <div [class]="getProgressBarColor(album.percentileScore)"
+              <div [class]="getProgressBarColor(album.percentileScore || 0)"
                 [ngStyle]="{'width': album.percentileScore + '%'}"></div>
             </div>
           </div>
@@ -52,11 +53,12 @@
         <h3 class="section-title">Album Details</h3>
 
         <div class="detail-items-container">
-          <app-item-detail icon="favorite" label="Mood" [value]="getMoodString(album.moods)"></app-item-detail>
-          <app-item-detail icon="music_note" label="Theme" [value]="album.theme"></app-item-detail>
-          <app-item-detail icon="album" label="Label" [value]="album.label"></app-item-detail>
+          <app-item-detail icon="favorite" label="Mood"
+            [value]="getMoodString(album.moods || []) || ''"></app-item-detail>
+          <app-item-detail icon="music_note" label="Theme" [value]="album.theme || ''"></app-item-detail>
+          <app-item-detail icon="album" label="Label" [value]="album.label || ''"></app-item-detail>
           <app-item-detail icon="trending_up" label="Popular Songs"
-            [value]="album.popularTracks.join(', ')"></app-item-detail>
+            [value]="album.popularTracks?.join(', ') || ''"></app-item-detail>
         </div>
 
       </div>
@@ -84,7 +86,7 @@
               <p class="artist-bio">{{ album.artists[0].biography }}</p>
             </div>
           </div>
-          <button mat-stroked-button class="view-profile-button">
+          <button (click)="goToArtistDetail(album.artists[0].id)" mat-stroked-button class="view-profile-button">
             View Artist Profile
             <span class="view-profile-button__icon material-icons">
               subdirectory_arrow_right

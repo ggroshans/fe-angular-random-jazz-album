@@ -1,12 +1,13 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Album } from '../../../models/Album';
-import { loadRandomAlbum } from '../../../state/album.actions';
-import { selectAlbum, selectLoading, selectError } from '../../../state/album.selectors';
+import { loadRandomAlbum } from '../../../state/album/album.actions';
+import { selectAlbum, selectLoading, selectError } from '../../../state/album/album.selectors';
 import { Mood } from 'src/app/client/models/Mood';
 import { Subgenre } from 'src/app/client/models/Subgenre';
 import { Artist } from 'src/app/client/models/Artist';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-album-detail',
@@ -14,7 +15,7 @@ import { Artist } from 'src/app/client/models/Artist';
   styleUrls: ['./album-detail.component.css'],
   standalone: false,
 })
-export class AlbumDetailComponent {
+export class AlbumDetailComponent implements OnInit {
 
   album$: Observable<Album | null>;
   loading$: Observable<boolean>;
@@ -22,7 +23,7 @@ export class AlbumDetailComponent {
 
   currentYear = new Date().getFullYear();
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private router: Router) {
     this.album$ = this.store.select(selectAlbum);
     this.loading$ = this.store.select(selectLoading);
     this.error$ = this.store.select(selectError);
@@ -30,10 +31,6 @@ export class AlbumDetailComponent {
 
   ngOnInit(): void {
     this.store.dispatch(loadRandomAlbum());
-
-    this.album$.subscribe(album => {
-      console.log("popular tracks", album?.popularTracks.toString());
-    });
   }
 
   public getArtistString(artists: Artist[]) {
@@ -97,5 +94,9 @@ export class AlbumDetailComponent {
     } else {
       return "progress-bar-red";
     }
+  }
+
+  public goToArtistDetail(artistId: Number) {
+    this.router.navigate(['artist', artistId])
   }
 }
