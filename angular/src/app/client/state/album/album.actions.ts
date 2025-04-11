@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Album } from '../models/Album';
+import { Album } from '../../models/Album';
 
 export const loadRandomAlbum = createAction('[Album] Load Random Album');
 

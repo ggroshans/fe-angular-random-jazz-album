@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { AlbumService } from '../services/album.service';
-import * as AlbumActions from '../state/album.actions';
+import { AlbumService } from '../../services/album.service';
+import * as AlbumActions from '../album/album.actions';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
@@ -17,7 +17,9 @@ export class AlbumEffects {
       ofType(AlbumActions.loadRandomAlbum),
       mergeMap(() =>
         this.albumService.getRandomAlbum().pipe(
-          map(album => AlbumActions.loadRandomAlbumSuccess({ album })),
+          map(album =>
+            AlbumActions.loadRandomAlbumSuccess({ album }),
+          ),
           catchError(error => of(AlbumActions.loadRandomAlbumFailure({ error: error.message })))
         )
       )

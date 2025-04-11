@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as AlbumActions from './album.actions';
-import { Album } from '../models/Album';
+import { Album } from '../../models/Album';
 
 export interface AlbumState {
   album: Album | null;
