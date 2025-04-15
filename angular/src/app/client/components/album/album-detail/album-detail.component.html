@@ -15,8 +15,8 @@
           </div>
 
           <ng-template #albumTitleElseBlock>
-            <mat-card-title class="album-title">{{ splitAlbumTitle(album.title || '')[0] + ":" }}</mat-card-title>
-            <mat-card-title class="album-title">{{ splitAlbumTitle(album.title || '')[1] }}</mat-card-title>
+            <mat-card-title class="album-title">{{ (album.title || '').split(":")[0] + ":" }}</mat-card-title>
+            <mat-card-title class="album-title">{{ (album.title || '').split(":")[1] }}</mat-card-title>
           </ng-template>
           <mat-card-subtitle class="album-artist">{{ getArtistString(album.artists || []) }}</mat-card-subtitle>
 
@@ -35,11 +35,11 @@
           <div class="popularity-section">
             <div class="popularity-label">
               <mat-icon>bar_chart</mat-icon>
-              <span>Popularity Percentile: {{ getPercentileString(album.percentileScore || 0) }}</span>
+              <span>Percentile Score: {{ getPercentileString(album.percentileScore || 0) }}</span>
             </div>
             <div class="progress-bar-container">
               <div [class]="getProgressBarColor(album.percentileScore || 0)"
-                [ngStyle]="{'width': album.percentileScore + '%'}"></div>
+                [ngStyle]="{'width': album.percentileScore + '%', 'height': '0.5rem'}"></div>
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@
                 <mat-icon>bar_chart</mat-icon>
                 <div class="progress-bar-container">
                   <div [class]="getProgressBarColor(album.artists[0].percentileScore)"
-                    [ngStyle]="{'width': album.artists[0].percentileScore + '%'}"></div>
+                    [ngStyle]="{'width': album.artists[0].percentileScore + '%', 'height': '0.25rem'}"></div>
                 </div>
                 <span class="artist-popularity-score">{{ album.artists[0].percentileScore }}%</span>
               </div>

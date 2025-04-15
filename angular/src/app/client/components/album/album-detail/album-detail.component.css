@@ -92,23 +92,23 @@
 }
 
 .progress-bar-red {
-  border: 2px solid rgb(182, 0, 0);
+  background-color: rgb(182, 0, 0);
 }
 
 .progress-bar-orange {
-  border: 2px solid rgb(225, 105, 0);
+  background-color: rgb(225, 105, 0);
 }
 
 .progress-bar-yellow {
-  border: 2px solid var(--complement-color-8);
+  background-color: var(--complement-color-8);
 }
 
 .progress-bar-yellowgreen {
-  border: 2px solid #94d60f;
+  background-color:#94d60f;
 }
 
 .progress-bar-green {
-  border: 2px solid green;
+  background-color: green;
 }
 
 .popularity-label span {

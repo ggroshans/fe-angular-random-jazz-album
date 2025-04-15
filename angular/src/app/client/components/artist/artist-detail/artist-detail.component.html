@@ -1,1 +1,115 @@
-<p>artist-detail works!</p>
+<div *ngIf="artist$ | async as artist" class="artist-detail-container">
+  <div class="artist-card">
+    <div class="artist-card__background"></div>
+
+    <div class="artist-card__content">
+      <div class="hero">
+        <div class="hero__image-column">
+          <div class="artist-image">
+            <img [src]="artist.imageUrl || 'assets/album.png'" [alt]="artist.name" class="artist-image__img" />
+            <div class="artist-image__instrument-overlay">
+              <div class="artist-image__instrument-info">
+                <!-- <i class="icon icon-music artist-image__instrument-icon"></i> -->
+                <mat-icon>music_note</mat-icon>
+                <span>{{ artist.instrument }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__info-column">
+          <div class="artist-info">
+            <h1 class="artist-info__name">
+              {{ artist.name }}
+            </h1>
+
+            <div class="artist-info__genres">
+              <span *ngFor="let genre of artist.genres" class="artist-info__genre-tag">
+                {{ genre }}
+              </span>
+            </div>
+
+            <div class="popularity-section">
+              <div class="popularity-label">
+                <mat-icon>bar_chart</mat-icon>
+                <span>Percentile Score: {{ getPercentileString(artist.percentileScore || 0) }}</span>
+              </div>
+              <div class="progress-bar-container">
+                <div [class]="getProgressBarColor(artist.percentileScore || 0)"
+                  [ngStyle]="{'width': artist.percentileScore + '%', 'height': '0.5rem'}"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="biography">
+        <h2 class="section-title">
+          Biography
+        </h2>
+        <div class="biography__content">
+          <p *ngFor="let paragraph of artist.biography?.split('\n\n')" class="biography__paragraph">
+            {{ paragraph }}
+          </p>
+        </div>
+      </div>
+
+      <div class="content-divider"></div>
+
+      <div class="albums">
+        <h2 class="section-title albums__title">
+          Notable Albums
+        </h2>
+
+        <ng-container *ngIf="artist.noteableAlbums && artist.noteableAlbums.length > 0; else noAlbums">
+          <div class="album-grid">
+            <div *ngFor="let album of artist.noteableAlbums" class="album-item">
+              <div class="album-item__image-wrapper">
+                <img [src]="album.imageUrl || 'assets/album.png'" [alt]="album.title" class="album-item__image" />
+                <div class="album-item__overlay">
+                  <ng-container *ngIf="album.title && !album.title.includes(':'); else albumTitleElseBlock">
+                    <h3 class="album-item__title">{{ album.title }}</h3>
+                  </ng-container>
+                  <ng-template #albumTitleElseBlock>
+                    <div class="album-item__title">{{ (album.title || '').split(":")[0] }}:</div>
+                    <div class="album-item__title">{{ (album.title || '').split(":")[1] }}</div>
+                  </ng-template>
+                  <p class="album-item__year">
+                    {{ album.releaseYear }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="popularity-section">
+                <div class="popularity-label">
+                  <mat-icon>bar_chart</mat-icon>
+                  <span>{{ getPercentileString(album.percentileScore || 0) }}%</span>
+                </div>
+                <div class="progress-bar-container">
+                  <div [class]="getProgressBarColor(album.percentileScore || 0)"
+                    [ngStyle]="{'width': album.percentileScore + '%', 'height': '0.5rem'}"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #noAlbums>
+          <p>Notable albums not currently available.</p>
+        </ng-template>
+
+        <div class="albums__view-all-wrapper">
+          <button class="albums__view-all-button">
+            <i class="icon icon-album albums__view-all-icon"></i>
+            <span>View All Albums</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="copyright">
+        © {{ currentYear }} Jazz Records
+      </div>
+    </div>
+  </div>
+</div>

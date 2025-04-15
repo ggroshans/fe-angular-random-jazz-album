@@ -1,11 +1,82 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Artist } from '../../../models/Artist';
+import { ActivatedRoute } from '@angular/router';
+import { selectArtist } from 'src/app/client/state/artist/artist.selectors';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { ArtistState } from 'src/app/client/state/artist/artist.reducer';
+import { loadArtist } from 'src/app/client/state/artist/artist.actions';
+
 
 @Component({
   selector: 'app-artist-detail',
-  imports: [],
   templateUrl: './artist-detail.component.html',
-  styleUrl: './artist-detail.component.css'
+  styleUrls: ['./artist-detail.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
-export class ArtistDetailComponent {
+export class ArtistDetailComponent implements OnInit {
 
+  biographyParagraphs: string[] = [];
+  currentYear: number = new Date().getFullYear();
+
+  public artist$!: Observable<Artist | null>;
+  public noteableAlbumCount: number = 4;
+
+  constructor(private route: ActivatedRoute, private store: Store<ArtistState>) { }
+
+
+  ngOnInit(): void {
+    const artistId = +this.route.snapshot.paramMap.get('artistId')!;
+
+    this.store.dispatch(loadArtist({ artistId }));
+
+    this.artist$ = this.store.select(selectArtist);
+
+    this.artist$.subscribe((artist) => {
+      console.log("artist", artist?.genres);
+      console.log("artistId", artistId);
+      console.log("noteable albums", artist?.noteableAlbums);
+    })
+  }
+
+
+  public getPercentileString(percentileScore: number) {
+
+    var lastDigit = percentileScore % 10;
+
+    switch (lastDigit) {
+      case 1:
+        return `${percentileScore}st`;
+      case 2:
+        return `${percentileScore}nd`;
+      case 3:
+        return `${percentileScore}rd`;
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 0:
+        return `${percentileScore}th`;
+      default:
+        return "";
+    }
+  }
+
+  public getProgressBarColor(percentileScore: number): string {
+    if (percentileScore > 75) {
+      return "progress-bar-green";
+    } else if (percentileScore > 60) {
+      return "progress-bar-yellowgreen";
+    } else if (percentileScore > 45) {
+      return "progress-bar-yellow";
+    } else if (percentileScore > 25) {
+      return "progress-bar-orange";
+    } else {
+      return "progress-bar-red";
+    }
+  }
 }

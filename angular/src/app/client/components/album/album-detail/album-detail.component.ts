@@ -54,10 +54,6 @@ export class AlbumDetailComponent implements OnInit {
     return moods.map((m) => m.name).join(", ");
   }
 
-  public splitAlbumTitle(albumTitle: string) {
-    return albumTitle.split(":");
-  }
-
   public getPercentileString(percentileScore: number) {
 
     var lastDigit = percentileScore % 10;
