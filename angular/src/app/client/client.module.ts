@@ -20,12 +20,14 @@ import { HomeComponent } from './components/home/home.component';
 import { ClientRoutingModule } from './client-routing.module';
 import { artistReducer } from './state/artist/artist.reducer';
 import { ArtistEffects } from './state/artist/artist.effects';
+import { ArtistDetailComponent } from './components/artist/artist-detail/artist-detail.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     AlbumDetailComponent,
-    ItemDetailComponent
+    ItemDetailComponent,
+    ArtistDetailComponent,
   ],
   imports: [
     CommonModule,
