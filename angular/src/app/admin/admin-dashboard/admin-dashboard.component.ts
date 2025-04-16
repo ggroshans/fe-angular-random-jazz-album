@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AdminService } from '../services/admin.service';
-import { DiscoRequestDto } from '../models/DiscoRequestDto';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -27,7 +26,7 @@ export class AdminDashboardComponent {
       const artistName = this.formDiscography.value.artistName;
       if (typeof artistName == 'string') {
         const trimmedArtistName = artistName.trim();
-        const requestData: DiscoRequestDto = { artistName: trimmedArtistName }
+        const requestData: string = JSON.stringify(trimmedArtistName);
 
         this.adminService.createAlbumsFromArtistName(requestData).subscribe({
           error: (error) => console.error("Error sending form data", error),

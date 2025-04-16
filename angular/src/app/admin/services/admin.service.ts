@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DiscoRequestDto } from '../models/DiscoRequestDto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
 
-  private apiAlbumsUrl = 'http://localhost:7162/api/album';
+  private apiAlbumsUrl = 'http://localhost:7162/api/admin';
 
   constructor(private http: HttpClient) { }
 
-  public createAlbumsFromArtistName(data: DiscoRequestDto) {
+  public createAlbumsFromArtistName(artistName: string) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
 
-    return this.http.post(`${this.apiAlbumsUrl}/populate-from-artist`, data, { headers });
+    return this.http.post(`${this.apiAlbumsUrl}/create-discography`, artistName, { headers });
   }
 }
