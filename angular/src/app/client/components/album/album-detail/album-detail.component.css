@@ -51,6 +51,55 @@
     flex-direction: column;
 }
 
+.streaming-links-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.streaming-link {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.spotify-link-container, .youtube-music-link-container,
+.youtube-link-container, .pandora-link-container,
+.apple-music-link-container, .amazon-music-link-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 40px;
+  border-radius: 5px;
+  transition: background-color 0.4s ease;
+  cursor: pointer;
+}
+
+.spotify-link-container:hover {
+  background-color: #1ED760;
+}
+
+.youtube-music-link-container:hover {
+  background-color: #FF0000;
+}
+
+.amazon-music-link-container:hover {
+  background-color: #46C3D0;
+}
+
+.youtube-link-container:hover {
+  background-color: #FF0000;
+}
+
+.pandora-link-container:hover {
+  background-color: #6289ff;
+}
+
+.apple-music-link-container:hover {
+  background-color: #FA243C;
+}
+
+
 .album-title {
   font-family: "Oswald", sans-serif;
   font-size: 30px;
@@ -64,6 +113,8 @@
 }
 
 .album-description {
+  font-size: 0.75rem;
+  line-height:1.15rem;
   margin-bottom: 16px;
 }
 

@@ -19,7 +19,28 @@
             <mat-card-title class="album-title">{{ (album.title || '').split(":")[1] }}</mat-card-title>
           </ng-template>
           <mat-card-subtitle class="album-artist">{{ getArtistString(album.artists || []) }}</mat-card-subtitle>
-
+          <div class="streaming-links-container">
+            <a class="spotify-link-container" [href]="'https://open.spotify.com/album/' + album.spotifyId">
+              <img class="streaming-link" src="assets/brands/spotify.svg" alt="">
+            </a>
+            <a class="youtube-music-link-container"
+              [href]="'https://music.youtube.com/playlist?list=' + album.youtubeId">
+              <img class="streaming-link" src="assets/brands/youtubemusic.svg" alt="">
+            </a>
+            <a class="amazon-music-link-container" [href]="'https://music.amazon.com/albums/' + album.amazonMusicId">
+              <img class="streaming-link" src="assets/brands/amazonmusic.svg" alt="">
+            </a>
+            <a class="youtube-link-container" [href]="'https://www.youtube.com/playlist?list=' + album.youtubeId">
+              <img class="streaming-link" src="assets/brands/youtube.svg" alt="">
+            </a>
+            <a class="pandora-link-container" [href]="'https://www.pandora.com/'+ album.pandoraId">
+              <img class="streaming-link" src="assets/brands/pandora.svg" alt="">
+            </a>
+            <a class="apple-music-link-container"
+              [href]="'https://geo.music.apple.com/us/album/_/' + album.appleMusicId + '?mt=1&app=music&ls=1&at=1000lHKX&ct=api_http&itscg=30200&itsct=odsl_m'">
+              <img class="streaming-link" src="assets/brands/applemusic.svg" alt="">
+            </a>
+          </div>
           <p class="album-description">{{ album.description }}</p>
 
           <div class="album-details-grid">
