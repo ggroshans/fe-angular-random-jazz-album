@@ -7,14 +7,22 @@ import { ArtistDetailComponent } from './components/artist/artist-detail/artist-
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'random-album',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     component: HomeComponent,
     children: [
       {
-        path: '', component: AlbumDetailComponent
+        path: 'artist/:artistId', component: ArtistDetailComponent
       },
       {
-        path: 'artist/:artistId', component: ArtistDetailComponent
-      }
+        path: 'random-album', component: AlbumDetailComponent
+      },
+      {
+        path: 'album/:albumId', component: AlbumDetailComponent
+      },
     ]
   }
 ];

@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Album } from '../../../models/Album';
-import { loadRandomAlbum } from '../../../state/album/album.actions';
 import { selectAlbum, selectLoading, selectError } from '../../../state/album/album.selectors';
 import { Mood } from 'src/app/client/models/Mood';
 import { Subgenre } from 'src/app/client/models/Subgenre';
 import { Artist } from 'src/app/client/models/Artist';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { loadAlbumById, loadRandomAlbum } from 'src/app/client/state/album/album.actions';
 
 @Component({
   selector: 'app-album-detail',
@@ -19,18 +19,40 @@ export class AlbumDetailComponent implements OnInit {
 
   album$: Observable<Album | null>;
   loading$: Observable<boolean>;
+  loading = true;
   error$: Observable<string | null>;
 
   currentYear = new Date().getFullYear();
 
-  constructor(private store: Store, private router: Router) {
+  constructor(private store: Store, private router: Router, private route: ActivatedRoute) {
     this.album$ = this.store.select(selectAlbum);
     this.loading$ = this.store.select(selectLoading);
     this.error$ = this.store.select(selectError);
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadRandomAlbum());
+
+    let obj: {
+      id: number
+    } = { id: 0 };
+
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      let routeParam = params.get("albumId");
+
+      if (routeParam !== null && routeParam !== '') {
+        let potentialId = Number(routeParam);
+        if (!Number.isNaN(potentialId)) {
+          console.log("id fired", potentialId);
+          obj.id = potentialId;
+          this.store.dispatch(loadAlbumById(obj));
+        }
+      }
+
+      else {
+        console.log("random fired");
+        this.store.dispatch(loadRandomAlbum());
+      }
+    });
   }
 
   public getArtistString(artists: Artist[]) {

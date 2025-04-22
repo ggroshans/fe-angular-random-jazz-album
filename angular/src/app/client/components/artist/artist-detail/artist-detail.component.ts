@@ -1,12 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Artist } from '../../../models/Artist';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { selectArtist } from 'src/app/client/state/artist/artist.selectors';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ArtistState } from 'src/app/client/state/artist/artist.reducer';
 import { loadArtist } from 'src/app/client/state/artist/artist.actions';
+import { loadAlbumById } from 'src/app/client/state/album/album.actions';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class ArtistDetailComponent implements OnInit {
   public artist$!: Observable<Artist | null>;
   public noteableAlbumCount: number = 4;
 
-  constructor(private route: ActivatedRoute, private store: Store<ArtistState>) { }
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store<ArtistState>) { }
 
 
   ngOnInit(): void {
@@ -33,12 +33,6 @@ export class ArtistDetailComponent implements OnInit {
     this.store.dispatch(loadArtist({ artistId }));
 
     this.artist$ = this.store.select(selectArtist);
-
-    this.artist$.subscribe((artist) => {
-      console.log("artist", artist?.genres);
-      console.log("artistId", artistId);
-      console.log("noteable albums", artist?.noteableAlbums);
-    })
   }
 
 
@@ -78,5 +72,10 @@ export class ArtistDetailComponent implements OnInit {
     } else {
       return "progress-bar-red";
     }
+  }
+
+  public getAlbumDetails(id: number) {
+    this.store.dispatch(loadAlbumById({ id }));
+    this.router.navigate(['album', id]);
   }
 }

@@ -9,7 +9,6 @@
             <img [src]="artist.imageUrl || 'assets/album.png'" [alt]="artist.name" class="artist-image__img" />
             <div class="artist-image__instrument-overlay">
               <div class="artist-image__instrument-info">
-                <!-- <i class="icon icon-music artist-image__instrument-icon"></i> -->
                 <mat-icon>music_note</mat-icon>
                 <span>{{ artist.instrument }}</span>
               </div>
@@ -28,11 +27,12 @@
                 {{ genre }}
               </span>
             </div>
-
             <div class="popularity-section">
-              <div class="popularity-label">
+              <div class="popularity-icon">
                 <mat-icon>bar_chart</mat-icon>
-                <span>Percentile Score: {{ getPercentileString(artist.percentileScore || 0) }}</span>
+              </div>
+              <div class="popularity-label">
+                <span class="popularity-label-text">{{ artist.percentileScore }}/100</span>
               </div>
               <div class="progress-bar-container">
                 <div [class]="getProgressBarColor(artist.percentileScore || 0)"
@@ -66,7 +66,7 @@
             <div *ngFor="let album of artist.noteableAlbums" class="album-item">
               <div class="album-item__image-wrapper">
                 <img [src]="album.imageUrl || 'assets/album.png'" [alt]="album.title" class="album-item__image" />
-                <div class="album-item__overlay">
+                <div class="album-item__overlay" (click)="getAlbumDetails(album.id || 0)">
                   <ng-container *ngIf="album.title && !album.title.includes(':'); else albumTitleElseBlock">
                     <h3 class="album-item__title">{{ album.title }}</h3>
                   </ng-container>
@@ -81,9 +81,11 @@
               </div>
 
               <div class="popularity-section">
-                <div class="popularity-label">
+                <div class="popularity-icon">
                   <mat-icon>bar_chart</mat-icon>
-                  <span>{{ getPercentileString(album.percentileScore || 0) }}%</span>
+                </div>
+                <div class="popularity-label">
+                  <span class="popularity-label-text">{{ album.percentileScore }}</span>
                 </div>
                 <div class="progress-bar-container">
                   <div [class]="getProgressBarColor(album.percentileScore || 0)"
