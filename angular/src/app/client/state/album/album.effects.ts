@@ -25,4 +25,17 @@ export class AlbumEffects {
       )
     )
   );
+
+  loadAlbumById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AlbumActions.loadAlbumById),
+      mergeMap(({ id }) =>
+        this.albumService.getAlbumById(id).pipe(
+          map(album => AlbumActions.loadAlbumByIdSuccess({ album })
+          ),
+          catchError(error => of(AlbumActions.loadAlbumByIdFailure({ error: error.message })))
+        )
+      )
+    )
+  )
 }

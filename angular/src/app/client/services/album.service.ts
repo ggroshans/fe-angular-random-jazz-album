@@ -8,12 +8,16 @@ import { Album } from '../models/Album';
 })
 
 export class AlbumService {
-  private apiUrl = 'http://localhost:5148/api/album/random-album';
+  private baseUrl = 'http://localhost:5148/api/album/';
 
   constructor(private http: HttpClient) { }
 
   getRandomAlbum(): Observable<Album> {
-    return this.http.get<Album>(this.apiUrl)
+    return this.http.get<Album>(this.baseUrl + "random");
+  }
+
+  getAlbumById(id: number) {
+    return this.http.get<Album>(this.baseUrl + id);
   }
 }
 

@@ -35,4 +35,23 @@ export const albumReducer = createReducer(
     loading: false,
     error
   })),
+
+  on(AlbumActions.loadAlbumById, state => ({
+    ...state,
+    loading: true,
+    error: null
+  })),
+
+  on(AlbumActions.loadAlbumByIdSuccess, (state, { album }) => ({
+    ...state,
+    album,
+    loading: false,
+    error: null
+  })),
+
+  on(AlbumActions.loadAlbumByIdFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error
+  })),
 )
