@@ -12,7 +12,7 @@ export interface Artist {
   percentileScore: number;
 
   totalAlbums?: number; // Computed
-  // averageAlbumScore?: number;  // Computed
+  averageAlbumScore?: number;  // Computed
   // subgenreBreakdown?: { [subgenre: string]: number }; // explicit subgenres // Computed
   // jazzEra?: string[]; // explicit
   // birthDate?: string; // GPT
