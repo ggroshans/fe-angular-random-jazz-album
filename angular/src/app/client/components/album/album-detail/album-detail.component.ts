@@ -8,6 +8,7 @@ import { Subgenre } from 'src/app/client/models/Subgenre';
 import { Artist } from 'src/app/client/models/Artist';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { loadAlbumById, loadRandomAlbum } from 'src/app/client/state/album/album.actions';
+import ColorThief from 'colorthief';
 
 @Component({
   selector: 'app-album-detail',
@@ -22,7 +23,12 @@ export class AlbumDetailComponent implements OnInit {
   loading = true;
   error$: Observable<string | null>;
 
+
   currentYear = new Date().getFullYear();
+
+  mainColor: string = "blue";
+  secondaryColor: string = "red";
+
 
   constructor(private store: Store, private router: Router, private route: ActivatedRoute) {
     this.album$ = this.store.select(selectAlbum);
@@ -42,17 +48,22 @@ export class AlbumDetailComponent implements OnInit {
       if (routeParam !== null && routeParam !== '') {
         let potentialId = Number(routeParam);
         if (!Number.isNaN(potentialId)) {
-          console.log("id fired", potentialId);
           obj.id = potentialId;
           this.store.dispatch(loadAlbumById(obj));
         }
       }
 
       else {
-        console.log("random fired");
         this.store.dispatch(loadRandomAlbum());
       }
     });
+
+    this.album$.subscribe(album => {
+      this.computePrimaryColor(album?.imageUrl).then(() => {
+        document.documentElement.style.setProperty("--computed-main-color", this.mainColor);
+        document.documentElement.style.setProperty("--computed-secondary-color", this.secondaryColor);
+      });
+    })
   }
 
   public getArtistString(artists: Artist[]) {
@@ -117,4 +128,51 @@ export class AlbumDetailComponent implements OnInit {
   public goToArtistDetail(artistId: Number) {
     this.router.navigate(['artist', artistId])
   }
+
+  public computePrimaryColor(imageUrl: string | undefined): Promise<void> {
+    return new Promise((resolve, reject) => {
+
+      if (imageUrl === undefined || imageUrl === '') {
+        console.log("image url empty", imageUrl);
+        reject('Image is null');
+      }
+
+      const colorThief = new ColorThief();
+      const image = new Image();
+
+      image.src = imageUrl || '';
+      image.crossOrigin = 'anonymous';
+      image.onload = () => {
+
+        if (image.complete && image.naturalHeight !== 0) {
+
+          const dominantColor = colorThief.getColor(image); // [r, g, b]
+          const complementColor = dominantColor.map((c: number) => 255 - c); // direct complement
+
+          const dominantBrightness = dominantColor.reduce((sum: number, val: number) => sum + val, 0);
+          const complementBrightness = complementColor.reduce((sum: number, val: number) => sum + val, 0);
+
+          const dominantColorString = `rgb(${dominantColor.join(', ')})`;
+          const complementColorString = `rgb(${complementColor.join(', ')})`;
+
+          if (dominantBrightness > complementBrightness) {
+            this.mainColor = complementColorString;    // darker
+            this.secondaryColor = dominantColorString; // lighter
+          } else {
+            this.mainColor = dominantColorString;
+            this.secondaryColor = complementColorString;
+          }
+          resolve();
+        } else {
+          console.error('Image failed to load or CORS issue');
+          reject();
+        }
+      };
+      image.onerror = () => {
+        console.error('Failed to load image from URL');
+        reject();
+      };
+    })
+  }
+
 }

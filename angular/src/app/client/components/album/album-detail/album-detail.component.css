@@ -5,7 +5,8 @@
   margin: 0 auto;
   position: relative;
   max-width: 800px;
-  border: 8px solid var(--complement-color-8);
+  /* border: 8px solid var(--complement-color-8); */
+  border: 6px solid var(--computed-main-color);
   border-radius: 0.75rem;
 }
 
@@ -222,7 +223,8 @@
 }
 
 .artist-info-box {
-  border: 2px solid var(--complement-color-8);
+  /* border: 2px solid var(--complement-color-8);  ** DELETE IF USING DOMINANT PRIMARY COLOR */
+  border: 2px solid var(--computed-main-color);
   border-radius: 8px;
   padding: 18px;
   position: relative;
@@ -234,7 +236,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  background-color: var(--complement-color-8);
+  /* background-color: var(--complement-color-8); ** DELETE IF USING DOMINANT PRIMARY COLOR */
+  background-color: var(--computed-secondary-color);
   color: var(--primary-color-base);
   padding: 4px 8px;
   font-size: 12px;

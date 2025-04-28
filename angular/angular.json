@@ -28,7 +28,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/colorthief/dist/color-thief.umd.js"
+            ],
             "browser": "src/main.ts"
           },
           "configurations": {
@@ -89,7 +91,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/colorthief/dist/color-thief.umd.js"
+            ]
           }
         }
       }
