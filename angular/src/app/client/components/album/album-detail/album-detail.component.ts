@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { Album } from '../../../models/Album';
-import { selectAlbum, selectLoading, selectError } from '../../../state/album/album.selectors';
+import { combineLatest, filter, first, map, Observable, switchMap, tap } from 'rxjs';
+import { selectAlbum, selectAlbumError, selectAlbumLoading } from '../../../state/album/album.selectors';
 import { Mood } from 'src/app/client/models/Mood';
 import { Subgenre } from 'src/app/client/models/Subgenre';
 import { Artist } from 'src/app/client/models/Artist';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { loadAlbumById, loadRandomAlbum } from 'src/app/client/state/album/album.actions';
 import ColorThief from 'colorthief';
+import { setColors } from 'src/app/client/state/color/color.action';
+import { selectMainColor, selectSecondaryColor } from 'src/app/client/state/color/color.selectors';
 
 @Component({
   selector: 'app-album-detail',
@@ -18,51 +19,59 @@ import ColorThief from 'colorthief';
 })
 export class AlbumDetailComponent implements OnInit {
 
-  album$: Observable<Album | null>;
-  loading$: Observable<boolean>;
-  loading = true;
-  error$: Observable<string | null>;
-
+  album$ = this.store.select(selectAlbum);
+  loading$ = this.store.select(selectAlbumLoading);
+  error$ = this.store.select(selectAlbumError);
 
   currentYear = new Date().getFullYear();
 
-  mainColor: string = "blue";
-  secondaryColor: string = "red";
+  mainColor$: Observable<string> = this.store.select(selectMainColor);
+  secondaryColor$: Observable<string> = this.store.select(selectSecondaryColor);
 
-
-  constructor(private store: Store, private router: Router, private route: ActivatedRoute) {
-    this.album$ = this.store.select(selectAlbum);
-    this.loading$ = this.store.select(selectLoading);
-    this.error$ = this.store.select(selectError);
-  }
+  constructor(private store: Store, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-
-    let obj: {
-      id: number
-    } = { id: 0 };
-
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      let routeParam = params.get("albumId");
-
-      if (routeParam !== null && routeParam !== '') {
-        let potentialId = Number(routeParam);
-        if (!Number.isNaN(potentialId)) {
-          obj.id = potentialId;
-          this.store.dispatch(loadAlbumById(obj));
+    this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => {
+        let routeParam = params.get("albumId");
+        if (routeParam) {
+          let id = Number(routeParam);
+          if (!Number.isNaN(id)) {
+            this.store.dispatch(loadAlbumById({ id }))
+            return this.album$.pipe(
+              filter((album) => album !== null && album.id == id),
+              first(),
+              tap((album) => {
+                if (album?.imageUrl) {
+                  this.computeDominantImgColor(album.imageUrl);
+                }
+              })
+            )
+          }
         }
-      }
-
-      else {
         this.store.dispatch(loadRandomAlbum());
-      }
-    });
 
-    this.album$.subscribe(album => {
-      this.computePrimaryColor(album?.imageUrl).then(() => {
-        document.documentElement.style.setProperty("--computed-main-color", this.mainColor);
-        document.documentElement.style.setProperty("--computed-secondary-color", this.secondaryColor);
-      });
+        return combineLatest([
+          this.album$,
+          this.store.select(selectAlbumLoading),
+        ]).pipe(
+          filter(([album, loading]) => !loading && !!album),
+          first(),
+          tap(([album]) => {
+            if (album?.imageUrl) {
+              this.computeDominantImgColor(album.imageUrl);
+            }
+          })
+        )
+      })
+    ).subscribe();
+
+    combineLatest([
+      this.store.select(selectMainColor),
+      this.store.select(selectSecondaryColor)
+    ]).subscribe(([mainColor, secondaryColor]) => {
+      document.documentElement.style.setProperty("--computed-main-color", mainColor);
+      document.documentElement.style.setProperty("--computed-secondary-color", secondaryColor);
     })
   }
 
@@ -129,11 +138,10 @@ export class AlbumDetailComponent implements OnInit {
     this.router.navigate(['artist', artistId])
   }
 
-  public computePrimaryColor(imageUrl: string | undefined): Promise<void> {
+  public computeDominantImgColor(imageUrl: string | undefined): Promise<void> {
     return new Promise((resolve, reject) => {
 
       if (imageUrl === undefined || imageUrl === '') {
-        console.log("image url empty", imageUrl);
         reject('Image is null');
       }
 
@@ -155,12 +163,10 @@ export class AlbumDetailComponent implements OnInit {
           const dominantColorString = `rgb(${dominantColor.join(', ')})`;
           const complementColorString = `rgb(${complementColor.join(', ')})`;
 
-          if (dominantBrightness > complementBrightness) {
-            this.mainColor = complementColorString;    // darker
-            this.secondaryColor = dominantColorString; // lighter
+          if (dominantBrightness > complementBrightness) { // higher val is darker, lower val is  lighter
+            this.store.dispatch(setColors({ mainColor: complementColorString, secondaryColor: dominantColorString }));
           } else {
-            this.mainColor = dominantColorString;
-            this.secondaryColor = complementColorString;
+            this.store.dispatch(setColors({ mainColor: dominantColorString, secondaryColor: complementColorString }));
           }
           resolve();
         } else {

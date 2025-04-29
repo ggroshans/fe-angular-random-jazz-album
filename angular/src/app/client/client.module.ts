@@ -21,6 +21,7 @@ import { ClientRoutingModule } from './client-routing.module';
 import { artistReducer } from './state/artist/artist.reducer';
 import { ArtistEffects } from './state/artist/artist.effects';
 import { ArtistDetailComponent } from './components/artist/artist-detail/artist-detail.component';
+import { colorReducer } from './state/color/color.reducer';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ArtistDetailComponent } from './components/artist/artist-detail/artist-
     EffectsModule.forFeature([AlbumEffects]),
     StoreModule.forFeature('artist', artistReducer),
     EffectsModule.forFeature([ArtistEffects]),
+    StoreModule.forFeature('color', colorReducer),
     StoreDevtoolsModule.instrument({ maxAge: 25 })
   ],
 })
