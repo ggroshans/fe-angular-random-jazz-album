@@ -25,3 +25,9 @@ export const loadAlbumByIdFailure = createAction(
   '[Album] Load Album Failure',
   props<{ error: string }>()
 )
+
+
+export const setAlbumColors = createAction(
+  "[Color] Set Colors",
+  props<{ mainColor: string, secondaryColor: string }>()
+);
