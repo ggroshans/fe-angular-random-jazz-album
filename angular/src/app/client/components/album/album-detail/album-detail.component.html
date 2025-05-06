@@ -1,8 +1,8 @@
-<div *ngIf="loading$ | async; else albumContent">Loading...</div>
-<div *ngIf="error$ | async">ERROR LOADING ALBUM</div>
+<div *ngIf="albumLoading$ | async ; else albumContent">Loading...</div>
+<div *ngIf="albumError$ | async as ae">ERROR LOADING ALBUM: {{ ae }}</div>
 
 <ng-template #albumContent>
-  <mat-card class="album-details__container" *ngIf="album$ | async as album">
+  <div class="album-details__container" *ngIf="album$ | async as album">
     <mat-card-content class="album-content">
       <div class="hero-section">
         <div class="album-cover-container">
@@ -129,5 +129,5 @@
         </div>
       </div>
     </mat-card-content>
-  </mat-card>
+  </div>
 </ng-template>

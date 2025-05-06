@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, filter, first, map, Observable, switchMap, tap } from 'rxjs';
 import { selectAlbum, selectAlbumError, selectAlbumLoading } from '../../../state/album/album.selectors';
@@ -10,6 +10,7 @@ import { loadAlbumById, loadRandomAlbum } from 'src/app/client/state/album/album
 import ColorThief from 'colorthief';
 import { setColors } from 'src/app/client/state/color/color.action';
 import { selectMainColor, selectSecondaryColor } from 'src/app/client/state/color/color.selectors';
+import { LoadingService } from 'src/app/client/services/loading.service';
 
 @Component({
   selector: 'app-album-detail',
@@ -20,17 +21,19 @@ import { selectMainColor, selectSecondaryColor } from 'src/app/client/state/colo
 export class AlbumDetailComponent implements OnInit {
 
   album$ = this.store.select(selectAlbum);
-  loading$ = this.store.select(selectAlbumLoading);
-  error$ = this.store.select(selectAlbumError);
+  albumLoading$ = this.store.select(selectAlbumLoading);
+  albumError$ = this.store.select(selectAlbumError);
 
   currentYear = new Date().getFullYear();
 
   mainColor$: Observable<string> = this.store.select(selectMainColor);
   secondaryColor$: Observable<string> = this.store.select(selectSecondaryColor);
 
-  constructor(private store: Store, private router: Router, private route: ActivatedRoute) { }
+  constructor(private store: Store, private router: Router, private route: ActivatedRoute, private loadingService: LoadingService) { }
 
   ngOnInit(): void {
+    this.loadingService.SetLoading(true);
+
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         let routeParam = params.get("albumId");
@@ -64,7 +67,7 @@ export class AlbumDetailComponent implements OnInit {
           })
         )
       })
-    ).subscribe();
+    ).subscribe(() => this.loadingService.SetLoading(false))
 
     combineLatest([
       this.store.select(selectMainColor),
@@ -180,5 +183,4 @@ export class AlbumDetailComponent implements OnInit {
       };
     })
   }
-
 }
