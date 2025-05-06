@@ -20,7 +20,10 @@ export const albumReducer = createReducer(
   on(AlbumActions.loadRandomAlbum, state => ({
     ...state,
     loading: true,
-    error: null
+    error: null,
+    album: null,
+    mainColor: null,
+    secondaryColor: null,
   })),
 
   on(AlbumActions.loadRandomAlbumSuccess, (state, { album }) => ({
@@ -39,7 +42,10 @@ export const albumReducer = createReducer(
   on(AlbumActions.loadAlbumById, state => ({
     ...state,
     loading: true,
-    error: null
+    error: null,
+    album: null,
+    mainColor: null,
+    secondaryColor: null,
   })),
 
   on(AlbumActions.loadAlbumByIdSuccess, (state, { album }) => ({
