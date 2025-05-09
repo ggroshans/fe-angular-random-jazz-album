@@ -10,13 +10,21 @@ import { loadAlbumById, loadRandomAlbum } from 'src/app/client/state/album/album
 import ColorThief from 'colorthief';
 import { setColors } from 'src/app/client/state/color/color.action';
 import { selectMainColor, selectSecondaryColor } from 'src/app/client/state/color/color.selectors';
-import { LoadingService } from 'src/app/client/services/loading.service';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-album-detail',
   templateUrl: './album-detail.component.html',
   styleUrls: ['./album-detail.component.css'],
   standalone: false,
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('500ms ease-in', style({ opacity: 1 }))
+      ])
+    ])
+  ]
 })
 export class AlbumDetailComponent implements OnInit {
 
@@ -29,11 +37,9 @@ export class AlbumDetailComponent implements OnInit {
   mainColor$: Observable<string> = this.store.select(selectMainColor);
   secondaryColor$: Observable<string> = this.store.select(selectSecondaryColor);
 
-  constructor(private store: Store, private router: Router, private route: ActivatedRoute, private loadingService: LoadingService) { }
+  constructor(private store: Store, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.loadingService.SetLoading(true);
-
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         let routeParam = params.get("albumId");
@@ -67,7 +73,7 @@ export class AlbumDetailComponent implements OnInit {
           })
         )
       })
-    ).subscribe(() => this.loadingService.SetLoading(false))
+    ).subscribe()
 
     combineLatest([
       this.store.select(selectMainColor),

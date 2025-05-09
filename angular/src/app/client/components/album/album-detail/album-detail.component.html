@@ -2,7 +2,7 @@
 <div *ngIf="albumError$ | async as ae">ERROR LOADING ALBUM: {{ ae }}</div>
 
 <ng-template #albumContent>
-  <div class="album-details__container" *ngIf="album$ | async as album">
+  <div class="album-details__container" *ngIf="album$ | async as album" [@fadeIn]>
     <mat-card-content class="album-content">
       <div class="hero-section">
         <div class="album-cover-container">
