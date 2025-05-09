@@ -1,6 +1,6 @@
 import { Component, OnInit, } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { combineLatest, filter, first, map, Observable, switchMap, tap } from 'rxjs';
+import { combineLatest, filter, first, switchMap, tap } from 'rxjs';
 import { selectAlbum, selectAlbumError, selectAlbumLoading } from '../../../state/album/album.selectors';
 import { Mood } from 'src/app/client/models/Mood';
 import { Subgenre } from 'src/app/client/models/Subgenre';
@@ -9,8 +9,8 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { loadAlbumById, loadRandomAlbum } from 'src/app/client/state/album/album.actions';
 import ColorThief from 'colorthief';
 import { setColors } from 'src/app/client/state/color/color.action';
-import { selectMainColor, selectSecondaryColor } from 'src/app/client/state/color/color.selectors';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { selectDarkColorBase, selectLightColorBase } from 'src/app/client/state/color/color.selectors';
 
 @Component({
   selector: 'app-album-detail',
@@ -33,9 +33,6 @@ export class AlbumDetailComponent implements OnInit {
   albumError$ = this.store.select(selectAlbumError);
 
   currentYear = new Date().getFullYear();
-
-  mainColor$: Observable<string> = this.store.select(selectMainColor);
-  secondaryColor$: Observable<string> = this.store.select(selectSecondaryColor);
 
   constructor(private store: Store, private router: Router, private route: ActivatedRoute) { }
 
@@ -76,11 +73,13 @@ export class AlbumDetailComponent implements OnInit {
     ).subscribe()
 
     combineLatest([
-      this.store.select(selectMainColor),
-      this.store.select(selectSecondaryColor)
-    ]).subscribe(([mainColor, secondaryColor]) => {
-      document.documentElement.style.setProperty("--computed-main-color", mainColor);
-      document.documentElement.style.setProperty("--computed-secondary-color", secondaryColor);
+      this.store.select(selectLightColorBase),
+      this.store.select(selectDarkColorBase)
+    ]).subscribe(([lightColorBase, darkColorBase]) => {
+      console.log("light", lightColorBase);
+      console.log("dark", darkColorBase);
+      document.documentElement.style.setProperty("--light-color-base", lightColorBase);
+      document.documentElement.style.setProperty("--dark-color-base", darkColorBase);
     })
   }
 
@@ -172,10 +171,10 @@ export class AlbumDetailComponent implements OnInit {
           const dominantColorString = `rgb(${dominantColor.join(', ')})`;
           const complementColorString = `rgb(${complementColor.join(', ')})`;
 
-          if (dominantBrightness > complementBrightness) { // higher val is darker, lower val is  lighter
-            this.store.dispatch(setColors({ mainColor: complementColorString, secondaryColor: dominantColorString }));
+          if (dominantBrightness > complementBrightness) { // higher val is lighter, lower val is darker
+            this.store.dispatch(setColors({ lightColorBase: dominantColorString, darkColorBase: complementColorString }));
           } else {
-            this.store.dispatch(setColors({ mainColor: dominantColorString, secondaryColor: complementColorString }));
+            this.store.dispatch(setColors({ lightColorBase: complementColorString, darkColorBase: dominantColorString }));
           }
           resolve();
         } else {
@@ -190,3 +189,5 @@ export class AlbumDetailComponent implements OnInit {
     })
   }
 }
+
+

@@ -3,12 +3,12 @@ import { ColorState } from "./color.reducer";
 
 export const selectColorState = createFeatureSelector<ColorState>('color');
 
-export const selectMainColor = createSelector(
+export const selectLightColorBase = createSelector(
   selectColorState,
-  (state) => state.mainColor
+  (state) => state.lightColorBase
 );
 
-export const selectSecondaryColor = createSelector(
+export const selectDarkColorBase = createSelector(
   selectColorState,
-  (state) => state.secondaryColor
+  (state) => state.darkColorBase
 );

@@ -1,7 +1,6 @@
-import { animate, group, query, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectSecondaryColor } from '../../state/color/color.selectors';
+import { selectLightColorBase } from '../../state/color/color.selectors';
 
 @Component({
   selector: 'app-home',
@@ -10,15 +9,14 @@ import { selectSecondaryColor } from '../../state/color/color.selectors';
   standalone: false,
 })
 export class HomeComponent {
-  secondaryColor: string = "";
+  lightColorBase: string = "";
 
   constructor(private store: Store) { }
 
   ngOnInit() {
-    this.store.select(selectSecondaryColor).subscribe(
-      (secondaryColor) => {
-        this.secondaryColor = secondaryColor
-        console.log("color changed");
+    this.store.select(selectLightColorBase).subscribe(
+      (lightColorBase) => {
+        this.lightColorBase = lightColorBase
       })
   }
 }

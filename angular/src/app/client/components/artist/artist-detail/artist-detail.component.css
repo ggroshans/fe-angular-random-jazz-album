@@ -5,9 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
   position: relative;
-  background-color: var(--primary-color-base);
 }
 
 .artist-card {
@@ -19,7 +17,7 @@
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   overflow: hidden;
-  border-color: var(--complement-color-8);
+  border-color: var(--dark-color-base);
   background-color: #F9F9F9;
 }
 
@@ -91,7 +89,7 @@
   font-family: 'Oswald', sans-serif;
   margin-bottom: 0.5rem;
   margin-top: 0;
-  color: var(--primary-color-base);
+  color: var(--light-color-base);
 }
 
 .artist-info__genres {
@@ -106,8 +104,8 @@
   border-radius: 9999px;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  background-color: var(--complement-color-8);
-  color: var(--primary-color-base);
+  background-color: var(--dark-color-base);
+  color: var(--light-color-base);
 }
 
 .popularity-section {
@@ -155,7 +153,7 @@
 }
 
 .progress-bar-yellow {
-  background-color: var(--complement-color-8);
+  background-color: rgb(255, 187, 21);
 }
 
 .progress-bar-yellowgreen {
@@ -177,7 +175,7 @@
   font-family: 'Oswald', sans-serif;
   margin-bottom: 1rem;
   margin-top: 0;
-  color: var(--primary-color-base);
+  color: var(--dark-color-base);
 }
 
 .albums__title {
@@ -187,7 +185,7 @@
 .biography__content {
   line-height: 1.6;
   max-width: none;
-  color: var(--primary-color-base);
+  color: var(--primary-black-color);
 }
 
 .biography__paragraph {
@@ -198,7 +196,7 @@
   border-top-width: 1px;
   border-style: solid;
   margin-bottom: 2rem;
-  border-color: var(--primary-color-base);
+  border-color: var(--light-color-base);
 }
 
 .album-grid {
@@ -265,7 +263,7 @@
 .album-item__year {
   font-size: 1.25rem;
   margin: 0;
-  color: var(--complement-color-12);
+  color: var(--dark-color-base);
 }
 
 .albums__view-all-wrapper {
@@ -284,12 +282,12 @@
   align-items: center;
   background-color: transparent;
   cursor: pointer;
-  color: var(--primary-color-base);
-  border-color: var(--complement-color-4);
+  color: var(--dark-color-base);
+  border-color: var(--light-color-base);
 }
 
 .albums__view-all-button:hover {
-  background-color: var(--complement-color-4);
+  background-color: var(--dark-color-base);
   color: white;
 }
 
@@ -306,8 +304,8 @@
   border-style: solid;
   font-size: 0.75rem;
   text-align: center;
-  border-color: var(--primary-color-base);
-  color: var(--primary-color-base);
+  border-color: var(--light-color-base);
+  color: var(--dark-color-base);
 }
 
 @media (min-width: 768px) {

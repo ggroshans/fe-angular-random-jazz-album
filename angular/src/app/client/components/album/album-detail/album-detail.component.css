@@ -5,8 +5,7 @@
   margin: 0 auto;
   position: relative;
   max-width: 800px;
-  /* border: 8px solid var(--complement-color-8); */
-  border: 6px solid var(--computed-main-color);
+  border: 6px solid var(--dark-color-base);
   border-radius: 0.75rem;
 }
 
@@ -150,7 +149,7 @@
 }
 
 .progress-bar-yellow {
-  background-color: var(--complement-color-8);
+  background-color: rgb(255, 187, 21);
 }
 
 .progress-bar-yellowgreen {
@@ -223,7 +222,7 @@
 
 .artist-info-box {
   /* border: 2px solid var(--complement-color-8);  ** DELETE IF USING DOMINANT PRIMARY COLOR */
-  border: 2px solid var(--computed-main-color);
+  border: 2px solid var(--dark-color-base);
   border-radius: 8px;
   padding: 18px;
   position: relative;
@@ -235,9 +234,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  /* background-color: var(--complement-color-8); ** DELETE IF USING DOMINANT PRIMARY COLOR */
-  background-color: var(--computed-secondary-color);
-  color: var(--primary-color-base);
+  background-color: var(--dark-color-base);
+  color: var(--light-color-base);
   padding: 4px 8px;
   font-size: 12px;
 }

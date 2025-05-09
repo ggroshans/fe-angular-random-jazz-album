@@ -2,20 +2,20 @@ import { createReducer, on } from "@ngrx/store";
 import { setColors } from "./color.action";
 
 export interface ColorState {
-  mainColor: string
-  secondaryColor: string
+  lightColorBase: string
+  darkColorBase: string
 };
 
 const initialState: ColorState = {
-  mainColor: "black",
-  secondaryColor: "white",
+  lightColorBase: "white",
+  darkColorBase: "black",
 };
 
 export const colorReducer = createReducer(
   initialState,
-  on(setColors, (state, { mainColor, secondaryColor }) => ({
+  on(setColors, (state, { lightColorBase, darkColorBase }) => ({
     ...state,
-    mainColor,
-    secondaryColor
+    lightColorBase,
+    darkColorBase
   }))
 );
