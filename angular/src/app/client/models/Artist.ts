@@ -14,9 +14,8 @@ export interface Artist {
   totalAlbums?: number; // Computed
   averageAlbumScore?: number;  // Computed
   // subgenreBreakdown?: { [subgenre: string]: number }; // explicit subgenres // Computed
-  // jazzEra?: string[]; // explicit
-  // birthDate?: string; // GPT
-  // deathDate?: string; // GPT
+  // jazzEra?: string[]; // explicit // Computed from era with highest album count
+  debutYear: string; // Computed from earliest album release year
   // yearsActive?: { startDate: number, endDate: number }; // GPT
   // moodBreakdown?: { [mood: string]: number }; // Computed
   // averageMoodScore?: number;  // Computed
