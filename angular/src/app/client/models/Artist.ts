@@ -4,26 +4,25 @@ import { Genre } from "./Genre";
 export interface Artist {
   id: number;
   name?: string;
-  biography?: string;
-  genres?: Genre[];
-  imageUrl?: string;
-  instrument?: string;
-  popularityScore?: number;
-  percentileScore: number;
+  albums?: Album[];
+  biography?: string;                 // Gpt Api
+  instrument?: string;                // Gpt Api
+  genres?: Genre[];                   // Spotify Api
+  imageUrl?: string;                  // Spotify Api
+  popularityScore?: number;           // Spotify Api
 
-  totalAlbums?: number; // Computed
-  averageAlbumScore?: number;  // Computed
+  percentileScore: number;            // Computed from => popularityScore
+  totalAlbums?: number;               // Computed from => total of artist's albums
+  averageAlbumScore?: number;         // Computed from => avg album percentile score
+  debutYear: string;                  // Computed from => earliest album release year
+  noteableAlbums?: Album[];           // Computed from => top (5) albums based on percentile score
+
+
   // subgenreBreakdown?: { [subgenre: string]: number }; // explicit subgenres // Computed
   // jazzEra?: string[]; // explicit // Computed from era with highest album count
-  debutYear: string; // Computed from earliest album release year
-  // yearsActive?: { startDate: number, endDate: number }; // GPT
+  // yearsActive?: { startDate: number, endDate: number }; // Computed
   // moodBreakdown?: { [mood: string]: number }; // Computed
   // averageMoodScore?: number;  // Computed
-  // funFact?: string; // GPT
-  albums?: Album[];
-  noteableAlbums?: Album[];
-
   // relatedArtists: string[]; // GPT
   // influences: string[]; // GPT
-  // influenced: string[]; // GPT
 }
