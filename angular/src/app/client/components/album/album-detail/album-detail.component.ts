@@ -176,7 +176,9 @@ export class AlbumDetailComponent implements OnInit {
           } else {
             this.store.dispatch(setColors({ lightColorBase: complementColorString, darkColorBase: dominantColorString }));
           }
-          resolve();
+
+          const luminance =
+            resolve();
         } else {
           console.error('Image failed to load or CORS issue');
           reject();

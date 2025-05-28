@@ -215,13 +215,12 @@
 .copyright {
     margin-top: 24px;
     padding-top: 16px;
-    border-top: 1px solid rgba(0,0,0,0.12); /* Standard Material Divider color */
+    border-top: 1px solid rgba(0,0,0,0.12);
     text-align: center;
     font-size: 12px;
 }
 
 .artist-info-box {
-  /* border: 2px solid var(--complement-color-8);  ** DELETE IF USING DOMINANT PRIMARY COLOR */
   border: 2px solid var(--dark-color-base);
   border-radius: 8px;
   padding: 18px;
@@ -235,7 +234,7 @@
   top: 0;
   right: 0;
   background-color: var(--dark-color-base);
-  color: var(--light-color-base);
+  color: white;
   padding: 4px 8px;
   font-size: 12px;
 }
