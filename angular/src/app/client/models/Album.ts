@@ -25,9 +25,10 @@ export interface Album {
   theme?: string;                     // Gpt Api
   moods?: Mood[];                     // Gpt Api
 
-  percentileScore?: number;           // Computed from => popularityScore
+  percentileScore?: number;           // Computed from => popularityScore         --field!
 
-  // jazzEra?: string[]; // explicit // GPT
-  // moodScore?: number; // Computed
-  // AlbumPosition: number; // Computed
+  // jazzEras?: string[]; // explicit // Computed from => releaseYear             --field!
+  // averageEmotionScore?: number; // Computed                                    --field
+  // averageEnergyScore?: number; // Computed                                     --field
+  // albumPosition: number; // Computed                                           --field
 }

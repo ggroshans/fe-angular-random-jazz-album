@@ -13,16 +13,19 @@ export interface Artist {
 
   percentileScore: number;            // Computed from => popularityScore
   totalAlbums?: number;               // Computed from => total of artist's albums
-  averageAlbumScore?: number;         // Computed from => avg album percentile score
+
   debutYear: string;                  // Computed from => earliest album release year
   noteableAlbums?: Album[];           // Computed from => top (5) albums based on percentile score
+  // relatedArtists: string[]; // GPT                                                            --field!
+  // influences: string[]; // GPT                                                                --field!
 
+  averageAlbumScore?: number;         // Computed from => avg album percentile score             --field
+  // subgenreBreakdown?: { [subgenre: string]: number }; // explicit subgenres // Computed       --field
+  // jazzEra?: string[]; // explicit // Computed from era with highest album count               --field
+  // yearsActive?: { startDate: number, endDate: number }; // Computed                           --field
+  // averageEmotionScore?: number;  // Computed                                                  --field
+  // averageEnergyScore?: number // Computed                                                     --field
 
-  // subgenreBreakdown?: { [subgenre: string]: number }; // explicit subgenres // Computed
-  // jazzEra?: string[]; // explicit // Computed from era with highest album count
-  // yearsActive?: { startDate: number, endDate: number }; // Computed
-  // moodBreakdown?: { [mood: string]: number }; // Computed
-  // averageMoodScore?: number;  // Computed
-  // relatedArtists: string[]; // GPT
-  // influences: string[]; // GPT
+  // DISCARD
+  // moodBreakdown?: { [mood: string]: number }; // Computed   ---> compute on the fly?
 }
