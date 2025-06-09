@@ -99,16 +99,22 @@
 }
 
 
-.album-title {
+.album-title__header {
   font-family: "Oswald", sans-serif;
   font-size: 30px;
   font-weight: 500;
   margin-bottom: 4px;
 }
 
-.album-artist {
+.album-artist__header {
   font-size: 18px;
-  margin-bottom: 16px;
+}
+
+.album-year__header {
+  font-size:14px;
+  margin-top: 0.25rem;
+  margin-left: 0.15rem;
+  font-style: italic;
 }
 
 .album-description {

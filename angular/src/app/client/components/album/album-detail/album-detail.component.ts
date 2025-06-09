@@ -66,6 +66,7 @@ export class AlbumDetailComponent implements OnInit {
           tap(([album]) => {
             if (album?.imageUrl) {
               this.computeDominantImgColor(album.imageUrl);
+              console.log("album data", album);
             }
           })
         )
@@ -76,8 +77,6 @@ export class AlbumDetailComponent implements OnInit {
       this.store.select(selectLightColorBase),
       this.store.select(selectDarkColorBase)
     ]).subscribe(([lightColorBase, darkColorBase]) => {
-      console.log("light", lightColorBase);
-      console.log("dark", darkColorBase);
       document.documentElement.style.setProperty("--light-color-base", lightColorBase);
       document.documentElement.style.setProperty("--dark-color-base", darkColorBase);
     })
@@ -189,6 +188,10 @@ export class AlbumDetailComponent implements OnInit {
         reject();
       };
     })
+  }
+
+  public isOriginalReleaseResponse (isOriginalRelease: boolean): string {
+    return isOriginalRelease == true ? "Yes"  : "No";
   }
 }
 

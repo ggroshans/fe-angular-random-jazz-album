@@ -13,14 +13,15 @@
         <div class="album-info-container">
           <div class="album-info">
             <div *ngIf="!album.title?.includes(':'); else albumTitleElseBlock">
-              <mat-card-title class="album-title">{{ album.title }}</mat-card-title>
+              <mat-card-title class="album-title__header">{{ album.title }}</mat-card-title>
             </div>
 
             <ng-template #albumTitleElseBlock>
-              <mat-card-title class="album-title">{{ (album.title || '').split(":")[0] + ":" }}</mat-card-title>
-              <mat-card-title class="album-title">{{ (album.title || '').split(":")[1] }}</mat-card-title>
+              <mat-card-title class="album-title__header">{{ (album.title || '').split(":")[0] + ":" }}</mat-card-title>
+              <mat-card-title class="album-title__header">{{ (album.title || '').split(":")[1] }}</mat-card-title>
             </ng-template>
-            <mat-card-subtitle class="album-artist">{{ getArtistString(album.artists || []) }}</mat-card-subtitle>
+            <mat-card-subtitle class="album-artist__header">{{ getArtistString(album.artists || []) }}</mat-card-subtitle>
+            <mat-card-subtitle class="album-year__header">{{ album.releaseYear }}</mat-card-subtitle>
             <div class="streaming-links-container">
               <a *ngIf="album.spotifyId" class="spotify-link-container"
                 [href]="'https://open.spotify.com/album/' + album.spotifyId" target="_blank">
@@ -51,14 +52,34 @@
             <p class="album-description">{{ album.description }}</p>
 
             <div class="album-details-grid">
-              <app-item-detail icon="calendar_today" label="Released"
-                [value]="album.releaseYear?.toString() || ''"></app-item-detail>
-              <app-item-detail icon="queue_music" label="Tracks"
+              <!-- <app-item-detail icon="calendar_today" label="Released"
+                [value]="album.releaseYear?.toString() || ''"></app-item-detail> -->
+              <app-item-detail icon="play_arrow" label="Tracks"
                 [value]="album.totalTracks?.toString() || ''"></app-item-detail>
-              <app-item-detail icon="local_offer" label="Genre" [value]="album.genre?.name || ''"></app-item-detail>
-              <app-item-detail icon="local_offer" label="Subgenres"
+              <app-item-detail icon="play_arrow" label="Genre" [value]="album.genre?.name || ''"></app-item-detail>
+              <app-item-detail icon="play_arrow" label="Subgenres"
                 [value]="getSubgenreString(album.subgenres || [])"></app-item-detail>
+              <app-item-detail icon="play_arrow" label="Mood"
+                [value]="getMoodString(album.moods || []) || ''"></app-item-detail>
+              <app-item-detail icon="play_arrow" label="Theme" [value]="album.theme || ''"></app-item-detail>
+              <app-item-detail icon="play_arrow" label="Label" [value]="album.label || ''"></app-item-detail>
+              
+              <app-item-detail icon="play_arrow" label="" [value]="album.label || ''"></app-item-detail>
+              <app-item-detail icon="play_arrow" label="Orig. Release?" [value]="isOriginalReleaseResponse(album.isOriginalRelease) || ''"></app-item-detail>
+ 
             </div>
+
+          </div>
+        </div>
+      </div>
+
+      <mat-divider class="divider"></mat-divider>
+
+      <div class="additional-details-grid">
+        <div class="additional-details__left">
+
+          <!-- <div class="detail-items-container"> -->
+         <!-- </div> -->
 
             <div class="popularity-section">
               <div class="popularity-label">
@@ -70,25 +91,6 @@
                   [ngStyle]="{'width': album.percentileScore + '%', 'height': '0.5rem'}"></div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <mat-divider class="divider"></mat-divider>
-
-      <div class="additional-details-grid">
-        <div class="additional-details__left">
-          <h3 class="section-title">Album Details</h3>
-
-          <div class="detail-items-container">
-            <app-item-detail icon="favorite" label="Mood"
-              [value]="getMoodString(album.moods || []) || ''"></app-item-detail>
-            <app-item-detail icon="music_note" label="Theme" [value]="album.theme || ''"></app-item-detail>
-            <app-item-detail icon="album" label="Label" [value]="album.label || ''"></app-item-detail>
-            <!-- <app-item-detail icon="trending_up" label="Popular Songs"
-              [value]="album.popularTracks?.join(', ') || ''"></app-item-detail> -->
-          </div>
-
         </div>
         <div class="additional-details__right">
 
