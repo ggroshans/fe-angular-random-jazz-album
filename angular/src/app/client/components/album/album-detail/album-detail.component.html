@@ -54,9 +54,11 @@
             <div class="album-details-grid">
               <!-- <app-item-detail icon="calendar_today" label="Released"
                 [value]="album.releaseYear?.toString() || ''"></app-item-detail> -->
+              <app-item-detail icon="play_arrow" label="Orig. Release?" [value]="isOriginalReleaseResponse(album.isOriginalRelease) || ''"></app-item-detail>
+              <app-item-detail icon="play_arrow" label="Genre" [value]="album.genres?.join(', ') || ''"></app-item-detail>
               <app-item-detail icon="play_arrow" label="Tracks"
                 [value]="album.totalTracks?.toString() || ''"></app-item-detail>
-              <app-item-detail icon="play_arrow" label="Genre" [value]="album.genre?.name || ''"></app-item-detail>
+
               <app-item-detail icon="play_arrow" label="Subgenres"
                 [value]="getSubgenreString(album.subgenres || [])"></app-item-detail>
               <app-item-detail icon="play_arrow" label="Mood"
@@ -65,7 +67,7 @@
               <app-item-detail icon="play_arrow" label="Label" [value]="album.label || ''"></app-item-detail>
               
               <app-item-detail icon="play_arrow" label="" [value]="album.label || ''"></app-item-detail>
-              <app-item-detail icon="play_arrow" label="Orig. Release?" [value]="isOriginalReleaseResponse(album.isOriginalRelease) || ''"></app-item-detail>
+
  
             </div>
 

@@ -19,7 +19,7 @@ export interface Album {
   artists?: Artist[];                 // Spotify Api
   popularityScore?: number;           // Spotify Api
 
-  genre?: Genre;                      // Gpt Api
+  genres?: Genre[];                      // Gpt Api
   subgenres?: Subgenre[];             // Gpt Api
   description?: string;               // Gpt Api
   theme?: string;                     // Gpt Api
