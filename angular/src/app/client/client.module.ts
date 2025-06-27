@@ -13,6 +13,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import { ItemDetailComponent } from './components/shared/item-detail/item-detail.component';
 import { AlbumDetailComponent } from './components/album/album-detail/album-detail.component';
@@ -39,6 +40,7 @@ import { colorReducer } from './state/color/color.reducer';
     MatDividerModule,
     MatListModule,
     MatIconModule,
+    MatExpansionModule,
     StoreModule.forFeature('album', albumReducer),
     EffectsModule.forFeature([AlbumEffects]),
     StoreModule.forFeature('artist', artistReducer),

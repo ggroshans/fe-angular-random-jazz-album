@@ -51,22 +51,66 @@
             </div>
             <p class="album-description">{{ album.description }}</p>
 
-            <div class="album-details-grid">
-              <!-- <app-item-detail icon="calendar_today" label="Released"
-                [value]="album.releaseYear?.toString() || ''"></app-item-detail> -->
-              <app-item-detail icon="play_arrow" label="Orig. Release?" [value]="isOriginalReleaseResponse(album.isOriginalRelease) || ''"></app-item-detail>
-              <app-item-detail icon="play_arrow" label="Genre" [value]="album.genres?.join(', ') || ''"></app-item-detail>
-              <app-item-detail icon="play_arrow" label="Tracks"
-                [value]="album.totalTracks?.toString() || ''"></app-item-detail>
+            <div>
+             <mat-accordion multi="false" class="album-details-accordion">
 
-              <app-item-detail icon="play_arrow" label="Subgenres"
-                [value]="getSubgenreString(album.subgenres || [])"></app-item-detail>
-              <app-item-detail icon="play_arrow" label="Mood"
-                [value]="getMoodString(album.moods || []) || ''"></app-item-detail>
-              <app-item-detail icon="play_arrow" label="Theme" [value]="album.theme || ''"></app-item-detail>
-              <app-item-detail icon="play_arrow" label="Label" [value]="album.label || ''"></app-item-detail>
-              
-              <app-item-detail icon="play_arrow" label="" [value]="album.label || ''"></app-item-detail>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Orig. Studio Release?</mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>{{ isOriginalReleaseResponse(album.isOriginalRelease) || '' }}</p>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Genres</mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>{{ album.genres?.join(', ') || '' }}</p>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Subgenres</mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>{{ getSubgenreString(album.subgenres || []) }}</p>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Tracks</mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>{{ album.totalTracks?.toString() || '' }}</p>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Theme</mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>{{ album.theme || '' }}</p>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Label</mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>{{ album.label || '' }}</p>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Mood</mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>{{ getMoodString(album.moods || []) || '' }}</p>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Album #</mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>{{ album.label || '' }}</p>
+  </mat-expansion-panel>
+
+</mat-accordion>
 
  
             </div>
@@ -85,6 +129,24 @@
 
             <div class="popularity-section">
               <div class="popularity-label">
+                <mat-icon>bar_chart</mat-icon>
+                <span>Emotion Score: {{ getPercentileString(album.percentileScore || 0) }}</span>
+              </div>
+              <div class="progress-bar-container">
+                <div [class]="getProgressBarColor(album.percentileScore || 0)"
+                  [ngStyle]="{'width': album.percentileScore + '%', 'height': '0.5rem'}"></div>
+              </div>
+
+                            <div class="popularity-label">
+                <mat-icon>bar_chart</mat-icon>
+                <span>Energy Score: {{ getPercentileString(album.percentileScore || 0) }}</span>
+              </div>
+              <div class="progress-bar-container">
+                <div [class]="getProgressBarColor(album.percentileScore || 0)"
+                  [ngStyle]="{'width': album.percentileScore + '%', 'height': '0.5rem'}"></div>
+              </div>
+
+                            <div class="popularity-label">
                 <mat-icon>bar_chart</mat-icon>
                 <span>Percentile Score: {{ getPercentileString(album.percentileScore || 0) }}</span>
               </div>
@@ -118,6 +180,7 @@
                 <p class="artist-bio">{{ album.artists[0].biography }}</p>
               </div>
             </div>
+          
             <button (click)="goToArtistDetail(album.artists[0].id)" mat-stroked-button class="view-profile-button">
               View Artist Profile
               <span class="view-profile-button__icon material-icons">
