@@ -8,12 +8,10 @@
         <div class="album-cover-container">
           <img [src]="album.imageUrl || '/placeholder.svg'"
             [alt]="album.title + ' by ' + getArtistString(album.artists || [])" class="album-cover" />
-        </div>
-
-        <div class="album-info-container">
-          <div class="album-info">
-            <div *ngIf="!album.title?.includes(':'); else albumTitleElseBlock">
+                        <div *ngIf="!album.title?.includes(':'); else albumTitleElseBlock">
               <mat-card-title class="album-title__header">{{ album.title }}</mat-card-title>
+
+
             </div>
 
             <ng-template #albumTitleElseBlock>
@@ -22,6 +20,13 @@
             </ng-template>
             <mat-card-subtitle class="album-artist__header">{{ getArtistString(album.artists || []) }}</mat-card-subtitle>
             <mat-card-subtitle class="album-year__header">{{ album.releaseYear }}</mat-card-subtitle>
+
+                                      <p class="album-description">"{{ album.description }}"</p>
+        </div>
+
+        <div class="album-info-container">
+          <div class="album-info">
+
             <div class="streaming-links-container">
               <a *ngIf="album.spotifyId" class="spotify-link-container"
                 [href]="'https://open.spotify.com/album/' + album.spotifyId" target="_blank">
@@ -49,7 +54,7 @@
                 <img class="streaming-link" src="assets/brands/applemusic.svg" alt="">
               </a>
             </div>
-            <p class="album-description">{{ album.description }}</p>
+
 
             <div>
              <mat-accordion multi="false" class="album-details-accordion">

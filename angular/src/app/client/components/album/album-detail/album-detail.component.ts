@@ -93,7 +93,7 @@ export class AlbumDetailComponent implements OnInit {
     if (subgenres.length == 0 || subgenres == null) {
       return "";
     }
-    return subgenres.map((s) => s.name).join(", ");
+    return subgenres.join(", ");
   }
 
   public getMoodString(moods: Mood[]) {
