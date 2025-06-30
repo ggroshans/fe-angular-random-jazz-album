@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -9,9 +9,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { AdminRoutingModule } from './admin-routing.module';
 
 @NgModule({
-  declarations: [
-    AdminDashboardComponent
-  ],
+  declarations: [AdminDashboardComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -20,6 +18,6 @@ import { AdminRoutingModule } from './admin-routing.module';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-  ]
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}

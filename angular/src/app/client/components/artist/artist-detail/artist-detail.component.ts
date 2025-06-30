@@ -8,7 +8,6 @@ import { ArtistState } from 'src/app/client/state/artist/artist.reducer';
 import { loadArtist } from 'src/app/client/state/artist/artist.actions';
 import { loadAlbumById } from 'src/app/client/state/album/album.actions';
 
-
 @Component({
   selector: 'app-artist-detail',
   templateUrl: './artist-detail.component.html',
@@ -17,15 +16,17 @@ import { loadAlbumById } from 'src/app/client/state/album/album.actions';
   standalone: false,
 })
 export class ArtistDetailComponent implements OnInit {
-
   biographyParagraphs: string[] = [];
   currentYear: number = new Date().getFullYear();
 
   public artist$!: Observable<Artist | null>;
   public noteableAlbumCount: number = 4;
 
-  constructor(private route: ActivatedRoute, private router: Router, private store: Store<ArtistState>) { }
-
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<ArtistState>,
+  ) {}
 
   ngOnInit(): void {
     const artistId = +this.route.snapshot.paramMap.get('artistId')!;
@@ -35,9 +36,7 @@ export class ArtistDetailComponent implements OnInit {
     this.artist$ = this.store.select(selectArtist);
   }
 
-
   public getPercentileString(percentileScore: number) {
-
     var lastDigit = percentileScore % 10;
 
     switch (lastDigit) {
@@ -56,21 +55,21 @@ export class ArtistDetailComponent implements OnInit {
       case 0:
         return `${percentileScore}th`;
       default:
-        return "";
+        return '';
     }
   }
 
   public getProgressBarColor(percentileScore: number): string {
     if (percentileScore > 75) {
-      return "progress-bar-green";
+      return 'progress-bar-green';
     } else if (percentileScore > 60) {
-      return "progress-bar-yellowgreen";
+      return 'progress-bar-yellowgreen';
     } else if (percentileScore > 45) {
-      return "progress-bar-yellow";
+      return 'progress-bar-yellow';
     } else if (percentileScore > 25) {
-      return "progress-bar-orange";
+      return 'progress-bar-orange';
     } else {
-      return "progress-bar-red";
+      return 'progress-bar-red';
     }
   }
 

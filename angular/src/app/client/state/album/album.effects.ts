@@ -9,21 +9,19 @@ import { of } from 'rxjs';
 export class AlbumEffects {
   constructor(
     private actions$: Actions,
-    private albumService: AlbumService
-  ) { }
+    private albumService: AlbumService,
+  ) {}
 
   loadRandomAlbum$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AlbumActions.loadRandomAlbum),
       mergeMap(() =>
         this.albumService.getRandomAlbum().pipe(
-          map(album =>
-            AlbumActions.loadRandomAlbumSuccess({ album }),
-          ),
-          catchError(error => of(AlbumActions.loadRandomAlbumFailure({ error: error.message })))
-        )
-      )
-    )
+          map((album) => AlbumActions.loadRandomAlbumSuccess({ album })),
+          catchError((error) => of(AlbumActions.loadRandomAlbumFailure({ error: error.message }))),
+        ),
+      ),
+    ),
   );
 
   loadAlbumById$ = createEffect(() =>
@@ -31,11 +29,10 @@ export class AlbumEffects {
       ofType(AlbumActions.loadAlbumById),
       mergeMap(({ id }) =>
         this.albumService.getAlbumById(id).pipe(
-          map(album => AlbumActions.loadAlbumByIdSuccess({ album })
-          ),
-          catchError(error => of(AlbumActions.loadAlbumByIdFailure({ error: error.message })))
-        )
-      )
-    )
-  )
+          map((album) => AlbumActions.loadAlbumByIdSuccess({ album })),
+          catchError((error) => of(AlbumActions.loadAlbumByIdFailure({ error: error.message }))),
+        ),
+      ),
+    ),
+  );
 }

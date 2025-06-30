@@ -13,7 +13,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { ItemDetailComponent } from './components/shared/item-detail/item-detail.component';
 import { AlbumDetailComponent } from './components/album/album-detail/album-detail.component';
@@ -25,12 +25,7 @@ import { ArtistDetailComponent } from './components/artist/artist-detail/artist-
 import { colorReducer } from './state/color/color.reducer';
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    AlbumDetailComponent,
-    ItemDetailComponent,
-    ArtistDetailComponent,
-  ],
+  declarations: [HomeComponent, AlbumDetailComponent, ItemDetailComponent, ArtistDetailComponent],
   imports: [
     CommonModule,
     ClientRoutingModule,
@@ -46,7 +41,7 @@ import { colorReducer } from './state/color/color.reducer';
     StoreModule.forFeature('artist', artistReducer),
     EffectsModule.forFeature([ArtistEffects]),
     StoreModule.forFeature('color', colorReducer),
-    StoreDevtoolsModule.instrument({ maxAge: 25 })
+    StoreDevtoolsModule.instrument({ maxAge: 25 }),
   ],
 })
-export class ClientModule { }
+export class ClientModule {}

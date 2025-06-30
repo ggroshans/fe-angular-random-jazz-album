@@ -1,14 +1,11 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { ColorState } from "./color.reducer";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { ColorState } from './color.reducer';
 
 export const selectColorState = createFeatureSelector<ColorState>('color');
 
 export const selectLightColorBase = createSelector(
   selectColorState,
-  (state) => state.lightColorBase
+  (state) => state.lightColorBase,
 );
 
-export const selectDarkColorBase = createSelector(
-  selectColorState,
-  (state) => state.darkColorBase
-);
+export const selectDarkColorBase = createSelector(selectColorState, (state) => state.darkColorBase);

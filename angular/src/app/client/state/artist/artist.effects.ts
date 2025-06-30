@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as ArtistActions from '../artist/artist.actions';
@@ -10,20 +9,18 @@ import { ArtistService } from '../../services/artist.service';
 export class ArtistEffects {
   constructor(
     private actions$: Actions,
-    private artistService: ArtistService
-  ) { }
+    private artistService: ArtistService,
+  ) {}
 
   loadArtist$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ArtistActions.loadArtist),
       mergeMap(({ artistId }) =>
         this.artistService.getArtistById(artistId).pipe(
-          map(artist =>
-            ArtistActions.loadArtistSuccess({ artist }),
-          ),
-          catchError(error => of(ArtistActions.loadArtistFailure({ error: error.message })))
-        )
-      )
-    )
-  )
+          map((artist) => ArtistActions.loadArtistSuccess({ artist })),
+          catchError((error) => of(ArtistActions.loadArtistFailure({ error: error.message }))),
+        ),
+      ),
+    ),
+  );
 }

@@ -15,20 +15,23 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
-        path: 'artist/:artistId', component: ArtistDetailComponent
+        path: 'artist/:artistId',
+        component: ArtistDetailComponent,
       },
       {
-        path: 'random-album', component: AlbumDetailComponent
+        path: 'random-album',
+        component: AlbumDetailComponent,
       },
       {
-        path: 'album/:albumId', component: AlbumDetailComponent
+        path: 'album/:albumId',
+        component: AlbumDetailComponent,
       },
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ClientRoutingModule { }
+export class ClientRoutingModule {}

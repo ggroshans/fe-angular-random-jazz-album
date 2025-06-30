@@ -1,17 +1,17 @@
-import { createAction, props } from "@ngrx/store";
-import { Artist } from "../../models/Artist";
+import { createAction, props } from '@ngrx/store';
+import { Artist } from '../../models/Artist';
 
 export const loadArtist = createAction(
   '[Action] Load Random Artist',
-  props<{ artistId: number }>()
+  props<{ artistId: number }>(),
 );
 
 export const loadArtistSuccess = createAction(
   '[Action] Load Random Artist Success',
-  props<{ artist: Artist }>()
-)
+  props<{ artist: Artist }>(),
+);
 
 export const loadArtistFailure = createAction(
   '[Action] Load Random Artist Error',
-  props<{ error: string }>()
-)
+  props<{ error: string }>(),
+);

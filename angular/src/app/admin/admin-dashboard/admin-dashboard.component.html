@@ -3,15 +3,31 @@
     <mat-card-title>Add Albums From Artist</mat-card-title>
     <p class="admin-portal__subheading">Admin Portal</p>
     <mat-card-content>
-      <form class="admin-dashboard__form" [formGroup]="formDiscography" (ngSubmit)="fetchArtistDiscography()">
+      <form
+        class="admin-dashboard__form"
+        [formGroup]="formDiscography"
+        (ngSubmit)="fetchArtistDiscography()"
+      >
         <mat-form-field appearance="outline">
           <mat-label>Artist Name</mat-label>
-          <input matInput formControlName="artistName" placeholder="Enter artist name...">
-          <mat-error *ngIf="formDiscography.get('artistName')?.invalid && formDiscography.get('artistName')?.touched">
+          <input matInput formControlName="artistName" placeholder="Enter artist name..." />
+          <mat-error
+            *ngIf="
+              formDiscography.get('artistName')?.invalid &&
+              formDiscography.get('artistName')?.touched
+            "
+          >
             Artist name is required
           </mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" [disabled]="formDiscography.invalid">Submit</button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="formDiscography.invalid"
+        >
+          Submit
+        </button>
       </form>
     </mat-card-content>
     <div class="copyright">

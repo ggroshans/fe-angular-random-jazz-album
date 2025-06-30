@@ -1,6 +1,6 @@
 <div *ngIf="label != null; else variant" class="detail-item">
   <div class="detail-icon">
-    <mat-icon>{{icon}}</mat-icon>
+    <mat-icon>{{ icon }}</mat-icon>
   </div>
   <div class="detail-text">
     <span class="detail-label">{{ label }}:</span>
@@ -11,7 +11,7 @@
 <ng-template #variant>
   <div class="detail-item">
     <div class="detail-icon">
-      <mat-icon>{{icon}}</mat-icon>
+      <mat-icon>{{ icon }}</mat-icon>
     </div>
     <div class="detail-text">
       <span class="detail-value">{{ value }}</span>

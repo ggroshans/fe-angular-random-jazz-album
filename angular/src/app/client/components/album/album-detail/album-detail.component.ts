@@ -1,7 +1,11 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, filter, first, switchMap, tap } from 'rxjs';
-import { selectAlbum, selectAlbumError, selectAlbumLoading } from '../../../state/album/album.selectors';
+import {
+  selectAlbum,
+  selectAlbumError,
+  selectAlbumLoading,
+} from '../../../state/album/album.selectors';
 import { Mood } from 'src/app/client/models/Mood';
 import { Subgenre } from 'src/app/client/models/Subgenre';
 import { Artist } from 'src/app/client/models/Artist';
@@ -10,7 +14,10 @@ import { loadAlbumById, loadRandomAlbum } from 'src/app/client/state/album/album
 import ColorThief from 'colorthief';
 import { setColors } from 'src/app/client/state/color/color.action';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { selectDarkColorBase, selectLightColorBase } from 'src/app/client/state/color/color.selectors';
+import {
+  selectDarkColorBase,
+  selectLightColorBase,
+} from 'src/app/client/state/color/color.selectors';
 
 @Component({
   selector: 'app-album-detail',
@@ -21,90 +28,91 @@ import { selectDarkColorBase, selectLightColorBase } from 'src/app/client/state/
     trigger('fadeIn', [
       transition(':enter', [
         style({ opacity: 0 }),
-        animate('500ms ease-in', style({ opacity: 1 }))
-      ])
-    ])
-  ]
+        animate('500ms ease-in', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 export class AlbumDetailComponent implements OnInit {
-
   album$ = this.store.select(selectAlbum);
   albumLoading$ = this.store.select(selectAlbumLoading);
   albumError$ = this.store.select(selectAlbumError);
 
   currentYear = new Date().getFullYear();
 
-  constructor(private store: Store, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private store: Store,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        let routeParam = params.get("albumId");
-        if (routeParam) {
-          let id = Number(routeParam);
-          if (!Number.isNaN(id)) {
-            this.store.dispatch(loadAlbumById({ id }))
-            return this.album$.pipe(
-              filter((album) => album !== null && album.id == id),
-              first(),
-              tap((album) => {
-                if (album?.imageUrl) {
-                  this.computeDominantImgColor(album.imageUrl);
-                }
-              })
-            )
-          }
-        }
-        this.store.dispatch(loadRandomAlbum());
-
-        return combineLatest([
-          this.album$,
-          this.store.select(selectAlbumLoading),
-        ]).pipe(
-          filter(([album, loading]) => !loading && !!album),
-          first(),
-          tap(([album]) => {
-            if (album?.imageUrl) {
-              this.computeDominantImgColor(album.imageUrl);
-              console.log("album data", album);
+    this.route.paramMap
+      .pipe(
+        switchMap((params: ParamMap) => {
+          let routeParam = params.get('albumId');
+          if (routeParam) {
+            let id = Number(routeParam);
+            if (!Number.isNaN(id)) {
+              this.store.dispatch(loadAlbumById({ id }));
+              return this.album$.pipe(
+                filter((album) => album !== null && album.id == id),
+                first(),
+                tap((album) => {
+                  if (album?.imageUrl) {
+                    this.computeDominantImgColor(album.imageUrl);
+                  }
+                }),
+              );
             }
-          })
-        )
-      })
-    ).subscribe()
+          }
+          this.store.dispatch(loadRandomAlbum());
+
+          return combineLatest([this.album$, this.store.select(selectAlbumLoading)]).pipe(
+            filter(([album, loading]) => !loading && !!album),
+            first(),
+            tap(([album]) => {
+              if (album?.imageUrl) {
+                this.computeDominantImgColor(album.imageUrl);
+                console.log('album data', album);
+              }
+            }),
+          );
+        }),
+      )
+      .subscribe();
 
     combineLatest([
       this.store.select(selectLightColorBase),
-      this.store.select(selectDarkColorBase)
+      this.store.select(selectDarkColorBase),
     ]).subscribe(([lightColorBase, darkColorBase]) => {
-      document.documentElement.style.setProperty("--light-color-base", lightColorBase);
-      document.documentElement.style.setProperty("--dark-color-base", darkColorBase);
-    })
+      document.documentElement.style.setProperty('--light-color-base', lightColorBase);
+      document.documentElement.style.setProperty('--dark-color-base', darkColorBase);
+    });
   }
 
   public getArtistString(artists: Artist[]) {
     if (artists.length == 0 || artists == null) {
-      return "";
+      return '';
     }
-    return artists.map((a) => a.name).join(", ");
+    return artists.map((a) => a.name).join(', ');
   }
 
   public getSubgenreString(subgenres: Subgenre[]) {
     if (subgenres.length == 0 || subgenres == null) {
-      return "";
+      return '';
     }
-    return subgenres.join(", ");
+    return subgenres.join(', ');
   }
 
   public getMoodString(moods: Mood[]) {
     if (moods.length == 0 || moods == null) {
-      return "";
+      return '';
     }
-    return moods.map((m) => m.name).join(", ");
+    return moods.map((m) => m.name).join(', ');
   }
 
   public getPercentileString(percentileScore: number) {
-
     var lastDigit = percentileScore % 10;
 
     switch (lastDigit) {
@@ -123,31 +131,30 @@ export class AlbumDetailComponent implements OnInit {
       case 0:
         return `${percentileScore}th`;
       default:
-        return "";
+        return '';
     }
   }
 
   public getProgressBarColor(percentileScore: number): string {
     if (percentileScore > 75) {
-      return "progress-bar-green";
+      return 'progress-bar-green';
     } else if (percentileScore > 60) {
-      return "progress-bar-yellowgreen";
+      return 'progress-bar-yellowgreen';
     } else if (percentileScore > 45) {
-      return "progress-bar-yellow";
+      return 'progress-bar-yellow';
     } else if (percentileScore > 25) {
-      return "progress-bar-orange";
+      return 'progress-bar-orange';
     } else {
-      return "progress-bar-red";
+      return 'progress-bar-red';
     }
   }
 
   public goToArtistDetail(artistId: Number) {
-    this.router.navigate(['artist', artistId])
+    this.router.navigate(['artist', artistId]);
   }
 
   public computeDominantImgColor(imageUrl: string | undefined): Promise<void> {
     return new Promise((resolve, reject) => {
-
       if (imageUrl === undefined || imageUrl === '') {
         reject('Image is null');
       }
@@ -158,26 +165,40 @@ export class AlbumDetailComponent implements OnInit {
       image.src = imageUrl || '';
       image.crossOrigin = 'anonymous';
       image.onload = () => {
-
         if (image.complete && image.naturalHeight !== 0) {
-
           const dominantColor = colorThief.getColor(image); // [r, g, b]
           const complementColor = dominantColor.map((c: number) => 255 - c); // direct complement
 
-          const dominantBrightness = dominantColor.reduce((sum: number, val: number) => sum + val, 0);
-          const complementBrightness = complementColor.reduce((sum: number, val: number) => sum + val, 0);
+          const dominantBrightness = dominantColor.reduce(
+            (sum: number, val: number) => sum + val,
+            0,
+          );
+          const complementBrightness = complementColor.reduce(
+            (sum: number, val: number) => sum + val,
+            0,
+          );
 
           const dominantColorString = `rgb(${dominantColor.join(', ')})`;
           const complementColorString = `rgb(${complementColor.join(', ')})`;
 
-          if (dominantBrightness > complementBrightness) { // higher val is lighter, lower val is darker
-            this.store.dispatch(setColors({ lightColorBase: dominantColorString, darkColorBase: complementColorString }));
+          if (dominantBrightness > complementBrightness) {
+            // higher val is lighter, lower val is darker
+            this.store.dispatch(
+              setColors({
+                lightColorBase: dominantColorString,
+                darkColorBase: complementColorString,
+              }),
+            );
           } else {
-            this.store.dispatch(setColors({ lightColorBase: complementColorString, darkColorBase: dominantColorString }));
+            this.store.dispatch(
+              setColors({
+                lightColorBase: complementColorString,
+                darkColorBase: dominantColorString,
+              }),
+            );
           }
 
-          const luminance =
-            resolve();
+          const luminance = resolve();
         } else {
           console.error('Image failed to load or CORS issue');
           reject();
@@ -187,12 +208,10 @@ export class AlbumDetailComponent implements OnInit {
         console.error('Failed to load image from URL');
         reject();
       };
-    })
+    });
   }
 
-  public isOriginalReleaseResponse (isOriginalRelease: boolean): string {
-    return isOriginalRelease == true ? "Yes"  : "No";
+  public isOriginalReleaseResponse(isOriginalRelease: boolean): string {
+    return isOriginalRelease == true ? 'Yes' : 'No';
   }
 }
-
-

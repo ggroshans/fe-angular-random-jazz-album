@@ -1,5 +1,5 @@
 .album-details__container {
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
   max-height: 90vh;
   padding: 16px;
   margin: 0 auto;
@@ -14,41 +14,26 @@
   position: relative;
 }
 
-.album-content {
-  position: relative;
-  z-index: 10;
-  padding: 24px;
-}
-
-.hero-section {
+.top-container {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  margin-bottom: 24px;
-}
-.album-cover-container{
-    display: flex;
-    flex-direction: column;
-    gap:24px;
-    margin-bottom: 16px;
-    margin-right: 16px;
+  gap: 25px;
+  margin-bottom: 16px;
+  margin-right: 16px;
 }
 
 .album-cover {
   width: 100%;
   height: auto;
   border-radius: 4px;
-  box-shadow: 8px 8px 10px rgba(13, 27, 42, 0.3), -8px -8px 15px rgba(13, 27, 42, 0.3);
+  box-shadow:
+    8px 8px 10px rgba(13, 27, 42, 0.3),
+    -8px -8px 15px rgba(13, 27, 42, 0.3);
 }
 
-.album-info-container {
+.mid-container {
   display: flex;
-  flex-direction: column;
-}
-
-.album-info {
-    display: flex;
-    flex-direction: column;
+  justify-content: center;
 }
 
 .streaming-links-container {
@@ -61,9 +46,12 @@
   height: 1.75rem;
 }
 
-.spotify-link-container, .youtube-music-link-container,
-.youtube-link-container, .pandora-link-container,
-.apple-music-link-container, .amazon-music-link-container {
+.spotify-link-container,
+.youtube-music-link-container,
+.youtube-link-container,
+.pandora-link-container,
+.apple-music-link-container,
+.amazon-music-link-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,19 +63,19 @@
 }
 
 .spotify-link-container:hover {
-  background-color: #1ED760;
+  background-color: #1ed760;
 }
 
 .youtube-music-link-container:hover {
-  background-color: #FF0000;
+  background-color: #ff0000;
 }
 
 .amazon-music-link-container:hover {
-  background-color: #46C3D0;
+  background-color: #46c3d0;
 }
 
 .youtube-link-container:hover {
-  background-color: #FF0000;
+  background-color: #ff0000;
 }
 
 .pandora-link-container:hover {
@@ -95,12 +83,11 @@
 }
 
 .apple-music-link-container:hover {
-  background-color: #FA243C;
+  background-color: #fa243c;
 }
 
-
 .album-title__header {
-  font-family: "Oswald", sans-serif;
+  font-family: 'Oswald', sans-serif;
   font-size: 30px;
   font-weight: 500;
   margin-bottom: 4px;
@@ -111,7 +98,7 @@
 }
 
 .album-year__header {
-  font-size:14px;
+  font-size: 14px;
   margin-top: 0.25rem;
   margin-left: 0.15rem;
   font-style: italic;
@@ -119,15 +106,8 @@
 
 .album-description {
   font-size: 0.75rem;
-  line-height:1.15rem;
+  line-height: 1.15rem;
   margin-bottom: 16px;
-}
-
-.album-details-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin: 10px 16px;
 }
 
 .popularity-section {
@@ -159,7 +139,7 @@
 }
 
 .progress-bar-yellowgreen {
-  background-color:#94d60f;
+  background-color: #94d60f;
 }
 
 .progress-bar-green {
@@ -169,8 +149,8 @@
 .popularity-label span {
   font-weight: 500;
 }
-.popularity-label mat-icon{
-    margin-right: 8px;
+.popularity-label mat-icon {
+  margin-right: 8px;
 }
 
 .divider {
@@ -196,11 +176,10 @@
   display: flex;
   flex-direction: column;
   margin-left: 10px;
-
 }
 
 .section-title {
-  font-family: "Oswald", sans-serif;
+  font-family: 'Oswald', sans-serif;
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 12px;
@@ -208,9 +187,9 @@
 }
 
 .detail-items-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .actions-container {
@@ -219,11 +198,11 @@
 }
 
 .copyright {
-    margin-top: 24px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(0,0,0,0.12);
-    text-align: center;
-    font-size: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  text-align: center;
+  font-size: 12px;
 }
 
 .artist-info-box {
@@ -232,7 +211,6 @@
   padding: 18px;
   position: relative;
   overflow: hidden;
-
 }
 
 .artist-header {
@@ -322,17 +300,14 @@
   font-size: 16px;
 }
 
-
-
-/* Responsive adjustments */
-@media (min-width: 768px) { /* Adjust breakpoint as needed */
-  .hero-section {
-    flex-direction: row; /* Back to row on larger screens */
+@media (min-width: 768px) {
+  .top-container {
+    flex-direction: row;
   }
-  .album-cover-container{
+  .album-cover-container {
     width: 60%;
   }
-  .album-info-container{
+  .album-info-container {
     width: 40%;
   }
 }

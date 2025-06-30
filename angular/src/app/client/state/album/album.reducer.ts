@@ -11,13 +11,13 @@ export interface AlbumState {
 const initialState: AlbumState = {
   album: null,
   loading: false,
-  error: null
-}
+  error: null,
+};
 
 export const albumReducer = createReducer(
   initialState,
 
-  on(AlbumActions.loadRandomAlbum, state => ({
+  on(AlbumActions.loadRandomAlbum, (state) => ({
     ...state,
     loading: true,
     error: null,
@@ -30,16 +30,16 @@ export const albumReducer = createReducer(
     ...state,
     album,
     loading: false,
-    error: null
+    error: null,
   })),
 
   on(AlbumActions.loadRandomAlbumFailure, (state, { error }) => ({
     ...state,
     loading: false,
-    error
+    error,
   })),
 
-  on(AlbumActions.loadAlbumById, state => ({
+  on(AlbumActions.loadAlbumById, (state) => ({
     ...state,
     loading: true,
     error: null,
@@ -52,12 +52,12 @@ export const albumReducer = createReducer(
     ...state,
     album,
     loading: false,
-    error: null
+    error: null,
   })),
 
   on(AlbumActions.loadAlbumByIdFailure, (state, { error }) => ({
     ...state,
     loading: false,
-    error
+    error,
   })),
-)
+);

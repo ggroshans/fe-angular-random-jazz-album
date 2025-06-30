@@ -1,5 +1,5 @@
 /* admin-dashboard.component.scss */
-@import "../../../styles.css";
+@import '../../../styles.css';
 
 .admin-dashboard-container {
   min-height: 100vh;
@@ -14,17 +14,19 @@
 .admin-dashboard-container .admin-dashboard__form-container {
   position: relative;
   border: 4px solid var(--complement-color-8);
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
   padding: 2rem;
   border-radius: 0.75rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
   width: 100%;
   max-width: 24rem;
 }
 
 /* Jazz silhouette picture in background */
 .admin-dashboard__form-container::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -43,7 +45,7 @@
   color: var(--primary-color-base);
   font-size: 1.8rem;
   font-weight: 500;
-  font-family: "Oswald", sans-serif;
+  font-family: 'Oswald', sans-serif;
   text-align: center;
   z-index: 1;
   position: relative;
@@ -75,8 +77,8 @@
 .admin-dashboard__form .mat-mdc-form-field {
   width: 100%;
 }
-.admin-dashboard__form .mat-mdc-form-field .mat-mdc-form-field-flex{
-    background-color: #F9F9F9;
+.admin-dashboard__form .mat-mdc-form-field .mat-mdc-form-field-flex {
+  background-color: #f9f9f9;
 }
 
 /* Placeholder / text when focused */
@@ -86,22 +88,25 @@
 }
 
 /* Placeholder / text when not focused*/
-.admin-dashboard__form .mat-mdc-form-field-flex label mat-label{
-    color: var(--primary-color-base);
+.admin-dashboard__form .mat-mdc-form-field-flex label mat-label {
+  color: var(--primary-color-base);
 }
 /* Placeholder / asterisk when not focused*/
-.admin-dashboard__form .mat-mdc-form-field-flex label .mat-mdc-form-field-required-marker{
-    color: var(--primary-color-base);
+.admin-dashboard__form .mat-mdc-form-field-flex label .mat-mdc-form-field-required-marker {
+  color: var(--primary-color-base);
 }
 
 /* Placeholder / text when focused and it floats to top */
-.admin-dashboard__form .mat-mdc-form-field-flex .mdc-floating-label--float-above mat-label{
-    color: var(--primary-color-base);
+.admin-dashboard__form .mat-mdc-form-field-flex .mdc-floating-label--float-above mat-label {
+  color: var(--primary-color-base);
 }
 
 /* Placeholder / asterisk when focused and it floats to top */
-.admin-dashboard__form .mat-mdc-form-field-flex .mdc-floating-label--float-above .mat-mdc-form-field-required-marker{
-    color: var(--primary-color-base);
+.admin-dashboard__form
+  .mat-mdc-form-field-flex
+  .mdc-floating-label--float-above
+  .mat-mdc-form-field-required-marker {
+  color: var(--primary-color-base);
 }
 
 /* Wrapper for the validation text */
@@ -129,9 +134,9 @@
 }
 
 /* Button disabled */
-.admin-dashboard__form button[mat-raised-button]:disabled{
-    background-color: var(--disabled-color-base); /* Use disabled base color */
-    color: var(--primary-color-base);
+.admin-dashboard__form button[mat-raised-button]:disabled {
+  background-color: var(--disabled-color-base); /* Use disabled base color */
+  color: var(--primary-color-base);
 }
 
 /* Copyright container */

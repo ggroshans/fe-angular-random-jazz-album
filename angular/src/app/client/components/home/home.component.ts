@@ -9,14 +9,13 @@ import { selectLightColorBase } from '../../state/color/color.selectors';
   standalone: false,
 })
 export class HomeComponent {
-  lightColorBase: string = "";
+  lightColorBase: string = '';
 
-  constructor(private store: Store) { }
+  constructor(private store: Store) {}
 
   ngOnInit() {
-    this.store.select(selectLightColorBase).subscribe(
-      (lightColorBase) => {
-        this.lightColorBase = lightColorBase
-      })
+    this.store.select(selectLightColorBase).subscribe((lightColorBase) => {
+      this.lightColorBase = lightColorBase;
+    });
   }
 }

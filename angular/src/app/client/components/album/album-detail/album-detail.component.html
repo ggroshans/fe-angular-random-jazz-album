@@ -1,205 +1,258 @@
-<div *ngIf="albumLoading$ | async ; else albumContent">Loading...</div>
+<div *ngIf="albumLoading$ | async; else albumContent">Loading...</div>
 <div *ngIf="albumError$ | async as ae">ERROR LOADING ALBUM: {{ ae }}</div>
 
 <ng-template #albumContent>
   <div class="album-details__container" *ngIf="album$ | async as album" [@fadeIn]>
-    <mat-card-content class="album-content">
-      <div class="hero-section">
-        <div class="album-cover-container">
-          <img [src]="album.imageUrl || '/placeholder.svg'"
-            [alt]="album.title + ' by ' + getArtistString(album.artists || [])" class="album-cover" />
-                        <div *ngIf="!album.title?.includes(':'); else albumTitleElseBlock">
-              <mat-card-title class="album-title__header">{{ album.title }}</mat-card-title>
-
-
-            </div>
-
-            <ng-template #albumTitleElseBlock>
-              <mat-card-title class="album-title__header">{{ (album.title || '').split(":")[0] + ":" }}</mat-card-title>
-              <mat-card-title class="album-title__header">{{ (album.title || '').split(":")[1] }}</mat-card-title>
-            </ng-template>
-            <mat-card-subtitle class="album-artist__header">{{ getArtistString(album.artists || []) }}</mat-card-subtitle>
-            <mat-card-subtitle class="album-year__header">{{ album.releaseYear }}</mat-card-subtitle>
-
-                                      <p class="album-description">"{{ album.description }}"</p>
+    <div class="top-container">
+      <div class="top-left-section">
+        <img
+          [src]="album.imageUrl || '/placeholder.svg'"
+          [alt]="album.title + ' by ' + getArtistString(album.artists || [])"
+          class="album-cover"
+        />
+      </div>
+      <div class="top-right-section">
+        <div *ngIf="!album.title?.includes(':'); else albumTitleElseBlock">
+          <mat-card-title class="album-title__header">{{ album.title }}</mat-card-title>
         </div>
 
-        <div class="album-info-container">
-          <div class="album-info">
+        <ng-template #albumTitleElseBlock>
+          <mat-card-title class="album-title__header">{{
+            (album.title || '').split(':')[0] + ':'
+          }}</mat-card-title>
+          <mat-card-title class="album-title__header">{{
+            (album.title || '').split(':')[1]
+          }}</mat-card-title>
+        </ng-template>
+        <mat-card-subtitle class="album-artist__header">{{
+          getArtistString(album.artists || [])
+        }}</mat-card-subtitle>
+        <mat-card-subtitle class="album-year__header">{{ album.releaseYear }}</mat-card-subtitle>
 
-            <div class="streaming-links-container">
-              <a *ngIf="album.spotifyId" class="spotify-link-container"
-                [href]="'https://open.spotify.com/album/' + album.spotifyId" target="_blank">
-                <img class="streaming-link" src="assets/brands/spotify.svg" alt="">
-              </a>
-              <a *ngIf="album.youtubeId" class="youtube-music-link-container"
-                [href]="'https://music.youtube.com/playlist?list=' + album.youtubeId" target="_blank">
-                <img class="streaming-link" src="assets/brands/youtubemusic.svg" alt="">
-              </a>
-              <a *ngIf="album.amazonMusicId" class="amazon-music-link-container"
-                [href]="'https://music.amazon.com/albums/' + album.amazonMusicId" target="_blank">
-                <img class="streaming-link" src="assets/brands/amazonmusic.svg" alt="">
-              </a>
-              <a *ngIf="album.youtubeId" class="youtube-link-container"
-                [href]="'https://www.youtube.com/playlist?list=' + album.youtubeId" target="_blank">
-                <img class="streaming-link" src="assets/brands/youtube.svg" alt="">
-              </a>
-              <a *ngIf="album.pandoraId" class="pandora-link-container"
-                [href]="'https://www.pandora.com/'+ album.pandoraId" target="_blank">
-                <img class="streaming-link" src="assets/brands/pandora.svg" alt="">
-              </a>
-              <a *ngIf="album.appleMusicId" class="apple-music-link-container"
-                [href]="'https://geo.music.apple.com/us/album/_/' + album.appleMusicId + '?mt=1&app=music&ls=1&at=1000lHKX&ct=api_http&itscg=30200&itsct=odsl_m'"
-                target="_blank">
-                <img class="streaming-link" src="assets/brands/applemusic.svg" alt="">
-              </a>
-            </div>
+        <p class="album-description">"{{ album.description }}"</p>
 
+        <div class="streaming-links-container">
+          <a
+            *ngIf="album.spotifyId"
+            class="spotify-link-container"
+            [href]="'https://open.spotify.com/album/' + album.spotifyId"
+            target="_blank"
+          >
+            <img class="streaming-link" src="assets/brands/spotify.svg" alt="" />
+          </a>
+          <a
+            *ngIf="album.youtubeId"
+            class="youtube-music-link-container"
+            [href]="'https://music.youtube.com/playlist?list=' + album.youtubeId"
+            target="_blank"
+          >
+            <img class="streaming-link" src="assets/brands/youtubemusic.svg" alt="" />
+          </a>
+          <a
+            *ngIf="album.amazonMusicId"
+            class="amazon-music-link-container"
+            [href]="'https://music.amazon.com/albums/' + album.amazonMusicId"
+            target="_blank"
+          >
+            <img class="streaming-link" src="assets/brands/amazonmusic.svg" alt="" />
+          </a>
+          <a
+            *ngIf="album.youtubeId"
+            class="youtube-link-container"
+            [href]="'https://www.youtube.com/playlist?list=' + album.youtubeId"
+            target="_blank"
+          >
+            <img class="streaming-link" src="assets/brands/youtube.svg" alt="" />
+          </a>
+          <a
+            *ngIf="album.pandoraId"
+            class="pandora-link-container"
+            [href]="'https://www.pandora.com/' + album.pandoraId"
+            target="_blank"
+          >
+            <img class="streaming-link" src="assets/brands/pandora.svg" alt="" />
+          </a>
+          <a
+            *ngIf="album.appleMusicId"
+            class="apple-music-link-container"
+            [href]="
+              'https://geo.music.apple.com/us/album/_/' +
+              album.appleMusicId +
+              '?mt=1&app=music&ls=1&at=1000lHKX&ct=api_http&itscg=30200&itsct=odsl_m'
+            "
+            target="_blank"
+          >
+            <img class="streaming-link" src="assets/brands/applemusic.svg" alt="" />
+          </a>
+        </div>
+      </div>
+    </div>
 
-            <div>
-             <mat-accordion multi="false" class="album-details-accordion">
+    <div class="mid-container">
+      <div class="mid-left-section">
+        <mat-accordion multi="false" class="album-details-accordion">
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>Orig. Studio Release?</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+              {{ isOriginalReleaseResponse(album.isOriginalRelease) || '' }}
+            </p>
+          </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Orig. Studio Release?</mat-panel-title>
-    </mat-expansion-panel-header>
-    <p>{{ isOriginalReleaseResponse(album.isOriginalRelease) || '' }}</p>
-  </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Genres</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>{{ album.genres?.join(', ') || '' }}</p>
+          </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Genres</mat-panel-title>
-    </mat-expansion-panel-header>
-    <p>{{ album.genres?.join(', ') || '' }}</p>
-  </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Subgenres</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>{{ getSubgenreString(album.subgenres || []) }}</p>
+          </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Subgenres</mat-panel-title>
-    </mat-expansion-panel-header>
-    <p>{{ getSubgenreString(album.subgenres || []) }}</p>
-  </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Tracks</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>{{ album.totalTracks?.toString() || '' }}</p>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <div class="mid-right-section">
+        <mat-accordion multi="false" class="album-details-accordion">
+          <mat-expansion-panel expanded="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>Theme</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>{{ album.theme || '' }}</p>
+          </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Tracks</mat-panel-title>
-    </mat-expansion-panel-header>
-    <p>{{ album.totalTracks?.toString() || '' }}</p>
-  </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Label</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>{{ album.label || '' }}</p>
+          </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Theme</mat-panel-title>
-    </mat-expansion-panel-header>
-    <p>{{ album.theme || '' }}</p>
-  </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Mood</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>{{ getMoodString(album.moods || []) || '' }}</p>
+          </mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Label</mat-panel-title>
-    </mat-expansion-panel-header>
-    <p>{{ album.label || '' }}</p>
-  </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Album #</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>{{ album.label || '' }}</p>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Mood</mat-panel-title>
-    </mat-expansion-panel-header>
-    <p>{{ getMoodString(album.moods || []) || '' }}</p>
-  </mat-expansion-panel>
+    <mat-divider class="divider"></mat-divider>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Album #</mat-panel-title>
-    </mat-expansion-panel-header>
-    <p>{{ album.label || '' }}</p>
-  </mat-expansion-panel>
+    <div class="additional-details-grid">
+      <div class="additional-details__left">
+        <!-- <div class="detail-items-container"> -->
+        <!-- </div> -->
 
-</mat-accordion>
+        <div class="popularity-section">
+          <div class="popularity-label">
+            <mat-icon>bar_chart</mat-icon>
+            <span>Emotion Score: {{ getPercentileString(album.percentileScore || 0) }}</span>
+          </div>
+          <div class="progress-bar-container">
+            <div
+              [class]="getProgressBarColor(album.percentileScore || 0)"
+              [ngStyle]="{
+                width: album.percentileScore + '%',
+                height: '0.5rem',
+              }"
+            ></div>
+          </div>
 
- 
-            </div>
+          <div class="popularity-label">
+            <mat-icon>bar_chart</mat-icon>
+            <span>Energy Score: {{ getPercentileString(album.percentileScore || 0) }}</span>
+          </div>
+          <div class="progress-bar-container">
+            <div
+              [class]="getProgressBarColor(album.percentileScore || 0)"
+              [ngStyle]="{
+                width: album.percentileScore + '%',
+                height: '0.5rem',
+              }"
+            ></div>
+          </div>
 
+          <div class="popularity-label">
+            <mat-icon>bar_chart</mat-icon>
+            <span>Percentile Score: {{ getPercentileString(album.percentileScore || 0) }}</span>
+          </div>
+          <div class="progress-bar-container">
+            <div
+              [class]="getProgressBarColor(album.percentileScore || 0)"
+              [ngStyle]="{
+                width: album.percentileScore + '%',
+                height: '0.5rem',
+              }"
+            ></div>
           </div>
         </div>
       </div>
-
-      <mat-divider class="divider"></mat-divider>
-
-      <div class="additional-details-grid">
-        <div class="additional-details__left">
-
-          <!-- <div class="detail-items-container"> -->
-         <!-- </div> -->
-
-            <div class="popularity-section">
-              <div class="popularity-label">
-                <mat-icon>bar_chart</mat-icon>
-                <span>Emotion Score: {{ getPercentileString(album.percentileScore || 0) }}</span>
-              </div>
-              <div class="progress-bar-container">
-                <div [class]="getProgressBarColor(album.percentileScore || 0)"
-                  [ngStyle]="{'width': album.percentileScore + '%', 'height': '0.5rem'}"></div>
-              </div>
-
-                            <div class="popularity-label">
-                <mat-icon>bar_chart</mat-icon>
-                <span>Energy Score: {{ getPercentileString(album.percentileScore || 0) }}</span>
-              </div>
-              <div class="progress-bar-container">
-                <div [class]="getProgressBarColor(album.percentileScore || 0)"
-                  [ngStyle]="{'width': album.percentileScore + '%', 'height': '0.5rem'}"></div>
-              </div>
-
-                            <div class="popularity-label">
-                <mat-icon>bar_chart</mat-icon>
-                <span>Percentile Score: {{ getPercentileString(album.percentileScore || 0) }}</span>
-              </div>
-              <div class="progress-bar-container">
-                <div [class]="getProgressBarColor(album.percentileScore || 0)"
-                  [ngStyle]="{'width': album.percentileScore + '%', 'height': '0.5rem'}"></div>
-              </div>
+      <div class="additional-details__right">
+        <div class="artist-info-box" *ngIf="album.artists && album.artists.length > 0">
+          <div class="artist-header">
+            <div>Artist</div>
+          </div>
+          <div class="artist-content">
+            <div class="artist-image-container">
+              <img
+                [src]="album.artists[0].imageUrl || '/placeholder.svg'"
+                [alt]="album.artists[0].name"
+                class="artist-image"
+              />
             </div>
-        </div>
-        <div class="additional-details__right">
-
-          <div class="artist-info-box" *ngIf="album.artists && album.artists.length > 0">
-            <div class="artist-header">
-              <div>Artist</div>
-            </div>
-            <div class="artist-content">
-              <div class="artist-image-container">
-                <img [src]="album.artists[0].imageUrl || '/placeholder.svg'" [alt]="album.artists[0].name"
-                  class="artist-image">
-              </div>
-              <div class="artist-details">
-                <h4 class="artist-name">{{ album.artists[0].name }}</h4>
-                <div class="artist-popularity">
-                  <mat-icon>bar_chart</mat-icon>
-                  <div class="progress-bar-container">
-                    <div [class]="getProgressBarColor(album.artists[0].percentileScore)"
-                      [ngStyle]="{'width': album.artists[0].percentileScore + '%', 'height': '0.25rem'}"></div>
-                  </div>
-                  <span class="artist-popularity-score">{{ album.artists[0].percentileScore }}%</span>
+            <div class="artist-details">
+              <h4 class="artist-name">{{ album.artists[0].name }}</h4>
+              <div class="artist-popularity">
+                <mat-icon>bar_chart</mat-icon>
+                <div class="progress-bar-container">
+                  <div
+                    [class]="getProgressBarColor(album.artists[0].percentileScore)"
+                    [ngStyle]="{
+                      width: album.artists[0].percentileScore + '%',
+                      height: '0.25rem',
+                    }"
+                  ></div>
                 </div>
-                <p class="artist-bio">{{ album.artists[0].biography }}</p>
+                <span class="artist-popularity-score">{{ album.artists[0].percentileScore }}%</span>
               </div>
+              <p class="artist-bio">{{ album.artists[0].biography }}</p>
             </div>
-          
-            <button (click)="goToArtistDetail(album.artists[0].id)" mat-stroked-button class="view-profile-button">
-              View Artist Profile
-              <span class="view-profile-button__icon material-icons">
-                subdirectory_arrow_right
-              </span>
-            </button>
           </div>
 
-          <div class="actions-container">
-            <button mat-raised-button color="accent">Add to Collection</button>
-            <button mat-stroked-button>Share Album</button>
-          </div>
+          <button
+            (click)="goToArtistDetail(album.artists[0].id)"
+            mat-stroked-button
+            class="view-profile-button"
+          >
+            View Artist Profile
+            <span class="view-profile-button__icon material-icons"> subdirectory_arrow_right </span>
+          </button>
+        </div>
+
+        <div class="actions-container">
+          <button mat-raised-button color="accent">Add to Collection</button>
+          <button mat-stroked-button>Share Album</button>
         </div>
       </div>
-    </mat-card-content>
+    </div>
   </div>
 </ng-template>

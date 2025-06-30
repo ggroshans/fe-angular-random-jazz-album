@@ -1,7 +1,6 @@
 /* Global Stylesheet */
 
 :root {
-
   --primary-black-color: #212529;
 
   /* --primary-color-base: rgba(13, 27, 42, 1);
@@ -52,5 +51,11 @@
   --error-color-darker-2: rgba(175, 46, 46, 1); */
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
