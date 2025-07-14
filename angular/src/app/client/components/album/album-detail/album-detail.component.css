@@ -34,6 +34,7 @@
 .mid-container {
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 .streaming-links-container {
@@ -302,6 +303,9 @@
 
 @media (min-width: 768px) {
   .top-container {
+    flex-direction: row;
+  }
+  .mid-container {
     flex-direction: row;
   }
   .album-cover-container {
