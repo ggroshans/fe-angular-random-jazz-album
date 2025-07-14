@@ -149,6 +149,20 @@ export class AlbumDetailComponent implements OnInit {
     }
   }
 
+  public getScoreColor(percentileScore: number): string {
+    if (percentileScore > 75) {
+      return 'progress-bar-green';
+    } else if (percentileScore > 60) {
+      return 'progress-bar-yellowgreen';
+    } else if (percentileScore > 45) {
+      return 'progress-bar-yellow';
+    } else if (percentileScore > 25) {
+      return 'progress-bar-orange';
+    } else {
+      return 'progress-bar-red';
+    }
+  }
+
   public goToArtistDetail(artistId: Number) {
     this.router.navigate(['artist', artistId]);
   }

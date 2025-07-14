@@ -26,6 +26,8 @@ export interface Album {
   moods?: Mood[]; // Gpt Api
   isOriginalRelease: boolean;
   percentileScore?: number; // Computed from => popularityScore         --field!
+  emotionScore?: number; // Computed
+  energyScore?: number; // Computed
 
   // jazzEras?: string[]; // explicit // Computed from => releaseYear             --field!
   // averageEmotionScore?: number; // Computed                                    --field
