@@ -28,6 +28,7 @@ export interface Album {
   percentileScore?: number; // Computed from => popularityScore         --field!
   emotionScore?: number; // Computed
   energyScore?: number; // Computed
+  sortableDate: number; // Computed using utility method
 
   // jazzEras?: string[]; // explicit // Computed from => releaseYear             --field!
   // averageEmotionScore?: number; // Computed                                    --field
