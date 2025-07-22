@@ -17,6 +17,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import {
   selectDarkColorBase,
   selectLightColorBase,
+  selectTertiaryColor,
 } from 'src/app/client/state/color/color.selectors';
 
 @Component({
@@ -85,9 +86,11 @@ export class AlbumDetailComponent implements OnInit {
     combineLatest([
       this.store.select(selectLightColorBase),
       this.store.select(selectDarkColorBase),
-    ]).subscribe(([lightColorBase, darkColorBase]) => {
+      this.store.select(selectTertiaryColor),
+    ]).subscribe(([lightColorBase, darkColorBase, tertiaryColor]) => {
       document.documentElement.style.setProperty('--light-color-base', lightColorBase);
       document.documentElement.style.setProperty('--dark-color-base', darkColorBase);
+      document.documentElement.style.setProperty('--tertiary-color', tertiaryColor);
     });
   }
 
@@ -151,15 +154,15 @@ export class AlbumDetailComponent implements OnInit {
 
   public getScoreColor(percentileScore: number): string {
     if (percentileScore > 75) {
-      return 'progress-bar-green';
+      return 'text-green';
     } else if (percentileScore > 60) {
-      return 'progress-bar-yellowgreen';
+      return 'text-yellowgreen';
     } else if (percentileScore > 45) {
-      return 'progress-bar-yellow';
+      return 'text-yellow';
     } else if (percentileScore > 25) {
-      return 'progress-bar-orange';
+      return 'text-orange';
     } else {
-      return 'progress-bar-red';
+      return 'text-red';
     }
   }
 
@@ -180,34 +183,42 @@ export class AlbumDetailComponent implements OnInit {
       image.crossOrigin = 'anonymous';
       image.onload = () => {
         if (image.complete && image.naturalHeight !== 0) {
-          const dominantColor = colorThief.getColor(image); // [r, g, b]
-          const complementColor = dominantColor.map((c: number) => 255 - c); // direct complement
+          const albumColors = colorThief.getPalette(image, 3); // [r, g, b]
+
+          const dominantColor = albumColors[0];
+          // const complementColor = dominantColor.map((c: number) => 255 - c); // direct complement
+          const secondaryColor = albumColors[1];
+          const tertiaryColor = albumColors[2];
 
           const dominantBrightness = dominantColor.reduce(
             (sum: number, val: number) => sum + val,
             0,
           );
-          const complementBrightness = complementColor.reduce(
+
+          const secondDominantColorBrightness = secondaryColor.reduce(
             (sum: number, val: number) => sum + val,
             0,
           );
 
           const dominantColorString = `rgb(${dominantColor.join(', ')})`;
-          const complementColorString = `rgb(${complementColor.join(', ')})`;
+          const secondaryColorString = `rgb(${secondaryColor.join(', ')})`;
+          const tertiaryColorString = `rgb(${tertiaryColor.join(', ')})`;
 
-          if (dominantBrightness > complementBrightness) {
+          if (dominantBrightness > secondaryColor) {
             // higher val is lighter, lower val is darker
             this.store.dispatch(
               setColors({
                 lightColorBase: dominantColorString,
-                darkColorBase: complementColorString,
+                darkColorBase: secondaryColorString,
+                tertiaryColor: tertiaryColorString,
               }),
             );
           } else {
             this.store.dispatch(
               setColors({
-                lightColorBase: complementColorString,
+                lightColorBase: secondaryColorString,
                 darkColorBase: dominantColorString,
+                tertiaryColor: tertiaryColorString,
               }),
             );
           }

@@ -9,3 +9,5 @@ export const selectLightColorBase = createSelector(
 );
 
 export const selectDarkColorBase = createSelector(selectColorState, (state) => state.darkColorBase);
+
+export const selectTertiaryColor = createSelector(selectColorState, (state) => state.tertiaryColor);
