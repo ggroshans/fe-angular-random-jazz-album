@@ -1,326 +1,348 @@
-<div class="album-details-page">
-  <div *ngIf="albumLoading$ | async" class="loading-container">
-    <div class="spinner"></div>
-    <p>Loading album...</p>
-  </div>
+<div class="album-details-outer-container">
+  <div class="album-details-inner-container">
+    <div class="album-details-page">
+      <div *ngIf="albumLoading$ | async" class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading album...</p>
+      </div>
 
-  <div *ngIf="albumError$ | async as error" class="error-container">
-    <div class="error-card">
-      <p class="error-message">Error loading album: {{ error }}</p>
-      <!-- <button mat-stroked-button (click)="retryLoad()">Try Again</button> -->
-    </div>
-  </div>
-
-  <div class="container" *ngIf="album$ | async as album" [@fadeIn]>
-    <div class="hero-section">
-      <div class="album-cover-container">
-        <div class="album-cover-group">
-          <img
-            [src]="album.imageUrl || '/placeholder.svg'"
-            [alt]="album.title + ' by ' + getArtistString(album.artists || [])"
-            class="album-cover-image"
-          />
-          <div class="album-cover-overlay">
-            <button class="play-button">
-              <mat-icon>play_arrow</mat-icon>
-            </button>
-          </div>
+      <div *ngIf="albumError$ | async as error" class="error-container">
+        <div class="error-card">
+          <p class="error-message">Error loading album: {{ error }}</p>
+          <!-- <button mat-stroked-button (click)="retryLoad()">Try Again</button> -->
         </div>
       </div>
 
-      <div class="album-info-container">
-        <div>
-          <div class="badge-group">
-            <span class="badge badge-secondary">
-              <mat-icon class="badge-icon">album</mat-icon>
-              Album
-            </span>
-            <span class="badge badge-outline">
-              <mat-icon class="badge-icon">calendar_today</mat-icon>
-              {{ album.sortableDate.toString().substring(0, 4) }}
-            </span>
-          </div>
-
-          <h1 class="album-title">
-            <ng-container *ngIf="album.title?.includes(':'); else singleLineTitle">
-              <span class="title-part1">{{ (album.title || '').split(':')[0] }}:</span>
-              <span class="title-part2">{{ (album.title || '').split(':')[1] }}</span>
-            </ng-container>
-            <ng-template #singleLineTitle>{{ album.title }}</ng-template>
-          </h1>
-
-          <p class="artist-name">by {{ getArtistString(album.artists || []) }}</p>
-          <p class="album-description">"{{ album.description }}"</p>
-        </div>
-
-        <div class="streaming-links">
-          <a
-            *ngIf="album.spotifyId"
-            class="streaming-button hover-spotify"
-            [href]="'https://open.spotify.com/album/' + album.spotifyId"
-            target="_blank"
-          >
-            <img class="streaming-icon" src="assets/brands/spotify.svg" alt="Spotify" />
-          </a>
-          <a
-            *ngIf="album.youtubeId"
-            class="streaming-button hover-youtube-music"
-            [href]="'https://music.youtube.com/playlist?list=' + album.youtubeId"
-            target="_blank"
-          >
-            <img class="streaming-icon" src="assets/brands/youtubemusic.svg" alt="YouTube Music" />
-          </a>
-          <a
-            *ngIf="album.amazonMusicId"
-            class="streaming-button hover-youtube-music"
-            [href]="'https://music.amazon.com/albums/' + album.amazonMusicId"
-            target="_blank"
-          >
-            <img class="streaming-icon" src="assets/brands/amazonmusic.svg" alt="Amazon Music" />
-          </a>
-          <a
-            *ngIf="album.youtubeId"
-            class="streaming-button hover-youtube"
-            [href]="'https://www.youtube.com/playlist?list=' + album.youtubeId"
-            target="_blank"
-          >
-            <img class="streaming-icon" src="assets/brands/youtube.svg" alt="YouTube" />
-          </a>
-          <a
-            *ngIf="album.pandoraId"
-            class="streaming-button hover-pandora"
-            [href]="'https://www.pandora.com/' + album.pandoraId"
-            target="_blank"
-          >
-            <img class="streaming-icon" src="assets/brands/pandora.svg" alt="Pandora" />
-          </a>
-          <a
-            *ngIf="album.appleMusicId"
-            class="streaming-button hover-apple-music"
-            [href]="
-              'https://geo.music.apple.com/us/album/_/' +
-              album.appleMusicId +
-              '?mt=1&app=music&ls=1&at=1000lHKX&ct=api_http&itscg=30200&itsct=odsl_m'
-            "
-            target="_blank"
-          >
-            <img class="streaming-icon" src="assets/brands/applemusic.svg" alt="Apple Music" />
-          </a>
-        </div>
-
-        <div class="scores-grid">
-          <div class="score-card">
-            <div class="score-card-content">
-              <div class="score-header">
-                <div class="score-label">
-                  <mat-icon class="score-icon text-blue">trending_up</mat-icon>
-                  <span>Percentile</span>
-                </div>
-                <span class="score-value" [ngClass]="getScoreColor(album.percentileScore || 0)"
-                  >{{ album.percentileScore }}%</span
-                >
-              </div>
-              <div class="progress-bar">
-                <div
-                  class="progress-fill"
-                  [style.width]="(album.percentileScore || 0) + '%'"
-                  [ngClass]="getProgressBarColor(album.percentileScore || 0)"
-                ></div>
-              </div>
-            </div>
-          </div>
-          <div class="score-card">
-            <div class="score-card-content">
-              <div class="score-header">
-                <div class="score-label">
-                  <mat-icon class="score-icon text-red">favorite</mat-icon>
-                  <span>Emotion</span>
-                </div>
-                <span class="score-value" [ngClass]="getScoreColor(album.emotionScore || 0)"
-                  >{{ album.emotionScore }}%</span
-                >
-              </div>
-              <div class="progress-bar">
-                <div
-                  class="progress-fill"
-                  [style.width]="(album.emotionScore || 0) + '%'"
-                  [ngClass]="getProgressBarColor(album.emotionScore || 0)"
-                ></div>
-              </div>
-            </div>
-          </div>
-          <div class="score-card">
-            <div class="score-card-content">
-              <div class="score-header">
-                <div class="score-label">
-                  <mat-icon class="score-icon text-yellow">bolt</mat-icon>
-                  <span>Energy</span>
-                </div>
-                <span class="score-value" [ngClass]="getScoreColor(album.energyScore || 0)"
-                  >{{ album.energyScore }}%</span
-                >
-              </div>
-              <div class="progress-bar">
-                <div
-                  class="progress-fill"
-                  [style.width]="(album.energyScore || 0) + '%'"
-                  [ngClass]="getProgressBarColor(album.energyScore || 0)"
-                ></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="action-buttons">
-          <button mat-raised-button color="primary" class="action-button">
-            <mat-icon>favorite_border</mat-icon>
-            Add to Collection
-          </button>
-          <button mat-stroked-button class="action-button">
-            <mat-icon>share</mat-icon>
-            Share Album
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <mat-tab-group animationDuration="0ms">
-      <mat-tab label="Album Details">
-        <div class="tab-content">
-          <div class="details-grid">
-            <div class="details-card">
-              <div class="details-card-header">
-                <mat-icon>tag</mat-icon>
-                <span>Album Information</span>
-              </div>
-              <div class="details-card-content">
-                <div class="detail-item">
-                  <span>Original Release</span
-                  ><span class="font-medium">{{
-                    isOriginalReleaseResponse(album.isOriginalRelease)
-                  }}</span>
-                </div>
-                <hr />
-                <div class="detail-item">
-                  <span>Total Tracks</span><span class="font-medium">{{ album.totalTracks }}</span>
-                </div>
-                <hr />
-                <div class="detail-item">
-                  <span>Label</span><span class="font-medium">{{ album.label }}</span>
-                </div>
-                <hr />
-                <div class="detail-item">
-                  <span>Theme</span><span class="font-medium text-right">{{ album.theme }}</span>
-                </div>
-              </div>
-            </div>
-            <div class="details-card">
-              <div class="details-card-header">
-                <mat-icon>music_note</mat-icon>
-                <span>Musical Style</span>
-              </div>
-              <div class="details-card-content">
-                <div>
-                  <span class="detail-label">Genres</span>
-                  <div class="badge-group">
-                    <span *ngFor="let genre of album.genres" class="badge badge-secondary">{{
-                      genre
-                    }}</span>
-                  </div>
-                </div>
-                <hr />
-                <div>
-                  <span class="detail-label">Subgenres</span>
-                  <div class="badge-group">
-                    <span *ngFor="let subgenre of album.subgenres" class="badge badge-outline">{{
-                      subgenre
-                    }}</span>
-                  </div>
-                </div>
-                <hr />
-                <div>
-                  <span class="detail-label">Moods</span>
-                  <div class="badge-group">
-                    <span *ngFor="let mood of album.moods" class="badge badge-purple">{{
-                      mood
-                    }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </mat-tab>
-
-      <mat-tab label="Artist Info">
-        <div class="tab-content" *ngIf="album.artists && album.artists.length > 0">
-          <div class="artist-card">
-            <div class="artist-card-content">
+      <div class="container" *ngIf="album$ | async as album" [@fadeIn]>
+        <div class="hero-section">
+          <div class="album-cover-container">
+            <div class="album-cover-group">
               <img
-                [src]="album.artists[0].imageUrl || '/placeholder.svg'"
-                [alt]="album.artists[0].name"
-                class="artist-avatar"
+                [src]="album.imageUrl || '/placeholder.svg'"
+                [alt]="album.title + ' by ' + getArtistString(album.artists || [])"
+                class="album-cover-image"
               />
-              <div class="artist-details">
-                <h3 class="artist-main-name">{{ album.artists[0].name }}</h3>
-                <div class="artist-popularity">
-                  <mat-icon class="artist-popularity-icon">bar_chart</mat-icon>
-                  <span class="artist-popularity-label">Popularity Score</span>
-                  <div class="artist-progress-bar">
-                    <div
-                      class="progress-fill"
-                      [style.width]="album.artists[0].percentileScore + '%'"
-                      [ngClass]="getProgressBarColor(album.artists[0].percentileScore)"
-                    ></div>
-                  </div>
-                  <span class="artist-popularity-score"
-                    >{{ album.artists[0].percentileScore }}%</span
-                  >
-                </div>
-                <p class="artist-bio">{{ album.artists[0].biography }}</p>
-                <button mat-stroked-button (click)="goToArtistDetail(album.artists[0].id)">
-                  <mat-icon>group</mat-icon>
-                  View Artist Profile
+              <div class="album-cover-overlay">
+                <button class="play-button">
+                  <mat-icon>play_arrow</mat-icon>
                 </button>
               </div>
             </div>
           </div>
-        </div>
-      </mat-tab>
 
-      <mat-tab label="Analysis">
-        <div class="tab-content">
-          <div class="analysis-grid">
-            <div class="analysis-card">
-              <div class="analysis-icon-wrapper bg-blue">
-                <mat-icon class="analysis-icon">trending_up</mat-icon>
+          <div class="album-info-container">
+            <div>
+              <div class="badge-group">
+                <span class="badge badge-secondary">
+                  <mat-icon class="badge-icon">album</mat-icon>
+                  Album
+                </span>
+                <span class="badge badge-outline">
+                  <mat-icon class="badge-icon">calendar_today</mat-icon>
+                  {{ album.sortableDate.toString().substring(0, 4) }}
+                </span>
               </div>
-              <h3 class="analysis-title">Percentile Score</h3>
-              <p class="analysis-score text-blue">{{ album.percentileScore }}%</p>
-              <p class="analysis-description">
-                This album ranks in the top {{ 100 - (album.percentileScore || 100) }}% of all
-                albums.
-              </p>
+
+              <h1 class="album-title">
+                <ng-container *ngIf="album.title?.includes(':'); else singleLineTitle">
+                  <span class="title-part1">{{ (album.title || '').split(':')[0] }}:</span>
+                  <span class="title-part2">{{ (album.title || '').split(':')[1] }}</span>
+                </ng-container>
+                <ng-template #singleLineTitle>{{ album.title }}</ng-template>
+              </h1>
+
+              <p class="artist-name">by {{ getArtistString(album.artists || []) }}</p>
+              <p class="album-description">"{{ album.description }}"</p>
             </div>
-            <div class="analysis-card">
-              <div class="analysis-icon-wrapper bg-red">
-                <mat-icon class="analysis-icon">favorite</mat-icon>
-              </div>
-              <h3 class="analysis-title">Emotion Score</h3>
-              <p class="analysis-score text-red">{{ album.emotionScore }}%</p>
-              <p class="analysis-description">High emotional resonance and depth.</p>
+
+            <div class="streaming-links">
+              <a
+                *ngIf="album.spotifyId"
+                class="streaming-button hover-spotify"
+                [href]="'https://open.spotify.com/album/' + album.spotifyId"
+                target="_blank"
+              >
+                <img class="streaming-icon" src="assets/brands/spotify.svg" alt="Spotify" />
+              </a>
+              <a
+                *ngIf="album.youtubeId"
+                class="streaming-button hover-youtube-music"
+                [href]="'https://music.youtube.com/playlist?list=' + album.youtubeId"
+                target="_blank"
+              >
+                <img
+                  class="streaming-icon"
+                  src="assets/brands/youtubemusic.svg"
+                  alt="YouTube Music"
+                />
+              </a>
+              <a
+                *ngIf="album.amazonMusicId"
+                class="streaming-button hover-amazon-music"
+                [href]="'https://music.amazon.com/albums/' + album.amazonMusicId"
+                target="_blank"
+              >
+                <img
+                  class="streaming-icon"
+                  src="assets/brands/amazonmusic.svg"
+                  alt="Amazon Music"
+                />
+              </a>
+              <a
+                *ngIf="album.youtubeId"
+                class="streaming-button hover-youtube"
+                [href]="'https://www.youtube.com/playlist?list=' + album.youtubeId"
+                target="_blank"
+              >
+                <img class="streaming-icon" src="assets/brands/youtube.svg" alt="YouTube" />
+              </a>
+              <a
+                *ngIf="album.pandoraId"
+                class="streaming-button hover-pandora"
+                [href]="'https://www.pandora.com/' + album.pandoraId"
+                target="_blank"
+              >
+                <img class="streaming-icon" src="assets/brands/pandora.svg" alt="Pandora" />
+              </a>
+              <a
+                *ngIf="album.appleMusicId"
+                class="streaming-button hover-apple-music"
+                [href]="
+                  'https://geo.music.apple.com/us/album/_/' +
+                  album.appleMusicId +
+                  '?mt=1&app=music&ls=1&at=1000lHKX&ct=api_http&itscg=30200&itsct=odsl_m'
+                "
+                target="_blank"
+              >
+                <img class="streaming-icon" src="assets/brands/applemusic.svg" alt="Apple Music" />
+              </a>
             </div>
-            <div class="analysis-card">
-              <div class="analysis-icon-wrapper bg-yellow">
-                <mat-icon class="analysis-icon">bolt</mat-icon>
+
+            <div class="scores-grid">
+              <div class="score-card">
+                <div class="score-card-content">
+                  <div class="score-header">
+                    <div class="score-label">
+                      <mat-icon class="score-icon text-blue">trending_up</mat-icon>
+                      <span>Popularity Rating</span>
+                    </div>
+                    <span
+                      class="score-value"
+                      [ngClass]="getScoreColor(album.popularityScore || 0)"
+                      >{{ album.popularityScore }}</span
+                    >
+                  </div>
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill"
+                      [style.width]="(album.popularityScore || 0) + '%'"
+                      [ngClass]="getProgressBarColor(album.popularityScore || 0)"
+                    ></div>
+                  </div>
+                </div>
               </div>
-              <h3 class="analysis-title">Energy Score</h3>
-              <p class="analysis-score text-yellow">{{ album.energyScore }}%</p>
-              <p class="analysis-description">Moderate to high energy levels throughout.</p>
+              <div class="score-card">
+                <div class="score-card-content">
+                  <div class="score-header">
+                    <div class="score-label">
+                      <mat-icon class="score-icon text-red">favorite</mat-icon>
+                      <span>Emotional Tone</span>
+                    </div>
+                    <span
+                      class="score-value"
+                      [ngClass]="getScoreColor(album.averageEmotionalTone || 0)"
+                      >{{ album.averageEmotionalTone }}</span
+                    >
+                  </div>
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill"
+                      [style.width]="(album.averageEmotionalTone || 0) + '%'"
+                      [ngClass]="getProgressBarColor(album.averageEmotionalTone || 0)"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <div class="score-card">
+                <div class="score-card-content">
+                  <div class="score-header">
+                    <div class="score-label">
+                      <mat-icon class="score-icon text-yellow">bolt</mat-icon>
+                      <span>Energy Level</span>
+                    </div>
+                    <span
+                      class="score-value"
+                      [ngClass]="getScoreColor(album.averageEnergyLevel || 0)"
+                      >{{ album.averageEnergyLevel }}</span
+                    >
+                  </div>
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill"
+                      [style.width]="(album.averageEnergyLevel || 0) + '%'"
+                      [ngClass]="getProgressBarColor(album.averageEnergyLevel || 0)"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="action-buttons">
+              <button mat-raised-button color="primary" class="action-button">
+                <mat-icon>favorite_border</mat-icon>
+                Add to Collection
+              </button>
+              <button mat-stroked-button class="action-button">
+                <mat-icon>share</mat-icon>
+                Share Album
+              </button>
             </div>
           </div>
         </div>
-      </mat-tab>
-    </mat-tab-group>
+
+        <mat-tab-group animationDuration="0ms">
+          <mat-tab label="Album Details">
+            <div class="tab-content">
+              <div class="details-grid">
+                <div class="details-card">
+                  <div class="details-card-header">
+                    <mat-icon class="">album</mat-icon>
+                    <span>Album Information</span>
+                  </div>
+                  <div class="details-card-content">
+                    <div class="detail-item">
+                      <span>Original Release</span
+                      ><span class="font-medium">{{
+                        isOriginalReleaseResponse(album.isOriginalRelease)
+                      }}</span>
+                    </div>
+                    <hr />
+                    <div class="detail-item">
+                      <span>Total Tracks</span
+                      ><span class="font-medium">{{ album.totalTracks }}</span>
+                    </div>
+                    <hr />
+                    <div class="detail-item">
+                      <span>Label</span><span class="font-medium">{{ album.label }}</span>
+                    </div>
+                    <hr />
+                    <div *ngIf="album.isOriginalRelease != false" class="detail-item">
+                      <span>Release Order</span
+                      ><span class="font-medium text-right">{{ album.originalAlbumOrder }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="details-card">
+                  <div class="details-card-header">
+                    <mat-icon>music_note</mat-icon>
+                    <span>Musical Style</span>
+                  </div>
+                  <div class="details-card-content">
+                    <div>
+                      <span class="detail-label">Genres</span>
+                      <div class="badge-group">
+                        <span *ngFor="let genre of album.genres" class="badge badge-secondary">{{
+                          genre
+                        }}</span>
+                      </div>
+                    </div>
+                    <hr />
+                    <div>
+                      <span class="detail-label">Subgenres</span>
+                      <div class="badge-group">
+                        <span
+                          *ngFor="let subgenre of album.subgenres"
+                          class="badge badge-outline"
+                          >{{ subgenre }}</span
+                        >
+                      </div>
+                    </div>
+                    <hr />
+                    <div>
+                      <span class="detail-label">Moods</span>
+                      <div class="badge-group">
+                        <span *ngFor="let mood of album.moods" class="badge badge-purple">{{
+                          mood.name
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="Artist Info">
+            <div class="tab-content" *ngIf="album.artists && album.artists.length > 0">
+              <div class="artist-card">
+                <div class="artist-card-content">
+                  <img
+                    [src]="album.artists[0].imageUrl || '/placeholder.svg'"
+                    [alt]="album.artists[0].name"
+                    class="artist-avatar"
+                  />
+                  <div class="artist-details">
+                    <h3 class="artist-main-name">{{ album.artists[0].name }}</h3>
+                    <div class="artist-popularity">
+                      <mat-icon class="artist-popularity-icon">bar_chart</mat-icon>
+                      <span class="artist-popularity-label">Popularity Score</span>
+                      <div class="artist-progress-bar">
+                        <div
+                          class="progress-fill"
+                          [style.width]="album.artists[0].popularityScore + '%'"
+                          [ngClass]="getProgressBarColor(album.artists[0].popularityScore)"
+                        ></div>
+                      </div>
+                      <span class="artist-popularity-score"
+                        >{{ album.artists[0].popularityScore }}%</span
+                      >
+                    </div>
+                    <p class="artist-bio">{{ album.artists[0].biography }}</p>
+                    <button mat-stroked-button (click)="goToArtistDetail(album.artists[0].id)">
+                      <mat-icon>group</mat-icon>
+                      View Artist Profile
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="Analysis">
+            <div class="tab-content">
+              <div class="analysis-grid">
+                <div class="analysis-card">
+                  <div class="analysis-icon-wrapper bg-blue">
+                    <mat-icon class="analysis-icon">trending_up</mat-icon>
+                  </div>
+                  <h3 class="analysis-title">Popularity Rating</h3>
+                  <p class="analysis-score text-blue">{{ album.popularityScore }}</p>
+                  <p class="analysis-description">
+                    This album ranks in the top {{ 100 - (album.popularityScore || 100) }}% of all
+                    albums.
+                  </p>
+                </div>
+                <div class="analysis-card">
+                  <div class="analysis-icon-wrapper bg-red">
+                    <mat-icon class="analysis-icon">favorite</mat-icon>
+                  </div>
+                  <h3 class="analysis-title">Emotional Tone</h3>
+                  <p class="analysis-score text-red">{{ album.averageEmotionalTone }}</p>
+                  <p class="analysis-description">High emotional resonance and depth.</p>
+                </div>
+                <div class="analysis-card">
+                  <div class="analysis-icon-wrapper bg-yellow">
+                    <mat-icon class="analysis-icon">bolt</mat-icon>
+                  </div>
+                  <h3 class="analysis-title">Energy Level</h3>
+                  <p class="analysis-score text-yellow">{{ album.averageEnergyLevel }}</p>
+                  <p class="analysis-description">Moderate to high energy levels throughout.</p>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
   </div>
 </div>

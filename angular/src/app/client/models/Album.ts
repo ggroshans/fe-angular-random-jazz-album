@@ -24,11 +24,11 @@ export interface Album {
   description?: string; // Gpt Api
   moods?: Mood[]; // Gpt Api
   isOriginalRelease: boolean;
+  originalAlbumOrder: number; // Computed                                      --field
   popularityScore?: number; // Computed from => popularityScore         --field!
   averageEmotionalTone?: number; // Computed
   averageEnergyLevel?: number; // Computed
   sortableDate: number; // Computed using utility method
 
   // jazzEras?: string[]; // explicit // Computed from => releaseYear             --field!
-  // originalAlbumOrder: number; // Computed                                      --field
 }
