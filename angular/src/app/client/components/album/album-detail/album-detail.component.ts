@@ -94,11 +94,14 @@ export class AlbumDetailComponent implements OnInit {
     });
   }
 
-  public getArtistString(artists: Artist[]) {
+  public getArtistString(artists: Artist[], additionalArtists: string) {
     if (artists.length == 0 || artists == null) {
       return '';
     }
-    return artists.map((a) => a.name).join(', ');
+    if (additionalArtists.length > 0) {
+      return artists[0].name + `, ${additionalArtists}`;
+    }
+    return artists[0].name;
   }
 
   public getSubgenreString(subgenres: Subgenre[]) {

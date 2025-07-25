@@ -1,7 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Artist } from '../../../models/Artist';
 import { ActivatedRoute, Router } from '@angular/router';
-import { selectArtist } from 'src/app/client/state/artist/artist.selectors';
+import {
+  selectArtist,
+  selectArtistError,
+  selectArtistLoading,
+} from 'src/app/client/state/artist/artist.selectors';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ArtistState } from 'src/app/client/state/artist/artist.reducer';
@@ -16,10 +20,12 @@ import { loadAlbumById } from 'src/app/client/state/album/album.actions';
   standalone: false,
 })
 export class ArtistDetailComponent implements OnInit {
+  artist$ = this.store.select(selectArtist);
+  artistLoading$ = this.store.select(selectArtistLoading);
+  artistError$ = this.store.select(selectArtistError);
   biographyParagraphs: string[] = [];
   currentYear: number = new Date().getFullYear();
 
-  public artist$!: Observable<Artist | null>;
   public noteableAlbumCount: number = 4;
 
   constructor(
@@ -70,6 +76,20 @@ export class ArtistDetailComponent implements OnInit {
       return 'progress-bar-orange';
     } else {
       return 'progress-bar-red';
+    }
+  }
+
+  public getScoreColor(percentileScore: number): string {
+    if (percentileScore > 75) {
+      return 'text-green';
+    } else if (percentileScore > 60) {
+      return 'text-yellowgreen';
+    } else if (percentileScore > 45) {
+      return 'text-yellow';
+    } else if (percentileScore > 25) {
+      return 'text-orange';
+    } else {
+      return 'text-red';
     }
   }
 

@@ -246,7 +246,6 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  gap: 10px;
 }
 
 .streaming-button {
@@ -444,6 +443,7 @@
 .action-buttons {
   display: flex;
   gap: 0.75rem;
+  margin-top: 1rem;
 }
 
 .action-button {

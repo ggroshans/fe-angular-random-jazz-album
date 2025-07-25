@@ -19,7 +19,11 @@
             <div class="album-cover-group">
               <img
                 [src]="album.imageUrl || '/placeholder.svg'"
-                [alt]="album.title + ' by ' + getArtistString(album.artists || [])"
+                [alt]="
+                  album.title +
+                  ' by ' +
+                  getArtistString(album.artists || [], album.additionalArtists)
+                "
                 class="album-cover-image"
               />
               <div class="album-cover-overlay">
@@ -28,6 +32,17 @@
                 </button>
               </div>
             </div>
+
+            <!-- <div class="action-buttons">
+              <button mat-raised-button color="primary" class="action-button">
+                <mat-icon>favorite_border</mat-icon>
+                Add to Collection
+              </button>
+              <button mat-stroked-button class="action-button">
+                <mat-icon>share</mat-icon>
+                Share Album
+              </button>
+            </div> -->
           </div>
 
           <div class="album-info-container">
@@ -51,7 +66,9 @@
                 <ng-template #singleLineTitle>{{ album.title }}</ng-template>
               </h1>
 
-              <p class="artist-name">by {{ getArtistString(album.artists || []) }}</p>
+              <p class="artist-name">
+                {{ getArtistString(album.artists || [], album.additionalArtists) }}
+              </p>
               <p class="album-description">"{{ album.description }}"</p>
             </div>
 
@@ -128,15 +145,15 @@
                     </div>
                     <span
                       class="score-value"
-                      [ngClass]="getScoreColor(album.popularityScore || 0)"
-                      >{{ album.popularityScore }}</span
+                      [ngClass]="getScoreColor(album.popularityRating || 0)"
+                      >{{ album.popularityRating }}</span
                     >
                   </div>
                   <div class="progress-bar">
                     <div
                       class="progress-fill"
-                      [style.width]="(album.popularityScore || 0) + '%'"
-                      [ngClass]="getProgressBarColor(album.popularityScore || 0)"
+                      [style.width]="(album.popularityRating || 0) + '%'"
+                      [ngClass]="getProgressBarColor(album.popularityRating || 0)"
                     ></div>
                   </div>
                 </div>
@@ -186,17 +203,6 @@
                 </div>
               </div>
             </div>
-
-            <div class="action-buttons">
-              <button mat-raised-button color="primary" class="action-button">
-                <mat-icon>favorite_border</mat-icon>
-                Add to Collection
-              </button>
-              <button mat-stroked-button class="action-button">
-                <mat-icon>share</mat-icon>
-                Share Album
-              </button>
-            </div>
           </div>
         </div>
 
@@ -206,7 +212,7 @@
               <div class="details-grid">
                 <div class="details-card">
                   <div class="details-card-header">
-                    <mat-icon class="">album</mat-icon>
+                    <mat-icon class="material-symbols-outlined">sell</mat-icon>
                     <span>Album Information</span>
                   </div>
                   <div class="details-card-content">
@@ -234,7 +240,7 @@
                 </div>
                 <div class="details-card">
                   <div class="details-card-header">
-                    <mat-icon>music_note</mat-icon>
+                    <span class="material-symbols-outlined"> music_note </span>
                     <span>Musical Style</span>
                   </div>
                   <div class="details-card-content">
@@ -255,6 +261,15 @@
                           class="badge badge-outline"
                           >{{ subgenre }}</span
                         >
+                      </div>
+                    </div>
+
+                    <div>
+                      <span class="detail-label">Jazz Era</span>
+                      <div class="badge-group">
+                        <span *ngFor="let jazzEra of album.jazzEras" class="badge badge-purple">{{
+                          jazzEra
+                        }}</span>
                       </div>
                     </div>
                     <hr />
@@ -289,12 +304,12 @@
                       <div class="artist-progress-bar">
                         <div
                           class="progress-fill"
-                          [style.width]="album.artists[0].popularityScore + '%'"
-                          [ngClass]="getProgressBarColor(album.artists[0].popularityScore)"
+                          [style.width]="album.artists[0].popularityRating + '%'"
+                          [ngClass]="getProgressBarColor(album.artists[0].popularityRating)"
                         ></div>
                       </div>
                       <span class="artist-popularity-score"
-                        >{{ album.artists[0].popularityScore }}%</span
+                        >{{ album.artists[0].popularityRating }}%</span
                       >
                     </div>
                     <p class="artist-bio">{{ album.artists[0].biography }}</p>
@@ -316,9 +331,9 @@
                     <mat-icon class="analysis-icon">trending_up</mat-icon>
                   </div>
                   <h3 class="analysis-title">Popularity Rating</h3>
-                  <p class="analysis-score text-blue">{{ album.popularityScore }}</p>
+                  <p class="analysis-score text-blue">{{ album.popularityRating }}</p>
                   <p class="analysis-description">
-                    This album ranks in the top {{ 100 - (album.popularityScore || 100) }}% of all
+                    This album ranks in the top {{ 100 - (album.popularityRating || 100) }}% of all
                     albums.
                   </p>
                 </div>
