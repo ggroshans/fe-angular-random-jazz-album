@@ -4,31 +4,36 @@ import { Mood } from './Mood';
 import { Subgenre } from './Subgenre';
 
 export interface Album {
+  // Spotify
   id?: number;
-  title?: string;
-  youtubeId: string; // Song link Api
-  appleMusicId: string; // Song link Api
-  amazonMusicId: string; // Song link Api
-  pandoraId: string; // Song link Api
-  spotifyId: string; // Spotify Api
-  imageUrl?: string; // Spotify Api
-  label?: string; // Spotify Api
-  releaseYear?: string; // Spotify Api
-  totalTracks?: number; // Spotify Api
+  spotifyId: string; // Spotify
+  imageUrl?: string; // Spotify
+  label?: string; // Spotify
+  releaseYear?: string; // Spotify
+  totalTracks?: number; // Spotify
+  artists?: Artist[]; // Spotify
+  spotifyPopularity?: number; // Spotify
+  title?: string; // Spotify
 
-  artists?: Artist[]; // Spotify Api
-  spotifyPopularity?: number; // Spotify Api
+  // Song Link API
+  youtubeId: string; // Song Link API
+  appleMusicId: string; // Song Link API
+  amazonMusicId: string; // Song Link API
+  pandoraId: string; // Song Link API
 
-  genres?: Genre[]; // Gpt Api
-  subgenres?: Subgenre[]; // Gpt Api
-  description?: string; // Gpt Api
-  moods?: Mood[]; // Gpt Api
-  isOriginalRelease: boolean;
-  originalAlbumOrder: number; // Computed                                      --field
-  popularityScore?: number; // Computed from => popularityScore         --field!
+  // GPT
+  genres?: Genre[]; // GPT
+  subgenres?: Subgenre[]; // GPT
+  description?: string; // GPT
+  moods?: Mood[]; // GPT
+  isOriginalRelease: boolean; // GPT
+
+  // Computed
+  additionalArtists: string; // Computed
+  originalAlbumOrder: number; // Computed
+  popularityRating?: number; // Computed
   averageEmotionalTone?: number; // Computed
   averageEnergyLevel?: number; // Computed
-  sortableDate: number; // Computed using utility method
-
-  // jazzEras?: string[]; // explicit // Computed from => releaseYear             --field!
+  sortableDate: number; // Computed
+  jazzEras?: string[]; // Computed
 }
