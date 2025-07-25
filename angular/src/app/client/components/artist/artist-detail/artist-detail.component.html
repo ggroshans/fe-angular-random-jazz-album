@@ -1,137 +1,270 @@
-<div *ngIf="artist$ | async as artist" class="artist-detail-container">
-  <div class="artist-card">
-    <div class="artist-card__background"></div>
+<div class="artist-details-outer-container">
+  <div class="artist-details-inner-container">
+    <div class="artist-details-page">
+      <div *ngIf="artistLoading$ | async" class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading artist...</p>
+      </div>
 
-    <div class="artist-card__content">
-      <div class="hero">
-        <div class="hero__image-column">
-          <div class="artist-image">
-            <img
-              [src]="artist.imageUrl || 'assets/album.png'"
-              [alt]="artist.name"
-              class="artist-image__img"
-            />
-            <div class="artist-image__instrument-overlay">
-              <div class="artist-image__instrument-info">
-                <mat-icon>music_note</mat-icon>
-                <span>{{ artist.instrument }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero__info-column">
-          <div class="artist-info">
-            <h1 class="artist-info__name">
-              {{ artist.name }}
-            </h1>
-
-            <div class="artist-info__genres">
-              <span *ngFor="let genre of artist.genres" class="artist-info__genre-tag">
-                {{ genre }}
-              </span>
-            </div>
-            <div class="popularity-section">
-              <div class="popularity-icon">
-                <mat-icon>bar_chart</mat-icon>
-              </div>
-              <div class="popularity-label">
-                <span class="popularity-label-text">{{ artist.percentileScore }}/100</span>
-              </div>
-              <div class="progress-bar-container">
-                <div
-                  [class]="getProgressBarColor(artist.percentileScore || 0)"
-                  [ngStyle]="{
-                    width: artist.percentileScore + '%',
-                    height: '0.5rem',
-                  }"
-                ></div>
-              </div>
-            </div>
-            <div>Total Albums: {{ artist.totalAlbums }}</div>
-            <div>Average Album Score: {{ artist.averageAlbumScore }}</div>
-            <div>Debut Year: {{ artist.debutYear }}</div>
-          </div>
+      <div *ngIf="artistError$ | async as error" class="error-container">
+        <div class="error-card">
+          <p class="error-message">Error loading artist: {{ error }}</p>
         </div>
       </div>
 
-      <div class="biography">
-        <h2 class="section-title">Biography</h2>
-        <div class="biography__content">
-          <p *ngFor="let paragraph of artist.biography?.split('\n\n')" class="biography__paragraph">
-            {{ paragraph }}
-          </p>
-        </div>
-      </div>
+      <div class="container" *ngIf="artist$ | async as artist" [@fadeIn]>
+        <div class="hero-section">
+          <div class="artist-cover-container">
+            <div class="artist-cover-group">
+              <img
+                [src]="artist.imageUrl || '/placeholder.svg'"
+                [alt]="artist.name"
+                class="artist-cover-image"
+              />
+              <div class="artist-cover-overlay">
+                <button class="play-button">
+                  <mat-icon>play_arrow</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="action-buttons">
+              <button mat-raised-button color="primary" class="action-button">
+                <mat-icon>favorite_border</mat-icon>
+                Follow Artist
+              </button>
+              <button mat-stroked-button class="action-button">
+                <mat-icon>share</mat-icon>
+                Share Artist
+              </button>
+            </div>
+          </div>
 
-      <div class="content-divider"></div>
+          <div class="artist-info-container">
+            <div>
+              <div class="badge-group">
+                <span class="badge badge-secondary">
+                  <mat-icon class="badge-icon">group</mat-icon>
+                  Artist
+                </span>
+                <span class="badge badge-outline">
+                  <mat-icon class="badge-icon">calendar_today</mat-icon>
+                  {{ artist.birthYear }} - {{ artist.deathYear || 'Present' }}
+                </span>
+              </div>
+              <h1 class="artist-title">{{ artist.name }}</h1>
+              <p class="artist-subtitle">
+                Active {{ artist.yearsActive?.startDate }} -
+                {{ artist.yearsActive?.endDate || 'Present' }} •
+                {{ artist.studioAlbumCount }} Studio Albums
+              </p>
+              <p class="artist-description">"{{ artist.biography }}"</p>
+            </div>
 
-      <div class="albums">
-        <h2 class="section-title albums__title">Notable Albums</h2>
+            <div class="streaming-links"></div>
 
-        <ng-container
-          *ngIf="artist.noteableAlbums && artist.noteableAlbums.length > 0; else noAlbums"
-        >
-          <div class="album-grid">
-            <div *ngFor="let album of artist.noteableAlbums" class="album-item">
-              <div class="album-item__image-wrapper">
-                <img
-                  [src]="album.imageUrl || 'assets/album.png'"
-                  [alt]="album.title"
-                  class="album-item__image"
-                />
-                <div class="album-item__overlay" (click)="getAlbumDetails(album.id || 0)">
-                  <ng-container
-                    *ngIf="album.title && !album.title.includes(':'); else albumTitleElseBlock"
-                  >
-                    <h3 class="album-item__title">{{ album.title }}</h3>
-                  </ng-container>
-                  <ng-template #albumTitleElseBlock>
-                    <div class="album-item__title">{{ (album.title || '').split(':')[0] }}:</div>
-                    <div class="album-item__title">
-                      {{ (album.title || '').split(':')[1] }}
+            <div class="scores-grid">
+              <div class="score-card">
+                <div class="score-card-content">
+                  <div class="score-header">
+                    <div class="score-label">
+                      <mat-icon class="score-icon text-blue">star</mat-icon>
+                      <span>Popularity</span>
                     </div>
-                  </ng-template>
-                  <p class="album-item__year">
-                    {{ album.releaseYear }}
+                    <span
+                      class="score-value"
+                      [ngClass]="getScoreColor(artist.popularityRating || 0)"
+                      >{{ artist.popularityRating }}</span
+                    >
+                  </div>
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill"
+                      [style.width]="(artist.popularityRating || 0) + '%'"
+                      [ngClass]="getProgressBarColor(artist.popularityRating || 0)"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <div class="score-card">
+                <div class="score-card-content">
+                  <div class="score-header">
+                    <div class="score-label">
+                      <mat-icon class="score-icon text-red">favorite</mat-icon>
+                      <span>Avg. Emotion</span>
+                    </div>
+                    <span
+                      class="score-value"
+                      [ngClass]="getScoreColor(artist.averageEmotionalTone || 0)"
+                      >{{ artist.averageEmotionalTone }}</span
+                    >
+                  </div>
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill"
+                      [style.width]="(artist.averageEmotionalTone || 0) + '%'"
+                      [ngClass]="getProgressBarColor(artist.averageEmotionalTone || 0)"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <div class="score-card">
+                <div class="score-card-content">
+                  <div class="score-header">
+                    <div class="score-label">
+                      <mat-icon class="score-icon text-yellow">bolt</mat-icon>
+                      <span>Avg. Energy</span>
+                    </div>
+                    <span
+                      class="score-value"
+                      [ngClass]="getScoreColor(artist.averageEnergyLevel || 0)"
+                      >{{ artist.averageEnergyLevel }}</span
+                    >
+                  </div>
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill"
+                      [style.width]="(artist.averageEnergyLevel || 0) + '%'"
+                      [ngClass]="getProgressBarColor(artist.averageEnergyLevel || 0)"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <mat-tab-group animationDuration="0ms">
+          <mat-tab label="Artist Details">
+            <div class="tab-content">
+              <div class="details-grid">
+                <div class="details-card">
+                  <div class="details-card-header">
+                    <mat-icon>info</mat-icon>
+                    <span>Artist Information</span>
+                  </div>
+                  <div class="details-card-content">
+                    <div class="detail-item">
+                      <span>Debut Year</span><span class="font-medium">{{ artist.debutYear }}</span>
+                    </div>
+                    <hr />
+                    <div class="detail-item">
+                      <span>Years Active</span
+                      ><span class="font-medium"
+                        >{{ artist.yearsActive?.startDate }} -
+                        {{ artist.yearsActive?.endDate || 'Present' }}</span
+                      >
+                    </div>
+                    <hr />
+                    <div class="detail-item">
+                      <span>Total Albums</span
+                      ><span class="font-medium">{{ artist.albumCount }}</span>
+                    </div>
+                    <hr />
+                    <div class="detail-item">
+                      <span>Studio Albums</span
+                      ><span class="font-medium">{{ artist.studioAlbumCount }}</span>
+                    </div>
+                    <hr />
+                    <div class="detail-item">
+                      <span>Primary Instruments</span
+                      ><span class="font-medium text-right">{{ artist.instrument }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="details-card">
+                  <div class="details-card-header">
+                    <mat-icon>music_note</mat-icon>
+                    <span>Musical Style</span>
+                  </div>
+                  <div class="details-card-content">
+                    <div>
+                      <span class="detail-label">Genres</span>
+                      <div class="badge-group">
+                        <span *ngFor="let genre of artist.genres" class="badge badge-secondary">{{
+                          genre.name
+                        }}</span>
+                      </div>
+                    </div>
+                    <hr />
+                    <div>
+                      <span class="detail-label">Influences</span>
+                      <div class="badge-group">
+                        <span
+                          *ngFor="let influence of artist.influences"
+                          class="badge badge-outline"
+                          >{{ influence }}</span
+                        >
+                      </div>
+                    </div>
+                    <hr />
+                    <div>
+                      <span class="detail-label">Related Artists</span>
+                      <div class="badge-group">
+                        <span
+                          *ngFor="let related of artist.relatedArtists"
+                          class="badge badge-purple"
+                          >{{ related }}</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="Notable Albums">
+            <div class="tab-content">
+              <div class="notable-albums-grid">
+                <div class="album-card-small" *ngFor="let album of artist.noteableAlbums">
+                  <img [src]="album.imageUrl" [alt]="album.title" class="album-artwork-small" />
+                  <div class="album-info-small">
+                    <span class="album-title-small">{{ album.title }}</span>
+                    <span class="album-year-small">{{ album.releaseYear }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="Analysis">
+            <div class="tab-content">
+              <div class="analysis-grid">
+                <div class="analysis-card">
+                  <div class="analysis-icon-wrapper bg-blue">
+                    <mat-icon class="analysis-icon">star</mat-icon>
+                  </div>
+                  <h3 class="analysis-title">Popularity Rating</h3>
+                  <p class="analysis-score text-blue">{{ artist.popularityRating }}</p>
+                  <p class="analysis-description">
+                    Ranks in the top {{ 100 - artist.popularityRating }}% of all artists.
                   </p>
                 </div>
-              </div>
-
-              <div class="popularity-section">
-                <div class="popularity-icon">
-                  <mat-icon>bar_chart</mat-icon>
+                <div class="analysis-card">
+                  <div class="analysis-icon-wrapper bg-green">
+                    <mat-icon class="analysis-icon">trending_up</mat-icon>
+                  </div>
+                  <h3 class="analysis-title">Average Album Score</h3>
+                  <p class="analysis-score text-green">{{ artist.averageAlbumScore }}</p>
+                  <p class="analysis-description">
+                    Average score across {{ artist.albumCount }} albums.
+                  </p>
                 </div>
-                <div class="popularity-label">
-                  <span class="popularity-label-text">{{ album.percentileScore }}</span>
-                </div>
-                <div class="progress-bar-container">
-                  <div
-                    [class]="getProgressBarColor(album.percentileScore || 0)"
-                    [ngStyle]="{
-                      width: album.percentileScore + '%',
-                      height: '0.5rem',
-                    }"
-                  ></div>
+                <div class="analysis-card">
+                  <div class="analysis-icon-wrapper bg-purple">
+                    <mat-icon class="analysis-icon">schedule</mat-icon>
+                  </div>
+                  <h3 class="analysis-title">Career Span</h3>
+                  <p class="analysis-score text-purple">
+                    {{ artist.yearsActive?.endDate }} - {{ artist.yearsActive?.startDate }}
+                  </p>
+                  <p class="analysis-description">Total years active in the industry.</p>
                 </div>
               </div>
             </div>
-          </div>
-        </ng-container>
-
-        <ng-template #noAlbums>
-          <p>Notable albums not currently available.</p>
-        </ng-template>
-
-        <div class="albums__view-all-wrapper">
-          <button class="albums__view-all-button">
-            <i class="icon icon-album albums__view-all-icon"></i>
-            <span>View All Albums</span>
-          </button>
-        </div>
+          </mat-tab>
+        </mat-tab-group>
       </div>
-
-      <div class="copyright">© {{ currentYear }} Jazz Records</div>
     </div>
   </div>
 </div>
