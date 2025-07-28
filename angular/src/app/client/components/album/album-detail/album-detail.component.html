@@ -216,23 +216,26 @@
                     <span>Album Information</span>
                   </div>
                   <div class="details-card-content">
-                    <div class="detail-item">
+                    <div class="detail-item--info">
                       <span>Original Release</span
                       ><span class="font-medium">{{
                         isOriginalReleaseResponse(album.isOriginalRelease)
                       }}</span>
                     </div>
-                    <hr />
-                    <div class="detail-item">
+                    <mat-divider class="divider"></mat-divider>
+                    <div class="detail-item--info">
                       <span>Total Tracks</span
                       ><span class="font-medium">{{ album.totalTracks }}</span>
                     </div>
-                    <hr />
-                    <div class="detail-item">
+                    <mat-divider class="divider"></mat-divider>
+                    <div class="detail-item--info">
                       <span>Label</span><span class="font-medium">{{ album.label }}</span>
                     </div>
-                    <hr />
-                    <div *ngIf="album.isOriginalRelease != false" class="detail-item">
+                    <mat-divider
+                      class="divider"
+                      *ngIf="album.isOriginalRelease != false"
+                    ></mat-divider>
+                    <div *ngIf="album.isOriginalRelease != false" class="detail-item--info">
                       <span>Release Order</span
                       ><span class="font-medium text-right">{{ album.originalAlbumOrder }}</span>
                     </div>
@@ -244,7 +247,7 @@
                     <span>Musical Style</span>
                   </div>
                   <div class="details-card-content">
-                    <div>
+                    <div class="detail-item--style">
                       <span class="detail-label">Genres</span>
                       <div class="badge-group">
                         <span *ngFor="let genre of album.genres" class="badge badge-secondary">{{
@@ -252,8 +255,8 @@
                         }}</span>
                       </div>
                     </div>
-                    <hr />
-                    <div>
+                    <mat-divider class="divider"></mat-divider>
+                    <div class="detail-item--style">
                       <span class="detail-label">Subgenres</span>
                       <div class="badge-group">
                         <span
@@ -263,17 +266,17 @@
                         >
                       </div>
                     </div>
-
-                    <div>
+                    <mat-divider class="divider"></mat-divider>
+                    <div class="detail-item--style">
                       <span class="detail-label">Jazz Era</span>
                       <div class="badge-group">
-                        <span *ngFor="let jazzEra of album.jazzEras" class="badge badge-purple">{{
+                        <span *ngFor="let jazzEra of album.jazzEras" class="badge badge-teal">{{
                           jazzEra
                         }}</span>
                       </div>
                     </div>
-                    <hr />
-                    <div>
+                    <mat-divider class="divider"></mat-divider>
+                    <div class="detail-item--style">
                       <span class="detail-label">Moods</span>
                       <div class="badge-group">
                         <span *ngFor="let mood of album.moods" class="badge badge-purple">{{

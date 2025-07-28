@@ -15,7 +15,7 @@ import { loadAlbumById } from 'src/app/client/state/album/album.actions';
 @Component({
   selector: 'app-artist-detail',
   templateUrl: './artist-detail.component.html',
-  styleUrls: ['./artist-detail.component.css'],
+  styleUrls: ['./artist-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })

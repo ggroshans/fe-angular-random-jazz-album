@@ -23,7 +23,7 @@ import {
 @Component({
   selector: 'app-album-detail',
   templateUrl: './album-detail.component.html',
-  styleUrls: ['./album-detail.component.css'],
+  styleUrls: ['./album-detail.component.scss'],
   standalone: false,
   animations: [
     trigger('fadeIn', [
