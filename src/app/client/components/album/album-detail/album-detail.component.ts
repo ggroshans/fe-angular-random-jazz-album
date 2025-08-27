@@ -98,7 +98,7 @@ export class AlbumDetailComponent implements OnInit {
     if (artists.length == 0 || artists == null) {
       return '';
     }
-    if (additionalArtists.length > 0) {
+    if (additionalArtists != null && additionalArtists.length > 0) {
       return artists[0].name + `, ${additionalArtists}`;
     }
     return artists[0].name;
