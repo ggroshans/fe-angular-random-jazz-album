@@ -1,37 +1,124 @@
-<div class="admin-dashboard-container">
-  <mat-card class="admin-dashboard__form-container">
-    <mat-card-title>Add Albums From Artist</mat-card-title>
-    <p class="admin-portal__subheading">Admin Portal</p>
-    <mat-card-content>
-      <form
-        class="admin-dashboard__form"
-        [formGroup]="formDiscography"
-        (ngSubmit)="fetchArtistDiscography()"
-      >
-        <mat-form-field appearance="outline">
-          <mat-label>Artist Name</mat-label>
-          <input matInput formControlName="artistName" placeholder="Enter artist name..." />
-          <mat-error
-            *ngIf="
-              formDiscography.get('artistName')?.invalid &&
-              formDiscography.get('artistName')?.touched
-            "
-          >
-            Artist name is required
-          </mat-error>
-        </mat-form-field>
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          [disabled]="formDiscography.invalid"
-        >
-          Submit
-        </button>
-      </form>
-    </mat-card-content>
-    <div class="copyright">
-      <p>© {{ currentYear }} The Jazz Album</p>
+<div class="admin-portal">
+  <header class="admin-portal__header">
+    <div class="admin-portal__header-content">
+      <h1 class="admin-portal__title">JotD Admin Portal</h1>
+      <p class="admin-portal__subtitle">Discography imports & data enrichment</p>
     </div>
-  </mat-card>
+  </header>
+
+  <main class="admin-portal__main">
+    <section class="admin-portal__cards">
+      <div class="card card--primary" role="region" aria-labelledby="discography-title">
+        <div class="card__header">
+          <h2 id="discography-title" class="card__title">Add Albums from Artist</h2>
+          <p class="card__subtitle">Fetch a full discography and populate the database.</p>
+        </div>
+
+        <div class="card__content">
+          <form
+            class="form form--inline"
+            [formGroup]="formDiscography"
+            (ngSubmit)="fetchArtistDiscography()"
+            novalidate
+          >
+            <mat-form-field
+              appearance="outline"
+              class="field field--grow"
+              subscriptSizing="dynamic"
+            >
+              <mat-label>Artist Name</mat-label>
+              <input
+                matInput
+                formControlName="artistName"
+                placeholder="e.g., Miles Davis"
+                [disabled]="isImporting || isEnriching"
+                autocomplete="off"
+                aria-label="Artist name"
+              />
+              <mat-error
+                *ngIf="
+                  formDiscography.get('artistName')?.invalid &&
+                  formDiscography.get('artistName')?.touched
+                "
+              >
+                Artist name is required
+              </mat-error>
+            </mat-form-field>
+
+            <button
+              mat-raised-button
+              type="submit"
+              class="btn btn--submit"
+              [disabled]="formDiscography.invalid || isImporting || isEnriching"
+              aria-label="Import discography"
+            >
+              <ng-container *ngIf="isImporting; else importText">
+                <mat-spinner diameter="18"></mat-spinner>
+              </ng-container>
+              <ng-template #importText>Import</ng-template>
+            </button>
+          </form>
+
+          <div class="status-line" aria-live="polite">
+            <span *ngIf="importMsg.ok === true" class="status status--ok">
+              {{ importMsg.text || 'Import successful.' }}
+            </span>
+            <span *ngIf="importMsg.ok === false" class="status status--err">
+              {{ importMsg.text || 'Import failed.' }}
+            </span>
+          </div>
+
+          <p class="hint">Tip: after a large import, run enrichment to normalize data.</p>
+        </div>
+      </div>
+
+      <div class="card" role="region" aria-labelledby="maintenance-title">
+        <div class="card__header">
+          <h2 id="maintenance-title" class="card__title">Maintenance</h2>
+          <p class="card__subtitle">
+            Normalize ratings, compute mood scores, set original album order.
+          </p>
+        </div>
+
+        <div class="card__content">
+          <div class="stack stack--md">
+            <p class="muted">
+              Runs a server-side batch across all artists and albums. Use sparingly on production.
+            </p>
+
+            <div class="actions">
+              <button
+                mat-stroked-button
+                type="button"
+                class="btn btn--enrich"
+                (click)="runBatchEnrichment()"
+                [disabled]="isEnriching || isImporting"
+                aria-label="Run batch enrichment"
+              >
+                <ng-container *ngIf="isEnriching; else enrichText">
+                  <mat-spinner diameter="18"></mat-spinner>
+                </ng-container>
+                <ng-template #enrichText>Run Batch Enrichment</ng-template>
+              </button>
+
+              <span class="status" *ngIf="isEnriching">Enrichment running…</span>
+            </div>
+
+            <div class="status-line" aria-live="polite">
+              <span *ngIf="enrichMsg.ok === true" class="status status--ok status--bold">
+                {{ enrichMsg.text || 'Enrichment successful.' }}
+              </span>
+              <span *ngIf="enrichMsg.ok === false" class="status status--err status--bold">
+                {{ enrichMsg.text || 'Enrichment failed.' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="admin-portal__footer">
+    <p>© {{ currentYear }} Jazz of the Day</p>
+  </footer>
 </div>

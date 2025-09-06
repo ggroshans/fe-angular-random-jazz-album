@@ -1,151 +1,238 @@
-/* admin-dashboard.component.scss */
+.admin-portal {
+  min-height: 100dvh;
+  line-height: 1.35;
+  color: var(--slate-800);
+  background: var(--slate-50);
+  font-family: system-ui, 'Segoe UI';
 
-.admin-dashboard-container {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--primary-color-base);
-  padding: 1rem;
-  position: relative;
+  .portal-header {
+    background: var(--slate-700);
+    border-bottom: 1px solid var(--slate-800);
+
+    &__content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 16px;
+    }
+  }
+
+  .portal-title {
+    margin: 0 0 2px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--slate-50);
+  }
+
+  .portal-subtitle {
+    margin: 0;
+    font-size: 13px;
+    color: var(--slate-100);
+  }
+
+  .portal-main {
+    max-width: 1100px;
+    margin: 16px auto;
+    padding: 0 16px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+
+    @media (width >= 900px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .card {
+    border: 1px solid var(--slate-border-color);
+    border-radius: 2px;
+    background: var(--slate-200);
+
+    &__header {
+      padding: 12px 12px 0;
+      border-bottom: 1px solid var(--slate-border-color);
+    }
+
+    &__content {
+      padding: 12px;
+    }
+
+    &__title {
+      margin: 0 0 2px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--slate-800);
+    }
+
+    &__subtitle {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--slate-600);
+    }
+  }
+
+  .form {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+
+    &--inline .field--grow {
+      flex: 1 1 260px;
+    }
+  }
+
+  .field {
+    .mat-mdc-form-field {
+      width: 100%;
+    }
+
+    .mdc-text-field--outlined {
+      --mdc-outlined-text-field-outline-color: var(--slate-border-color);
+      --mdc-outlined-text-field-hover-outline-color: var(--slate-500);
+      --mdc-outlined-text-field-focus-outline-color: var(--slate-500);
+      --mdc-outlined-text-field-input-text-color: var(--slate-800);
+      --mdc-outlined-text-field-label-text-color: var(--slate-600);
+
+      border-radius: 2px;
+    }
+
+    .mat-mdc-form-field-error {
+      color: var(--slate-700);
+    }
+  }
+
+  .mat-mdc-form-field-infix {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .mdc-text-field__input,
+  input[matInput] {
+    text-indent: 0 !important;
+    outline: none !important;
+  }
+
+  .mdc-text-field,
+  .mdc-text-field--outlined,
+  .mdc-text-field--outlined .mdc-notched-outline__notch {
+    outline: none !important;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--slate-600);
+    border-radius: 2px;
+    font-weight: 600;
+    box-shadow: none;
+    letter-spacing: 0;
+
+    &--submit[mat-raised-button],
+    &--enrich[mat-stroked-button] {
+      height: 56px;
+      padding: 0 16px;
+    }
+
+    &--submit[mat-raised-button] {
+      color: var(--slate-800);
+      background: #e5edf6;
+
+      &:hover:not([disabled]) {
+        background: #d9e3ef;
+      }
+    }
+
+    &--submit[disabled] {
+      color: var(--slate-500) !important;
+      background: var(--slate-100) !important;
+      opacity: 1 !important;
+      border-color: var(--slate-border-color) !important;
+    }
+
+    &--enrich[mat-stroked-button] {
+      color: var(--slate-800);
+      background: #fff;
+      border-color: var(--slate-500);
+
+      &:hover:not([disabled]) {
+        background: var(--slate-100);
+      }
+    }
+
+    &--enrich[disabled] {
+      color: var(--slate-500) !important;
+      background: var(--slate-50) !important;
+      border-color: var(--slate-border-color) !important;
+    }
+  }
+
+  .mat-mdc-progress-spinner {
+    --mdc-circular-progress-active-indicator-color: var(--slate-600);
+  }
+
+  .hint {
+    margin: 6px 0 0;
+    font-size: 12px;
+    color: var(--slate-600);
+  }
+
+  .muted {
+    margin: 0;
+    font-size: 13px;
+    color: var(--slate-600);
+  }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .status {
+    font-size: 12px;
+    color: var(--slate-700);
+
+    &--err {
+      font-weight: 700;
+      color: #b42318;
+    }
+
+    &--ok {
+      color: #107d36;
+    }
+
+    &--md {
+      display: grid;
+      gap: 8px;
+    }
+
+    &--bold {
+      font-weight: 700;
+    }
+  }
+
+  .portal-footer {
+    padding: 10px 16px;
+    font-size: 12px;
+    color: var(--slate-600);
+    text-align: center;
+    border-top: 1px solid var(--slate-border-color);
+    margin-top: 16px;
+  }
 }
 
-.admin-dashboard-container .admin-dashboard__form-container {
-  position: relative;
-  border: 4px solid var(--complement-color-8);
-  background-color: #f9f9f9;
-  padding: 2rem;
-  border-radius: 0.75rem;
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  width: 100%;
-  max-width: 24rem;
+[disabled] {
+  cursor: not-allowed;
 }
 
-/* Jazz silhouette picture in background */
-.admin-dashboard__form-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('../../../assets/jazzband.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: bottom center;
-  z-index: 1;
-  opacity: 0.1;
-}
-
-/* Header for the form */
-.admin-dashboard__form-container .mat-mdc-card-title {
-  color: var(--primary-color-base);
-  font-size: 1.8rem;
-  font-weight: 500;
-  font-family: 'Oswald', sans-serif;
-  text-align: center;
-  z-index: 1;
-  position: relative;
-}
-
-/* Subheading for the form */
-.admin-portal__subheading {
-  color: var(--complement-color-12);
-  font-size: 0.8rem;
-  font-weight: 500;
-  text-align: center;
-  font-style: italic;
-}
-
-/* Container for textfield and button */
-.admin-dashboard__form-container .mat-mdc-card-content {
-  padding: 0;
-}
-
-.admin-dashboard__form-container .admin-dashboard__form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  z-index: 1;
-  position: relative;
-}
-
-/*Container for text input */
-.admin-dashboard__form .mat-mdc-form-field {
-  width: 100%;
-}
-.admin-dashboard__form .mat-mdc-form-field .mat-mdc-form-field-flex {
-  background-color: #f9f9f9;
-}
-
-/* Placeholder / text when focused */
-.admin-dashboard__form .mat-mdc-form-field .mat-mdc-input-element {
-  color: var(--primary-color-base) !important;
-  padding-left: 0.5rem;
-}
-
-/* Placeholder / text when not focused*/
-.admin-dashboard__form .mat-mdc-form-field-flex label mat-label {
-  color: var(--primary-color-base);
-}
-/* Placeholder / asterisk when not focused*/
-.admin-dashboard__form .mat-mdc-form-field-flex label .mat-mdc-form-field-required-marker {
-  color: var(--primary-color-base);
-}
-
-/* Placeholder / text when focused and it floats to top */
-.admin-dashboard__form .mat-mdc-form-field-flex .mdc-floating-label--float-above mat-label {
-  color: var(--primary-color-base);
-}
-
-/* Placeholder / asterisk when focused and it floats to top */
-.admin-dashboard__form
-  .mat-mdc-form-field-flex
-  .mdc-floating-label--float-above
-  .mat-mdc-form-field-required-marker {
-  color: var(--primary-color-base);
-}
-
-/* Wrapper for the validation text */
-.admin-dashboard__form .mat-mdc-form-field .mat-mdc-form-field-error-wrapper {
-  padding: 0;
-}
-
-/* Validation text */
-.admin-dashboard__form .mat-mdc-form-field .mat-mdc-form-field-error {
-  color: var(--error-color-base);
-  font-size: 0.7rem;
-  font-weight: 500;
-}
-
-/* Button when enabled */
-.admin-dashboard__form button[mat-raised-button] {
-  width: 100%;
-  background-color: var(--complement-color-4);
-  font-weight: 500;
-}
-
-/* Button when enabled and hovered */
-.admin-dashboard__form button[mat-raised-button]:hover {
-  background-color: var(--complement-color-8);
-}
-
-/* Button disabled */
-.admin-dashboard__form button[mat-raised-button]:disabled {
-  background-color: var(--disabled-color-base); /* Use disabled base color */
-  color: var(--primary-color-base);
-}
-
-/* Copyright container */
-.admin-dashboard__form-container .copyright {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--primary-color-base);
-  color: var(--primary-color-base);
-  font-size: 0.75rem;
-  text-align: center;
-  z-index: 1;
-  position: relative;
+.statusline {
+  margin-top: 6px;
+  min-height: 1em;
 }
