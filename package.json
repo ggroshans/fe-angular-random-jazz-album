@@ -6,7 +6,11 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "lint:css": "stylelint \"src/**/*.{css,scss}\"",
+    "lint:css:fix": "stylelint \"src/**/*.{css,scss}\" --fix"
   },
   "private": true,
   "dependencies": {
@@ -27,20 +31,31 @@
     "colorthief": "^2.6.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "zone.js": "^0.15.1"
   },
   "devDependencies": {
+    "@analogjs/platform": "^1.20.2",
+    "@analogjs/vitest-angular": "^1.20.2",
     "@angular-devkit/build-angular": "^19.2.1",
     "@angular/cli": "^19.2.1",
     "@angular/compiler-cli": "^19.2.1",
+    "@testing-library/angular": "^17.4.0",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/jasmine": "~4.3.0",
+    "@vitest/ui": "^3.2.4",
     "jasmine-core": "~4.6.0",
+    "jsdom": "^26.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "prettier": "3.6.2",
-    "typescript": "~5.8.2"
+    "stylelint": "^16.23.1",
+    "stylelint-config-standard-scss": "^15.0.1",
+    "stylelint-order": "^6.0.4",
+    "typescript": "~5.8.2",
+    "vitest": "^3.2.4"
   }
 }

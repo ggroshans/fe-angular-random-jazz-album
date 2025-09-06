@@ -1,0 +1,68 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "order/order": [
+      [
+        "dollar-variables",
+        "custom-properties",
+        "at-rules",
+        "declarations",
+        { "type": "at-rule", "name": "media" },
+        "rules"
+      ]
+    ],
+    "order/properties-order": [
+      {
+        "properties": [
+          "display",
+          "position",
+          "top",
+          "right",
+          "bottom",
+          "left",
+          "z-index",
+          "grid",
+          "grid-template-columns",
+          "grid-template-rows",
+          "gap",
+          "flex",
+          "flex-grow",
+          "flex-shrink",
+          "flex-basis",
+          "align-items",
+          "justify-content"
+        ]
+      },
+      {
+        "properties": [
+          "box-sizing",
+          "width",
+          "min-width",
+          "max-width",
+          "height",
+          "min-height",
+          "max-height",
+          "margin",
+          "padding",
+          "border",
+          "border-radius"
+        ]
+      },
+      { "properties": ["font", "font-size", "font-weight", "line-height", "color", "text-align"] },
+      { "properties": ["background", "box-shadow", "opacity"] },
+      { "properties": ["transition", "transform", "animation"] }
+    ],
+
+    "selector-class-pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*(?:__(?:[a-z0-9]+(?:-[a-z0-9]+)*))?(?:--(?:[a-z0-9]+(?:-[a-z0-9]+)*))?$",
+    "max-nesting-depth": 3,
+    "selector-max-compound-selectors": 3,
+    "selector-max-id": 0,
+    "no-descending-specificity": true,
+
+    "length-zero-no-unit": true,
+    "color-named": "never",
+    "font-weight-notation": "numeric",
+    "media-feature-range-notation": "context"
+  }
+}
