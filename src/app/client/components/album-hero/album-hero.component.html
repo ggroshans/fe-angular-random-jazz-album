@@ -1,0 +1,94 @@
+<div class="hero-section">
+  <div class="album-cover">
+    <div class="album-cover__group">
+      <img
+        [src]="album.imageUrl || '/placeholder.svg'"
+        [alt]="album.title + ' by ' + (album | artistDisplay)"
+        class="album-cover__image"
+      />
+    </div>
+  </div>
+
+  <div class="album-info">
+    <div>
+      <div class="badge-group">
+        <span class="badge badge-secondary">
+          <mat-icon class="badge-icon">album</mat-icon> Album
+        </span>
+        <span class="badge badge-outline">
+          <mat-icon class="badge-icon">calendar_today</mat-icon>
+          {{ album.sortableDate?.toString()?.substring(0, 4) }}
+        </span>
+      </div>
+      <div class="album-info__title-container">
+        <h1 class="album-info__title">
+          <ng-container
+            *ngIf="(album.title | stripTrailingParens)?.includes(':'); else singleLineTitle"
+          >
+            <span class="album-info__title--main">
+              {{ (album.title | stripTrailingParens).split(':')[0] }}:
+            </span>
+            <span class="album-info__title--sub">
+              {{ (album.title | stripTrailingParens).split(':')[1] }}
+            </span>
+          </ng-container>
+          <ng-template #singleLineTitle>
+            {{ album.title | stripTrailingParens }}
+          </ng-template>
+        </h1>
+      </div>
+
+      <p class="album-info__artist">{{ album | artistDisplay }}</p>
+      <p class="album-info__description">"{{ album.description }}"</p>
+    </div>
+
+    <div class="streaming-links">
+      <a
+        *ngIf="album.spotifyId"
+        class="streaming-button spotify"
+        [href]="'https://open.spotify.com/album/' + album.spotifyId"
+        target="_blank"
+        ><img class="streaming-icon" src="assets/brands/spotify.svg" alt="Spotify"
+      /></a>
+      <a
+        *ngIf="album.youtubeId"
+        class="streaming-button youtube-music"
+        [href]="'https://music.youtube.com/playlist?list=' + album.youtubeId"
+        target="_blank"
+        ><img class="streaming-icon" src="assets/brands/youtubemusic.svg" alt="YouTube Music"
+      /></a>
+      <a
+        *ngIf="album.amazonMusicId"
+        class="streaming-button amazon-music"
+        [href]="'https://music.amazon.com/albums/' + album.amazonMusicId"
+        target="_blank"
+        ><img class="streaming-icon" src="assets/brands/amazonmusic.svg" alt="Amazon Music"
+      /></a>
+      <a
+        *ngIf="album.youtubeId"
+        class="streaming-button youtube"
+        [href]="'https://www.youtube.com/playlist?list=' + album.youtubeId"
+        target="_blank"
+        ><img class="streaming-icon" src="assets/brands/youtube.svg" alt="YouTube"
+      /></a>
+      <a
+        *ngIf="album.pandoraId"
+        class="streaming-button pandora"
+        [href]="'https://www.pandora.com/' + album.pandoraId"
+        target="_blank"
+        ><img class="streaming-icon" src="assets/brands/pandora.svg" alt="Pandora"
+      /></a>
+      <a
+        *ngIf="album.appleMusicId"
+        class="streaming-button apple-music"
+        [href]="
+          'https://geo.music.apple.com/us/album/_/' +
+          album.appleMusicId +
+          '?mt=1&app=music&ls=1&at=1000lHKX&ct=api_http&itscg=30200&itsct=odsl_m'
+        "
+        target="_blank"
+        ><img class="streaming-icon" src="assets/brands/applemusic.svg" alt="Apple Music"
+      /></a>
+    </div>
+  </div>
+</div>
