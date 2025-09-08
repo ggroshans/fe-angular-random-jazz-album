@@ -1,0 +1,64 @@
+<div
+  class="album-card-container"
+  role="link"
+  tabindex="0"
+  (click)="navigateToAlbum()"
+  (keydown.enter)="navigateToAlbum()"
+  (keydown.space)="onSpaceNavigate($any($event))"
+>
+  <div class="album-card-inner" [class.is-flipped]="isFlipped">
+    <div class="card-face card-front">
+      <img
+        *ngIf="album.imageUrl"
+        [src]="album.imageUrl"
+        alt="{{ album.title }} cover"
+        class="album-cover-img"
+      />
+      <div *ngIf="!album.imageUrl" class="cover-fallback">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M9 18V5l12-2v13" />
+          <circle cx="6" cy="18" r="3" />
+          <circle cx="18" cy="16" r="3" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="card-face card-back" [style.backgroundImage]="'url(' + album.imageUrl + ')'">
+      <div class="details-overlay">
+        <div class="details-content">
+          <div class="details-header">
+            <h3 class="title-back" [title]="album.title">{{ album.title | formatTitle }}</h3>
+            <p class="artist-back">{{ artistNames }}</p>
+            <app-badge *ngIf="album.sortableDate" size="sm" variant="secondary">
+              {{ album.sortableDate.toString().slice(0, 4) }}
+            </app-badge>
+          </div>
+
+          <div class="details-body">
+            <div *ngIf="album.subgenres?.length" class="genres-container">
+              <app-badge *ngFor="let subgenre of album.subgenres" size="sm" variant="teal">
+                {{ subgenre }}
+              </app-badge>
+            </div>
+          </div>
+
+          <div class="details-footer">
+            <p *ngIf="album.description" class="description-text" [title]="album.description">
+              {{ album.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

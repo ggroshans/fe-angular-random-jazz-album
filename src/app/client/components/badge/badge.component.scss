@@ -1,0 +1,279 @@
+.badge {
+  display: inline-flex;
+  gap: 0.375rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.125rem;
+  transition:
+    background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out,
+    color 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  user-select: none;
+
+  &--clickable {
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: none;
+      box-shadow:
+        0 0 0 2px #fff,
+        0 0 0 4px #94a3b8;
+    }
+
+    &:active {
+      transform: translateY(0.5px);
+    }
+
+    &:disabled,
+    &[aria-disabled='true'] {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+
+  &--sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+  }
+
+  &--md {
+    padding: 0.375rem 0.9rem;
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+  }
+
+  &--lg {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+  }
+
+  .badge__label {
+    display: inline-block;
+    font: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  .badge__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.9rem;
+    height: 0.9rem;
+    font-size: 0.9rem;
+    line-height: 1;
+    margin-inline-end: 0.25rem;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &--secondary {
+    background-color: #f1f5f9;
+    color: #1f2937;
+    border-color: transparent;
+
+    &:hover {
+      background-color: #e2e8f0;
+    }
+  }
+
+  &--outline {
+    background-color: transparent;
+    color: #1f2937;
+    border-color: #e5e7eb;
+
+    &:hover {
+      background-color: #f1f5f9;
+      border-color: #d1d5db;
+    }
+  }
+
+  &--purple {
+    background-color: #f3e8ff;
+    color: #6b21a8;
+    border-color: #d8b4fe;
+
+    &:hover {
+      background-color: #e9d5ff;
+      border-color: #c084fc;
+    }
+  }
+
+  &--teal {
+    background-color: #ccfbf1;
+    color: #115e59;
+    border-color: #5eead4;
+
+    &:hover {
+      background-color: #99f6e4;
+      border-color: #2dd4bf;
+    }
+  }
+
+  &--amber {
+    background-color: #fef3c7;
+    color: #78350f;
+    border-color: #fcd34d;
+
+    &:hover {
+      background-color: #fde68a;
+      border-color: #fbbf24;
+    }
+  }
+
+  &--rose {
+    background-color: #ffe4e6;
+    color: #9f1239;
+    border-color: #fda4af;
+
+    &:hover {
+      background-color: #fecdd3;
+      border-color: #fb7185;
+    }
+  }
+
+  &--blue {
+    background-color: #dbeafe;
+    color: #1e3a8a;
+    border-color: #93c5fd;
+
+    &:hover {
+      background-color: #bfdbfe;
+      border-color: #60a5fa;
+    }
+  }
+
+  &--indigo {
+    background-color: #e0e7ff;
+    color: #3730a3;
+    border-color: #a5b4fc;
+
+    &:hover {
+      background-color: #c7d2fe;
+      border-color: #818cf8;
+    }
+  }
+
+  &--green {
+    background-color: #dcfce7;
+    color: #166534;
+    border-color: #86efac;
+
+    &:hover {
+      background-color: #bbf7d0;
+      border-color: #4ade80;
+    }
+  }
+
+  &--orange {
+    background-color: #fed7aa;
+    color: #9a3412;
+    border-color: #fdba74;
+
+    &:hover {
+      background-color: #fecaca;
+      border-color: #fb923c;
+    }
+  }
+
+  &--red {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border-color: #fca5a5;
+
+    &:hover {
+      background-color: #fecaca;
+      border-color: #f87171;
+    }
+  }
+
+  &--violet {
+    background-color: #ede9fe;
+    color: #5b21b6;
+    border-color: #c4b5fd;
+
+    &:hover {
+      background-color: #ddd6fe;
+      border-color: #a78bfa;
+    }
+  }
+
+  &--lime {
+    background-color: #ecfccb;
+    color: #365314;
+    border-color: #bef264;
+
+    &:hover {
+      background-color: #d9f99d;
+      border-color: #a3e635;
+    }
+  }
+
+  &--pink {
+    background-color: #fce7f3;
+    color: #be185d;
+    border-color: #f9a8d4;
+
+    &:hover {
+      background-color: #fbcfe8;
+      border-color: #f472b6;
+    }
+  }
+
+  &--sky {
+    background-color: #e0f2fe;
+    color: #075985;
+    border-color: #7dd3fc;
+
+    &:hover {
+      background-color: #bae6fd;
+      border-color: #38bdf8;
+    }
+  }
+
+  &--slate {
+    background-color: #f1f5f9;
+    color: #1e293b;
+    border-color: #cbd5e1;
+
+    &:hover {
+      background-color: #e2e8f0;
+      border-color: #94a3b8;
+    }
+  }
+
+  &--stone {
+    background-color: #f5f5f4;
+    color: #292524;
+    border-color: #d6d3d1;
+
+    &:hover {
+      background-color: #e7e5e4;
+      border-color: #a8a29e;
+    }
+  }
+
+  &--custom {
+    background-color: #f1f5f9;
+    color: #1f2937;
+    border-color: transparent;
+
+    &:hover {
+      background-color: #e2e8f0;
+      border-color: #d1d5db;
+    }
+  }
+}

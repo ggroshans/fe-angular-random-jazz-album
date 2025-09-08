@@ -1,0 +1,102 @@
+<div class="details-grid">
+  <app-album-info-card title="Musical Style" theme="red" headingId="style-heading">
+    <div class="style-row" *ngIf="album.genres?.length">
+      <span class="style-label">Genres</span>
+      <div class="style-badges">
+        <app-badge class="style-badge" *ngFor="let genre of album.genres" variant="rose" size="sm">
+          {{ genre }}
+        </app-badge>
+      </div>
+    </div>
+
+    <div class="style-row" *ngIf="album.subgenres?.length">
+      <span class="style-label">Subgenres</span>
+      <div class="style-badges">
+        <app-badge
+          class="style-badge"
+          *ngFor="let sub of album.subgenres"
+          variant="orange"
+          size="sm"
+        >
+          {{ sub }}
+        </app-badge>
+      </div>
+    </div>
+
+    <div class="style-row" *ngIf="album.moods?.length">
+      <span class="style-label">Moods</span>
+      <div class="style-badges">
+        <app-badge class="style-badge" *ngFor="let mood of album.moods" variant="purple" size="sm">
+          {{ mood.name }}
+        </app-badge>
+      </div>
+    </div>
+  </app-album-info-card>
+
+  <app-album-info-card title="Jazz Era Style" theme="teal" headingId="era-heading">
+    <div class="era-card">
+      <div class="era-card__row">
+        <app-badge variant="teal" size="sm">
+          {{ album.jazzEras[0].name }}
+        </app-badge>
+        <span class="era-card__years"
+          >({{ album.jazzEras[0].startYear }} - {{ album.jazzEras[0].endYear }})</span
+        >
+      </div>
+
+      <p class="era-card__description">
+        {{ album.jazzEras[0].description }}
+      </p>
+    </div>
+  </app-album-info-card>
+
+  <app-album-info-card title="Moods" theme="purple" headingId="moods-heading">
+    <div class="mb-list" *ngIf="album.moods?.length; else moodsEmpty">
+      <div class="mb-row" *ngFor="let mood of album.moods">
+        <app-badge class="mood-badge" variant="purple" size="sm">
+          {{ mood.name }}
+        </app-badge>
+        <span class="mb-meta">
+          Emotion: <span class="mb-value">{{ mood.emotionalTone }}</span> | Energy:
+          <span class="mb-value">{{ mood.energyLevel }}</span>
+        </span>
+      </div>
+    </div>
+
+    <ng-template #moodsEmpty>
+      <p class="mb-empty">No moods available.</p>
+    </ng-template>
+  </app-album-info-card>
+
+  <app-album-info-card title="Album Information" theme="amber" headingId="info-heading">
+    <div class="info-row">
+      <span class="info-label">Original Release</span>
+      <span class="info-value">
+        {{ album.isOriginalRelease ? 'Yes' : 'No' }}
+      </span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">Total Tracks</span>
+      <span class="info-value">
+        {{ album.totalTracks }}
+      </span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">Label</span>
+      <span class="info-value">
+        {{ album.label }}
+      </span>
+    </div>
+
+    <ng-container *ngIf="album.isOriginalRelease">
+      <div class="info-row">
+        <span class="info-label">Release Order</span>
+        <span class="info-value">
+          {{ album.originalAlbumOrder }}
+        </span>
+      </div>
+    </ng-container>
+  </app-album-info-card>
+</div>

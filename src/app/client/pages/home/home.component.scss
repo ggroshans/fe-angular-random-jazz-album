@@ -1,0 +1,128 @@
+.home__container {
+  --home-tint: color-mix(in srgb, var(--home-bg) 10%, var(--home-bg));
+  --home-shade: color-mix(in srgb, var(--home-bg) 50%, var(--home-bg2));
+  --home-pop: color-mix(in srgb, var(--home-bg) 10%, var(--home-bg2));
+  --home-pop2: color-mix(in srgb, var(--home-bg2) 10%, var(--home-bg2));
+
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  min-height: 100vh;
+  padding: 1rem 0;
+  background: var(--home-bg);
+  transition: background-color 1s ease-in-out;
+  overflow: clip;
+  isolation: isolate;
+  overflow-x: hidden;
+}
+
+.home__container::before {
+  position: absolute;
+  z-index: -1;
+  background:
+    radial-gradient(
+      45% 55% at 18% 22%,
+      color-mix(in srgb, var(--home-pop) 86%, transparent) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      50% 60% at 82% 25%,
+      color-mix(in srgb, var(--home-tint) 85%, transparent) 0%,
+      transparent 62%
+    ),
+    radial-gradient(
+      58% 62% at 28% 78%,
+      color-mix(in srgb, var(--home-pop2) 82%, transparent) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      52% 58% at 72% 70%,
+      color-mix(in srgb, var(--home-shade) 80%, transparent) 0%,
+      transparent 58%
+    );
+  opacity: 1;
+  animation: hb-move-a 7s ease-in-out infinite alternate;
+  content: '';
+  inset: -14%;
+  pointer-events: none;
+  filter: blur(12px) saturate(1.25);
+  background-size:
+    200% 200%,
+    220% 220%,
+    210% 210%,
+    230% 230%;
+}
+
+.home__container::after {
+  position: absolute;
+  z-index: -1;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    color-mix(in srgb, var(--home-pop) 60%, transparent) 0deg,
+    color-mix(in srgb, var(--home-tint) 60%, transparent) 90deg,
+    color-mix(in srgb, var(--home-pop2) 60%, transparent) 180deg,
+    color-mix(in srgb, var(--home-shade) 60%, transparent) 270deg,
+    color-mix(in srgb, var(--home-pop) 60%, transparent) 360deg
+  );
+  opacity: 0.95;
+  animation: hb-spin 9s linear infinite;
+  content: '';
+  inset: -18%;
+  pointer-events: none;
+  filter: blur(20px) saturate(1.2);
+}
+
+.home__container > * {
+  position: relative;
+  z-index: 0;
+}
+
+@keyframes hb-move-a {
+  0% {
+    transform: translate3d(-5%, -3%, 0) scale(1.015);
+    background-position:
+      0% 0%,
+      100% 0%,
+      0% 100%,
+      100% 100%;
+  }
+
+  100% {
+    transform: translate3d(5%, 3%, 0) scale(1.08);
+    background-position:
+      95% 45%,
+      25% 70%,
+      70% 35%,
+      15% 85%;
+  }
+}
+
+@keyframes hb-spin {
+  to {
+    transform: rotate(360deg) scale(1.03);
+  }
+}
+
+@keyframes hb-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    filter: blur(16px);
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    filter: blur(12px);
+    transform: scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home__container::before,
+  .home__container::after {
+    animation: none;
+  }
+}

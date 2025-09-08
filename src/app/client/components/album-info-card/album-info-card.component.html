@@ -1,0 +1,13 @@
+<section class="aic" [ngClass]="'aic--' + theme" [attr.aria-labelledby]="headingId || null">
+  <div class="aic__header">
+    <div class="aic__accent" aria-hidden="true"></div>
+    <h3 class="aic__title" [id]="headingId || null">{{ title }}</h3>
+    <ng-content select="[aic-header-end]"></ng-content>
+  </div>
+
+  <div class="aic__body">
+    <ng-content></ng-content>
+  </div>
+
+  <p *ngIf="legendText" class="aic__legend">{{ legendText }}</p>
+</section>

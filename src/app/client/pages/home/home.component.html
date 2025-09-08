@@ -1,0 +1,9 @@
+<div
+  *ngIf="vm$ | async as vm"
+  class="home__container"
+  [ngStyle]="{ 'background-color': vm.lightColor }"
+  [style.--home-bg]="vm.lightColor"
+  [style.--home-bg2]="vm.tertiaryColor"
+>
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,46 @@
+<div class="page-container">
+  <header class="page-header">
+    <h1>Music Albums</h1>
+    <p>Discover and explore your favorite albums</p>
+  </header>
+
+  <div class="controls-container">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Search albums or artists..."
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="onSearchChange()"
+    />
+    <button class="btn btn-outline" (click)="allFlipped = !allFlipped">
+      {{ allFlipped ? 'Show Covers' : 'Show Details' }}
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-indicator">
+    <p>Loading albums...</p>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <div *ngIf="albums.length > 0; else noResults" class="albums-grid">
+      <app-album-card
+        *ngFor="let album of albums"
+        [album]="album"
+        [isFlipped]="allFlipped"
+      ></app-album-card>
+    </div>
+
+    <ng-template #noResults>
+      <div class="no-results">
+        <p>No albums found matching your search.</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <app-pagination
+    *ngIf="!isLoading && albums.length > 0"
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    (pageChange)="goToPage($event)"
+  ></app-pagination>
+</div>

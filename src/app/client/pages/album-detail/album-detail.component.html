@@ -1,0 +1,90 @@
+<app-album-navigation></app-album-navigation>
+
+<div
+  *ngIf="tertiaryColor$ | async as tertiaryColor"
+  class="album-details-outer-container"
+  [style.boxShadow]="getGlowShadow(tertiaryColor)"
+>
+  <div class="album-details-inner-container">
+    <div class="album-details-page">
+      <div *ngIf="albumLoading$ | async" class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading album...</p>
+      </div>
+
+      <div *ngIf="albumError$ | async as error" class="error-container">
+        <div class="error-card">
+          <p class="error-message">Error loading album: {{ error }}</p>
+        </div>
+      </div>
+
+      <div class="container" *ngIf="album$ | async as album">
+        <app-album-hero [album]="album"></app-album-hero>
+        <div class="scores-container">
+          <app-score-card
+            icon="trending_up"
+            label="Popularity Rating"
+            [score]="album.popularityRating"
+            iconTheme="blue"
+          ></app-score-card>
+          <app-score-card
+            icon="favorite"
+            label="Emotional Tone"
+            [score]="album.averageEmotionalTone"
+            iconTheme="red"
+          ></app-score-card>
+          <app-score-card
+            icon="bolt"
+            label="Energy Level"
+            [score]="album.averageEnergyLevel"
+            iconTheme="yellow"
+          ></app-score-card>
+        </div>
+
+        <mat-tab-group animationDuration="0ms">
+          <mat-tab label="Album Details">
+            <div class="tab-content">
+              <app-album-info-group [album]="album"></app-album-info-group>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="Artist Info">
+            <div class="tab-content" *ngIf="album.artists && album.artists.length > 0">
+              <app-artist-info-card [artist]="album.artists[0]"></app-artist-info-card>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="Analysis">
+            <div class="tab-content">
+              <div class="analysis-grid">
+                <app-analysis-card
+                  icon="trending_up"
+                  title="Popularity Rating"
+                  [score]="album.popularityRating"
+                  description="This album ranks in the top {{
+                    100 - (album.popularityRating || 100)
+                  }}% of all albums."
+                  theme="blue"
+                ></app-analysis-card>
+                <app-analysis-card
+                  icon="favorite"
+                  title="Emotional Tone"
+                  [score]="album.averageEmotionalTone"
+                  description="High emotional resonance and depth."
+                  theme="red"
+                ></app-analysis-card>
+                <app-analysis-card
+                  icon="bolt"
+                  title="Energy Level"
+                  [score]="album.averageEnergyLevel"
+                  description="Moderate to high energy levels throughout."
+                  theme="yellow"
+                ></app-analysis-card>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</div>

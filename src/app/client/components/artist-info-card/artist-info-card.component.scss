@@ -1,0 +1,76 @@
+:host {
+  display: block;
+}
+
+.artist-card {
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  background-color: white;
+
+  &__content {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 1.5rem;
+    flex-direction: column;
+  }
+
+  &__avatar {
+    flex-shrink: 0;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__details {
+    flex: 1;
+  }
+
+  &__name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  &__bio {
+    line-height: 1.625;
+    color: var(--slate-600);
+    margin-bottom: 1rem;
+    overflow-wrap: anywhere;
+  }
+
+  &__popularity {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__popularity-icon {
+    color: var(--slate-500);
+  }
+
+  &__popularity-label {
+    font-size: 0.875rem;
+    color: var(--slate-600);
+    margin-right: 0.5rem;
+  }
+
+  &__progress-bar {
+    flex: 1 1 10rem;
+    height: 0.5rem;
+  }
+
+  &__popularity-score {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+}
+
+@media (width >= 640px) {
+  .artist-card__content {
+    flex-direction: row;
+  }
+}

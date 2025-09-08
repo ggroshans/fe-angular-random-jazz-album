@@ -1,0 +1,18 @@
+<div class="score-card">
+  <div class="score-card__content">
+    <div class="score-card__header">
+      <div class="score-card__label">
+        <mat-icon class="score-card__icon" [ngClass]="'text-' + iconTheme">{{ icon }}</mat-icon>
+        <span>{{ label }}</span>
+      </div>
+      <span class="score-card__value" [ngClass]="getScoreColor()">{{ score || 0 }}</span>
+    </div>
+    <div class="progress-bar">
+      <div
+        class="progress-fill"
+        [style.width]="(score || 0) + '%'"
+        [ngClass]="getProgressBarColor()"
+      ></div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,3 @@
-// admin-dashboard.component.ts
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AdminService } from '../services/admin.service';

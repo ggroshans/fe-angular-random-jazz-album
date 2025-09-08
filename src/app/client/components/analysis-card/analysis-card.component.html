@@ -1,0 +1,8 @@
+<div class="analysis-card">
+  <div class="analysis-card__icon-wrapper" [ngClass]="'bg-' + theme + '-light'">
+    <mat-icon class="analysis-card__icon" [ngClass]="'text-' + theme">{{ icon }}</mat-icon>
+  </div>
+  <h3 class="analysis-card__title">{{ title }}</h3>
+  <p class="analysis-card__score" [ngClass]="'text-' + theme">{{ score }}</p>
+  <p class="analysis-card__description">{{ description }}</p>
+</div>

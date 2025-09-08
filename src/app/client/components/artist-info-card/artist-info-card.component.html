@@ -1,0 +1,25 @@
+<div class="artist-card">
+  <div class="artist-card__content">
+    <img
+      [src]="artist.imageUrl || '/placeholder.svg'"
+      [alt]="artist.name"
+      class="artist-card__avatar"
+    />
+    <div class="artist-card__details">
+      <h3 class="artist-card__name">{{ artist.name }}</h3>
+      <div class="artist-card__popularity">
+        <mat-icon class="artist-card__popularity-icon">bar_chart</mat-icon>
+        <span class="artist-card__popularity-label">Popularity Score</span>
+        <div class="artist-card__progress-bar">
+          <div
+            class="progress-fill"
+            [style.width]="artist.popularityRating + '%'"
+            [ngClass]="'progress-bar--' + artist.popularityRating"
+          ></div>
+        </div>
+        <span class="artist-card__popularity-score">{{ artist.popularityRating }}%</span>
+      </div>
+      <p class="artist-card__bio">{{ artist.biography }}</p>
+    </div>
+  </div>
+</div>

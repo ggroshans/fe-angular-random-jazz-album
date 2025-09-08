@@ -1,0 +1,29 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <div class="navigation-header">
+    <div class="nav-actions">
+      <button
+        class="nav-button nav-button--primary"
+        (click)="navigateToAlbums()"
+        type="button"
+        aria-label="Browse all albums"
+        [style.box-shadow]="'0 0 2px 0 ' + vm.tertiary"
+        [style.color]="vm.dark"
+      >
+        <mat-icon class="nav-button__icon-arrow" [style.color]="vm.tertiary"> arrow_back </mat-icon>
+        <span class="nav-button__text">Browse All Albums</span>
+      </button>
+
+      <button
+        class="nav-button nav-button--secondary"
+        (click)="loadRandomAlbum()"
+        type="button"
+        aria-label="Load random album"
+        [style.background-color]="vm.dark"
+        [style.box-shadow]="'0 0 2px 0 ' + vm.tertiary"
+      >
+        <mat-icon class="nav-button__icon-shuffle">shuffle</mat-icon>
+        <span class="nav-button__text">Random Album</span>
+      </button>
+    </div>
+  </div>
+</ng-container>

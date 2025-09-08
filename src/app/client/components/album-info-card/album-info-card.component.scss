@@ -1,0 +1,289 @@
+:host {
+  display: block;
+}
+
+.aic {
+  --aic-accent: var(--slate-700, #334155);
+  --aic-accent-strong: var(--slate-800, #1f2937);
+
+  padding: 1.5rem;
+  border: 1px solid;
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+
+  &__header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  &__accent {
+    flex-shrink: 0;
+    width: 0.3rem;
+    height: 2rem;
+    border-radius: 9999px;
+    background: var(--aic-accent);
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--slate-900);
+  }
+
+  &__body {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  &__legend {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--slate-700);
+  }
+}
+
+.aic-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.aic-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+
+  &--spread {
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}
+
+.aic-meta {
+  font-size: 0.75rem;
+  color: var(--slate-500);
+}
+
+.aic-empty {
+  margin: 0.25rem 0 0.5rem;
+  font-size: 0.875rem;
+  color: var(--slate-600);
+}
+
+::ng-deep app-badge.aic-badge .badge {
+  transition: background-color 0.2s ease-in-out;
+}
+
+.aic--purple {
+  --aic-accent: var(--purple-600, #7c3aed);
+  --aic-accent-strong: var(--purple-700, #6d28d9);
+
+  border-color: var(--purple-200, #e9d5ff);
+  background: color-mix(in oklab, var(--purple-100, #f3e8ff) 30%, transparent);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid var(--purple-200, #e9d5ff);
+    color: var(--purple-800, #6b21a8);
+    background-color: var(--purple-100, #f3e8ff);
+  }
+}
+
+.aic--teal {
+  --aic-accent: #0f766e;
+  --aic-accent-strong: #115e59;
+
+  border-color: color-mix(in oklab, #0f766e 35%, transparent);
+  background: linear-gradient(90deg, #f0fdfa 0%, #ecfeff 100%);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid #99f6e4;
+    color: #115e59;
+    background: #ccfbf1;
+  }
+}
+
+.aic--amber {
+  --aic-accent: var(--amber-600, #d97706);
+  --aic-accent-strong: var(--amber-700, #b45309);
+
+  border-color: var(--amber-200, #fde68a);
+  background: color-mix(in oklab, var(--amber-100, #fef3c7) 40%, #fff);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid var(--amber-200, #fde68a);
+    color: var(--amber-900, #78350f);
+    background: var(--amber-100, #fef3c7);
+  }
+}
+
+.aic--slate {
+  --aic-accent: var(--slate-700, #334155);
+  --aic-accent-strong: var(--slate-800, #1f2937);
+
+  border-color: var(--slate-300, #cbd5e1);
+  background: color-mix(in oklab, var(--slate-100, #f1f5f9) 40%, #fff);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid var(--slate-300, #cbd5e1);
+    color: var(--slate-800, #1f2937);
+    background: var(--slate-100, #f1f5f9);
+  }
+}
+
+.aic--emerald {
+  --aic-accent: var(--emerald-600, #059669);
+  --aic-accent-strong: var(--emerald-700, #047857);
+
+  border-color: var(--emerald-200, #a7f3d0);
+  background: color-mix(in oklab, var(--emerald-100, #d1fae5) 40%, #fff);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid var(--emerald-200, #a7f3d0);
+    color: var(--emerald-800, #065f46);
+    background: var(--emerald-100, #d1fae5);
+  }
+}
+
+.aic--rose {
+  --aic-accent: var(--rose-600, #e11d48);
+  --aic-accent-strong: var(--rose-700, #be123c);
+
+  border-color: var(--rose-200, #fecdd3);
+  background: color-mix(in oklab, var(--rose-100, #ffe4e6) 40%, #fff);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid var(--rose-200, #fecdd3);
+    color: var(--rose-800, #9f1239);
+    background: var(--rose-100, #ffe4e6);
+  }
+}
+
+.aic--cyan {
+  --aic-accent: var(--cyan-600, #0891b2);
+  --aic-accent-strong: var(--cyan-700, #0e7490);
+
+  border-color: var(--cyan-200, #a5f3fc);
+  background: color-mix(in oklab, var(--cyan-100, #cffafe) 40%, #fff);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid var(--cyan-200, #a5f3fc);
+    color: var(--cyan-800, #155e75);
+    background: var(--cyan-100, #cffafe);
+  }
+}
+
+.aic--indigo {
+  --aic-accent: var(--indigo-600, #4f46e5);
+  --aic-accent-strong: var(--indigo-700, #4338ca);
+
+  border-color: var(--indigo-200, #c7d2fe);
+  background: color-mix(in oklab, var(--indigo-100, #e0e7ff) 40%, #fff);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid var(--indigo-200, #c7d2fe);
+    color: var(--indigo-800, #3730a3);
+    background-color: var(--indigo-100, #e0e7ff);
+  }
+}
+
+.aic--sky {
+  --aic-accent: var(--sky-600, #0284c7);
+  --aic-accent-strong: var(--sky-700, #0369a1);
+
+  border-color: var(--sky-200, #bae6fd);
+  background: color-mix(in oklab, var(--sky-100, #e0f2fe) 40%, #fff);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid var(--sky-200, #bae6fd);
+    color: var(--sky-800, #075985);
+    background-color: var(--sky-100, #e0f2fe);
+  }
+}
+
+.aic--lime {
+  --aic-accent: var(--lime-600, #65a30d);
+  --aic-accent-strong: var(--lime-700, #4d7c0f);
+
+  border-color: var(--lime-200, #d9f99d);
+  background: color-mix(in oklab, var(--lime-100, #f7fee7) 40%, #fff);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid var(--lime-200, #d9f99d);
+    color: var(--lime-800, #3f6212);
+    background-color: var(--lime-100, #f7fee7);
+  }
+}
+
+.aic--pink {
+  --aic-accent: var(--pink-600, #db2777);
+  --aic-accent-strong: var(--pink-700, #be185d);
+
+  border-color: var(--pink-200, #fbcfe8);
+  background: color-mix(in oklab, var(--pink-100, #fce7f3) 40%, #fff);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid var(--pink-200, #fbcfe8);
+    color: var(--pink-800, #9d174d);
+    background-color: var(--pink-100, #fce7f3);
+  }
+}
+
+.aic--red {
+  --aic-accent: var(--red-600, #dc2626);
+  --aic-accent-strong: var(--red-700, #b91c1c);
+
+  border-color: var(--red-200, #fecaca);
+  background: color-mix(in oklab, var(--red-100, #fee2e2) 40%, #fff);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid var(--red-200, #fecaca);
+    color: var(--red-800, #991b1b);
+    background-color: var(--red-100, #fee2e2);
+  }
+}
+
+.aic--orange {
+  --aic-accent: var(--orange-600, #ea580c);
+  --aic-accent-strong: var(--orange-700, #c2410c);
+
+  border-color: var(--orange-200, #fed7aa);
+  background: color-mix(in oklab, var(--orange-100, #ffedd5) 40%, #fff);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid var(--orange-200, #fed7aa);
+    color: var(--orange-800, #9a3412);
+    background-color: var(--orange-100, #ffedd5);
+  }
+}
+
+.aic--fuchsia {
+  --aic-accent: var(--fuchsia-600, #c026d3);
+  --aic-accent-strong: var(--fuchsia-700, #a21caf);
+
+  border-color: var(--fuchsia-200, #f5d0fe);
+  background: color-mix(in oklab, var(--fuchsia-100, #fae8ff) 40%, #fff);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid var(--fuchsia-200, #f5d0fe);
+    color: var(--fuchsia-800, #86198f);
+    background-color: var(--fuchsia-100, #fae8ff);
+  }
+}
+
+.aic--yellow {
+  --aic-accent: var(--yellow-600, #ca8a04);
+  --aic-accent-strong: var(--yellow-700, #a16207);
+
+  border-color: var(--yellow-200, #fef08a);
+  background: color-mix(in oklab, var(--yellow-100, #fef9c3) 40%, #fff);
+
+  ::ng-deep app-badge.aic-badge .badge {
+    border: 1px solid var(--yellow-200, #fef08a);
+    color: var(--yellow-800, #854d0e);
+    background-color: var(--yellow-100, #fef9c3);
+  }
+}
