@@ -1,25 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { AlbumDetailComponent } from './components/album/album-detail/album-detail.component';
-import { ArtistDetailComponent } from './components/artist/artist-detail/artist-detail.component';
+import { HomeComponent } from './pages/home/home.component';
+import { AlbumDetailComponent } from './pages/album-detail/album-detail.component';
+import { AlbumListPageComponent } from './pages/album-list-page/album-list-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'random-album',
+    redirectTo: '',
     pathMatch: 'full',
   },
+  {
+    path: 'albums',
+    component: AlbumListPageComponent,
+  },
+
   {
     path: '',
     component: HomeComponent,
     children: [
       {
-        path: 'artist/:artistId',
-        component: ArtistDetailComponent,
-      },
-      {
-        path: 'random-album',
+        path: '',
         component: AlbumDetailComponent,
       },
       {
