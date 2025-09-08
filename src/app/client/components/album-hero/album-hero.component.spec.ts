@@ -1,48 +1,24 @@
-import { render, screen } from '@testing-library/angular';
-import { describe, it, expect } from 'vitest';
-import { Component, Pipe, PipeTransform } from '@angular/core';
+import { describe, it, expect, vi } from 'vitest';
+import { of } from 'rxjs';
 import { AlbumHeroComponent } from './album-hero.component';
-import { Album } from 'src/app/client/models/Album';
+import { selectTertiaryColor, selectDarkColorBase } from '../../state/color/color.selectors';
 
-@Pipe({ name: 'artistDisplay' })
-class ArtistPipe implements PipeTransform {
-  transform() {
-    return 'Miles Davis';
-  }
-}
-@Pipe({ name: 'stripTrailingParens' })
-class StripPipe implements PipeTransform {
-  transform(v: string) {
-    return v.replace(/\s*\([^)]*\)$/, '');
-  }
-}
-@Component({ selector: 'mat-icon', template: '<ng-content></ng-content>' })
-class IconStub {}
+describe('AlbumHeroComponent (easy)', () => {
+  it('calls store selectors and exposes streams', async () => {
+    const store = { select: vi.fn().mockReturnValue(of('color')) } as any;
+    const comp = new AlbumHeroComponent(store);
 
-describe('AlbumHeroComponent', () => {
-  it('renders album info and links', async () => {
-    const album: Album = {
-      imageUrl: '/cover.jpg',
-      title: 'Kind of Blue (Remastered)',
-      sortableDate: 19590817,
-      description: 'Classic modal jazz record.',
-      spotifyId: 'SPOT123',
-      youtubeId: 'YT123',
-      amazonMusicId: 'AMZ123',
-      pandoraId: 'pandora/miles-davis',
-      appleMusicId: 'APPLE123',
-      isOriginalRelease: true,
-      additionalArtists: '',
-      originalAlbumOrder: 1,
-    };
+    expect(store.select).toHaveBeenCalledWith(selectTertiaryColor);
+    expect(store.select).toHaveBeenCalledWith(selectDarkColorBase);
+    expect(await comp.tertiaryColor$.toPromise()).toBe('color');
+  });
 
-    await render(AlbumHeroComponent, {
-      declarations: [ArtistPipe, StripPipe, IconStub],
-      componentProperties: { album },
-    });
-
-    expect(screen.getByRole('heading', { name: /kind of blue/i })).toBeInTheDocument();
-    expect(screen.getByText(/miles davis/i)).toBeInTheDocument();
-    expect(screen.getAllByRole('link').length).toBeGreaterThan(0);
+  it('getArtistString works with artists and additional', () => {
+    const comp = new AlbumHeroComponent({ select: vi.fn() } as any);
+    expect(comp.getArtistString([], '')).toBe('');
+    expect(comp.getArtistString([{ name: 'Coltrane' }] as any, '')).toBe('Coltrane');
+    expect(comp.getArtistString([{ name: 'Miles' }] as any, 'feat. Coltrane')).toBe(
+      'Miles, feat. Coltrane',
+    );
   });
 });

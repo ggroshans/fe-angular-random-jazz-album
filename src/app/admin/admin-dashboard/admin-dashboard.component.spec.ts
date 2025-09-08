@@ -1,26 +1,39 @@
-import '@testing-library/jest-dom/vitest';
-import { render, screen } from '@testing-library/angular';
-import { AdminDashboardComponent } from './admin-dashboard.component';
-import { AdminService } from '../services/admin.service';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
-import { describe, it, vi, expect } from 'vitest';
-
-const mockAdminService = {
-  createAlbumsFromArtistName: vi.fn().mockReturnValue(of({ message: 'Success' })),
-  runBatchEnrichment: vi.fn().mockReturnValue(of({ message: 'Success' })),
-};
+import { AdminDashboardComponent } from './admin-dashboard.component';
+import { AdminService } from '../services/admin.service';
 
 describe('AdminDashboardComponent', () => {
-  it('should render the dashboard with initial form and buttons', async () => {
-    await render(AdminDashboardComponent, {
+  let component: AdminDashboardComponent;
+  let adminSvcMock: any;
+
+  beforeEach(() => {
+    adminSvcMock = {
+      createAlbumsFromArtistName: vi.fn().mockReturnValue(of({ message: 'Import OK' })),
+      runBatchEnrichment: vi.fn().mockReturnValue(of({ message: 'Enrichment OK' })),
+    };
+
+    TestBed.configureTestingModule({
+      declarations: [AdminDashboardComponent],
       imports: [ReactiveFormsModule],
-      providers: [{ provide: AdminService, useValue: mockAdminService }],
+      providers: [{ provide: AdminService, useValue: adminSvcMock }],
     });
 
-    expect(screen.getByRole('heading', { name: /import artist discography/i })).toBeInTheDocument();
-    expect(screen.getByLabelText(/artist name/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /import artist/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /run enrichment/i })).toBeInTheDocument();
+    component = TestBed.createComponent(AdminDashboardComponent).componentInstance;
+  });
+
+  it('fetchArtistDiscography success', () => {
+    component.formDiscography.setValue({ artistName: 'Coltrane' });
+    component.fetchArtistDiscography();
+    expect(component.importMsg).toEqual({ ok: true, text: 'Import OK' });
+    expect(component.isImporting).toBe(false);
+  });
+
+  it('runBatchEnrichment success', () => {
+    component.runBatchEnrichment();
+    expect(component.enrichMsg).toEqual({ ok: true, text: 'Enrichment OK' });
+    expect(component.isEnriching).toBe(false);
   });
 });

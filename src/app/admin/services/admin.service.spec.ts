@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { AdminService } from './admin.service';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 
 type ApiMessage = { message?: string };
 type EnrichmentResponse = { message: string; steps: string[]; completedUtc: string };
