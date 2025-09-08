@@ -56,10 +56,15 @@
 
     "selector-class-pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*(?:__(?:[a-z0-9]+(?:-[a-z0-9]+)*))?(?:--(?:[a-z0-9]+(?:-[a-z0-9]+)*))?$",
     "max-nesting-depth": 3,
-    "selector-max-compound-selectors": 3,
+    "selector-max-compound-selectors": 5,
     "selector-max-id": 0,
     "no-descending-specificity": true,
-
+    "selector-pseudo-element-no-unknown": [
+      true,
+      {
+        "ignorePseudoElements": ["ng-deep"]
+      }
+    ],
     "length-zero-no-unit": true,
     "color-named": "never",
     "font-weight-notation": "numeric",

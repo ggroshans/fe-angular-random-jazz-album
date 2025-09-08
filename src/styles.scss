@@ -1,58 +1,355 @@
-/* Global Stylesheet */
 @use '@angular/material' as mat;
 
 :root {
-  @include mat.tabs-overrides(
-    (
-      active-indicator-height: 0,
-      divider-height: 0,
-    )
-  );
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334152;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  --slate-border-color: #cbd5e1;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --red-500: #ef4444;
+  --red-600: #dc2626;
+  --yellow-500: #eab308;
+  --yellow-600: #ca8a04;
+  --orange-500: #f97316;
+  --green-500: #22c55e;
+  --yellowgreen-500: #84cc16;
+  --purple-100: #f3e8ff;
+  --purple-200: #e9d5ff;
+  --purple-800: #6b21a8;
+  --teal-100: #d1fae5;
+  --teal-200: #99f6e4;
+  --teal-800: #0f766e;
+  --primary-color: #3f51b5;
+  --border-color: #e5e7eb;
+  --dark-color-base: #0f172a;
+  --tertiary-color: #cbd5e1;
+}
 
-  .mat-mdc-tab-header {
-    background-color: #f0f0f0;
-    padding: 6px 6px 6px 6px;
-    border-radius: 4px;
-  }
+@include mat.tabs-overrides(
+  (
+    active-indicator-height: 0,
+    divider-height: 0,
+  )
+);
 
-  .mat-mdc-tab:not(.mdc-tab--active) {
-    background-color: #f0f0f0;
-    border-radius: 4px;
-    font-weight: 400;
-  }
+.mat-mdc-tab-header {
+  background-color: #f0f0f0;
+  padding: 6px;
+  border-radius: 4px;
+}
 
-  .mat-mdc-tab.mdc-tab--active {
-    background-color: #ffffff;
-    border-radius: 4px;
-    font-weight: 500;
-  }
+.mat-mdc-tab:not(.mdc-tab--active) {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  font-weight: 400;
+}
+
+.mat-mdc-tab.mdc-tab--active {
+  background-color: #fff;
+  border-radius: 4px;
+  font-weight: 500;
 }
 
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 .material-symbols-outlined {
-  font-family: 'Material Symbols Outlined';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px; /* Or whatever size you need */
   display: inline-block;
+  font-size: 24px;
+  font-weight: 400;
   line-height: 1;
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
   text-transform: none;
   letter-spacing: normal;
   white-space: nowrap;
   direction: ltr;
-
-  /* Enable variable font axis */
   font-variation-settings:
     'FILL' 0,
     'wght' 400,
     'GRAD' 0,
     'opsz' 48;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: 1.25rem 1rem;
+}
+
+.badge-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.badge-secondary {
+  background-color: var(--slate-100);
+  color: var(--slate-800);
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #e2e8f0;
+    cursor: pointer;
+  }
+}
+
+.badge-outline {
+  border: 1px solid var(--border-color);
+  color: var(--slate-800);
+  transition:
+    border-color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+  background-color: transparent;
+
+  &:hover {
+    background-color: var(--slate-100);
+    cursor: pointer;
+  }
+}
+
+.badge-teal {
+  background-color: var(--teal-100);
+  color: var(--teal-800);
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--teal-200);
+    cursor: pointer;
+  }
+}
+
+.badge-purple {
+  background-color: var(--purple-100);
+  color: var(--purple-800);
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--purple-200);
+    cursor: pointer;
+  }
+}
+
+.badge-icon {
+  width: 0.9rem;
+  height: 0.9rem;
+  font-size: 0.9rem;
+  margin-right: 0.25rem;
+}
+
+.text-green {
+  color: var(--green-500);
+}
+
+.text-yellow {
+  color: var(--yellow-600);
+}
+
+.text-orange {
+  color: var(--orange-500);
+}
+
+.text-red {
+  color: var(--red-600);
+}
+
+.text-blue {
+  color: var(--blue-600);
+}
+
+.text-yellowgreen {
+  color: var(--yellowgreen-500);
+}
+
+.bg-blue-light {
+  background-color: #dbeafe;
+}
+
+.bg-red-light {
+  background-color: #fee2e2;
+}
+
+.bg-yellow-light {
+  background-color: #fef9c3;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: #e5e7eb;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 1rem;
+  border: 4px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  border-top-color: var(--slate-900);
+}
+
+.font-medium {
+  font-weight: 500;
+  color: var(--slate-900);
+}
+
+.text-right {
+  text-align: right;
+}
+
+hr,
+.divider {
+  border: none;
+  border-top: 1px solid var(--border-color);
+}
+
+@media (width <= 600px) {
+  .container {
+    padding: 1rem 0.75rem;
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.mat-mdc-tab-header-pagination {
+  display: none !important;
+}
+
+.mat-mdc-tab-labels {
+  transform: none !important;
+}
+
+@media (width <= 600px) {
+  .mat-mdc-tab {
+    min-width: auto !important;
+  }
+
+  .mat-mdc-tab .mdc-tab__content {
+    padding: 0 12px !important;
+  }
+
+  .mat-mdc-tab .mdc-tab__text-label {
+    font-size: 0.9rem !important;
+  }
+}
+
+.spotify {
+  background-color: #1db954;
+  color: #fff;
+}
+
+.spotify:hover,
+.spotify:focus-visible {
+  background-color: #199d47;
+}
+
+.youtube-music {
+  background-color: #f00;
+  color: #fff;
+}
+
+.youtube-music:hover,
+.youtube-music:focus-visible {
+  background-color: #d90000;
+}
+
+.amazon-music {
+  background-color: #46c3d0;
+  color: #fff;
+}
+
+.amazon-music:hover,
+.amazon-music:focus-visible {
+  background-color: #3ba6b1;
+}
+
+.youtube {
+  background-color: #f00;
+  color: #fff;
+}
+
+.youtube:hover,
+.youtube:focus-visible {
+  background-color: #d90000;
+}
+
+.pandora {
+  background-color: #6289ff;
+  color: #fff;
+}
+
+.pandora:hover,
+.pandora:focus-visible {
+  background-color: #5374d9;
+}
+
+.apple-music {
+  background-color: #fa243c;
+  color: #fff;
+}
+
+.apple-music:hover,
+.apple-music:focus-visible {
+  background-color: #d41e33;
+}
+
+.streaming-button {
+  border: none;
+  transition:
+    background-color 140ms ease,
+    box-shadow 140ms ease,
+    transform 80ms ease;
+  cursor: pointer;
+}
+
+.streaming-button:active {
+  transform: translateY(1px);
 }

@@ -1,8 +1,9 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import analog from '@analogjs/platform';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig(({ mode }) => ({
-  plugins: [analog()],
+  plugins: [analog(), tsconfigPaths()],
   test: {
     globals: true,
     environment: 'jsdom',
