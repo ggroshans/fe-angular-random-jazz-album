@@ -4,7 +4,7 @@ import { Genre } from './Genre';
 export interface Artist {
   // Spotify
   id: number;
-  name?: string; // Spotify
+  name: string; // Spotify
   genres?: Genre[]; // Spotify
   imageUrl?: string; // Spotify
 
@@ -14,7 +14,7 @@ export interface Artist {
   relatedArtists: string[]; // GPT
   influences: string[]; // GPT
   birthYear: string; // GPT
-  deathYear: string; // GPT
+  deathYear?: string; // GPT
 
   // Computed
   popularityRating: number; // Computed

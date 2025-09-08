@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Album } from 'src/app/client/models/Album';
+import { Album } from '../../models/Album';
 
 @Pipe({ name: 'artistDisplay', standalone: false })
 export class ArtistDisplayPipe implements PipeTransform {
